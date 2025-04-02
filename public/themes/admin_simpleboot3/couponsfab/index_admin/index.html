@@ -1,0 +1,34 @@
+<include file="public@header"/>
+
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#A" data-toggle="tab">{:lang('CAROUSEL')}</a></li>
+        <li><a href="#B" data-toggle="tab">{:lang('TODAY_TOP_COUPONS')}</a></li>
+        <li><a href="#C" data-toggle="tab">{:lang('POPULAR_PRODUCTS')}</a></li>
+        <li><a href="#D" data-toggle="tab">{:lang('FEATURED_COUPONS')}</a></li>
+        <li><a href="#E" data-toggle="tab">{:lang('HOT_CATEGORIES')}</a></li>
+        <li><a href="#F" data-toggle="tab">{:lang('LATEST_BLOG')}</a></li>
+        <li><a href="#G" data-toggle="tab">{:lang('FREQUENTLY_ASKED_QUESTIONS')}</a></li>
+        <li><a href="#H" data-toggle="tab">{:lang('ABOUT_COUPONSFAB')}</a></li>
+    </ul>
+
+    <form method="post" class="js-ajax-form  margin-top-20" action="{:url('Theme/settingPost')}">
+
+
+
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary js-ajax-submit" id="submit-btn" data-success="successCallback">
+                {:lang('SAVE')}
+            </button>
+        </div>
+    </form>
+
+</div>
+<script src="__STATIC__/js/admin.js?v={$_static_version}"></script>
+<script>
+
+</script>
+</body>
+</html>

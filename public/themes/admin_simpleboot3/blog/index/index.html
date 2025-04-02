@@ -1,0 +1,108 @@
+<include file="public@header"/>
+
+<link rel="stylesheet" href="__TMPL__/public/assets/themes/{:cmf_get_admin_style()}/flatpickr.min.css">
+<script src="__TMPL__/public/assets/js/flatpickr.js"></script>
+
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a>{:lang('BLOG_INDEX_INDEX')}</a></li>
+    </ul>
+    <form class="well form-inline margin-top-20" method="post" action="{:url('blog/index/index')}">
+        日期
+        <input type="text" id="datetimepickerDate" name="date" class="form-control" value="{:input('request.date')}" placeholder="选择日期时间">
+        更新时间
+        <input type="text" id="datetimepickerUpdate" name="update_time" class="form-control" value="{:input('request.update_time')}" placeholder="选择日期时间">
+        域名
+        <input class="form-control" type="text" name="site" style="width: 200px;" value="{:input('request.site')}" placeholder="域名">
+        <input type="submit" class="btn btn-primary" value="{:lang('Search')}"/>
+        <a class="btn btn-danger" href="{:url('blog/index/index')}">{:lang('Clear')}</a>
+    </form>
+    <form method="post" class="js-ajax-form">
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>日期</th>
+                <th>域名</th>
+                <th>广告单元ID</th>
+                <th>广告单元名称</th>
+                <th>国家</th>
+                <th>页面浏览量</th>
+                <th>曝光量</th>
+                <th>已匹配广告请求量</th>
+                <th>广告请求量</th>
+                <th>点击量</th>
+                <th>预计收益（分）</th>
+                <th>展示率</th>
+                <th>填充率</th>
+                <th>千次展示收入(分)</th>
+                <th>平台</th>
+                <th>更新时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            <foreach name="list" item="vo">
+                <tr>
+                    <td>{$vo.id}</td>
+                    <td>{$vo.date}</td>
+                    <td>{$vo.site}</td>
+                    <td>{$vo.ad_unit_id}</td>
+                    <td>{$vo.ad_unit_name}</td>
+                    <td>{$vo.country}</td>
+                    <td>{$vo.page_views}</td>
+                    <td>{$vo.impressions}</td>
+                    <td>{$vo.matched_ad_requests}</td>
+                    <td>{$vo.ad_requests}</td>
+                    <td>{$vo.clicks}</td>
+                    <td>{$vo.estimated_earnings}</td>
+                    <td>{$vo.active_view_viewability}</td>
+                    <td>{$vo.ad_requests_coverage}</td>
+                    <td>{$vo.impressions_rpm}</td>
+                    <td>{$vo.platform}</td>
+                    <td>{$vo.update_time}</td>
+                </tr>
+            </foreach>
+            </tbody>
+        </table>
+        count:{$count}
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="{:url('blog/index/index')}?page={$page - 1}&date={:input('request.date')}&update_time={:input('request.update_time')}&site={:input('request.site')}">Previous</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#">{$page}</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="{:url('blog/index/index')}?page={$page + 1}&date={:input('request.date')}&update_time={:input('request.update_time')}&site={:input('request.site')}">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js?v={$_static_version}"></script>
+<script>
+    flatpickr("#datetimepickerDate", {
+        mode: "range", // 启用范围模式
+        dateFormat: "Y-m-d", // 日期格式
+        disableMobile: true,// 移动端仍然使用 flatpickr，而非系统日期控件
+        locale: {
+            rangeSeparator: " ~ " // 修改 "to" 为 "至"
+        }
+    });
+
+    flatpickr("#datetimepickerUpdate", {
+        mode: "range", // 启用范围模式
+        dateFormat: "Y-m-d H:i", // 日期格式
+        disableMobile: true,// 移动端仍然使用 flatpickr，而非系统日期控件
+        locale: {
+            rangeSeparator: " ~ " // 修改 "to" 为 "至"
+        },
+        enableTime: true,
+    });
+</script>
+
+</body>
+</html>
