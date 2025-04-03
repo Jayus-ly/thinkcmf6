@@ -1,0 +1,66 @@
+{
+  "name": "首页",
+  "action": "portal/Index/index",
+  "description": "首页模板文件",
+  "order": 5.0,
+  "more": {
+    "vars": {
+      "name": {
+        "title": "Today's Top Coupons",
+        "value": "",
+        "type": "text",
+        "placeholder": "可重置该栏目名称",
+        "tip": "设置后该栏目名称会替换",
+        "rule": {
+          "require": true
+        }
+      },
+      "varName1": {
+        "title": "Today's Top Coupons添加数据",
+        "value": [],
+        "type": "array",
+        "item": {
+          "coupon_img": {
+            "title": "优惠券图片",
+            "value": "/themes/couponsfab/public/index_files/Temu-logo-600x300.webp",
+            "type": "image",
+            "tip": "请上传优惠券的图片",
+            "rule": {
+              "require": true
+            }
+          },
+          "coupon_name": {
+            "title": "优惠券名称",
+            "value": "Temu",
+            "type": "text",
+            "tip": "请输入优惠券名称",
+            "rule": {
+              "require": true
+            }
+          },
+          "coupon_detail": {
+            "title": "优惠详情",
+            "value": "New Around Here? 30% Off $39+ For CouponsFab Shoppers",
+            "type": "text",
+            "tip": "请输入优惠详情",
+            "rule": {
+              "require": true
+            }
+          },
+          "coupon_sales": {
+            "title": "优惠折扣",
+            "value": "30% OFF",
+            "type": "text",
+            "tip": "请输入优惠折扣信息",
+            "rule": {
+              "require": true
+            }
+          }
+        },
+        "rule": {
+          "require": true
+        }
+      }
+    }
+  }
+}

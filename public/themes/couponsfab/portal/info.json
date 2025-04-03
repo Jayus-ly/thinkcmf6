@@ -1,0 +1,20 @@
+{
+  "name": "首页",
+  "action": "portal/Index/index",
+  "description": "首页模板文件",
+  "order": 5.0,
+  "more": {
+    "vars": {
+      "name": {
+        "title": "Today's Top Coupons",
+        "value": "",
+        "type": "text",
+        "placeholder": "可重置该栏目名称",
+        "tip": "设置后该栏目名称会替换",
+        "rule": {
+          "require": true
+        }
+      }
+    }
+  }
+}

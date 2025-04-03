@@ -14,18 +14,21 @@ class CommonConfigModel extends BaseModel
 
     protected $table = "common_config";
 
-    protected $field = "id, name, content";
+    protected $field = ['id', 'name', 'content'];
 
     /**
      * 获取配置信息
-     * @param string $name
+     * @param string|array $name
      * @return array|\think\Collection|\think\db\BaseQuery[]
      */
     public function getCommonConfig($name = "")
     {
         return self::getInstance()
             ->when($name, function ($query) use($name) {
-                $query->where('name', $name);
+                if (is_array($name)) {
+                    return $query->whereIn('name', $name);
+                }
+                return $query->where('name', $name);
             })
             ->select();
     }
