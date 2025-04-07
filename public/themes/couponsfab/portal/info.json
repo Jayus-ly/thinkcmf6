@@ -1,7 +1,7 @@
 {
-  "name": "首页",
-  "action": "portal/Index/index",
-  "description": "首页模板文件",
+  "name": "详情页面",
+  "action": "portal/Index/info",
+  "description": "详情页面模板",
   "order": 5.0,
   "more": {
     "vars": {
