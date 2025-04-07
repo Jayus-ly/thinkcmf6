@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<title>CouponsFab | Get free coupons, promo codes and hot deals </title>
 <include file="public@head"/>
 <body>
 <include file="public@nav"/>
@@ -190,8 +191,8 @@
             <?php foreach ($couponList as $coupon): ?>
                 <li class="topCoupItem">
                     <a class="coverlink" href="https://www.couponsfab.com/brand/temu" aria-label="go brand temu page"></a>
-                    <img class="couponImg lazyImg" src="<?php echo $coupon['coupon_img']?>"
-                         data-src="<?php echo $coupon['coupon_img']?>" alt="temu couponImg">
+                    <img class="couponImg lazyImg" src="<?php echo cmf_get_image_url($coupon['coupon_img'])?>"
+                         data-src="<?php echo cmf_get_image_url($coupon['coupon_img'])?>" alt="temu couponImg">
                     <div class="couponInfo">
                         <div class="couponName"><?php echo $coupon['coupon_name']?></div>
                         <div class="couponDetail"><?php echo $coupon['coupon_detail']?></div>
@@ -235,7 +236,7 @@
                     <div class="productsBorder">
                         <div class="productsImg">
                             <img class="ProductsImg lazyImg" src="__TMPL__/public/index_files/square-loading.webp"
-                                 data-src="__TMPL__/<?php echo $coupon['img']?>"
+                                 data-src="<?php echo cmf_get_image_url($coupon['img'])?>"
                                  alt="<?php echo $coupon['alt']?>">
                         </div>
                     </div>
@@ -277,7 +278,7 @@
                     <a class="couponLink" href="https://www.couponsfab.com/brand/amorium-jewelry" aria-label="">
                         <div class="couponImg">
                             <img class="lazyImg" src="__TMPL__/public/index_files/square-loading.webp"
-                                 data-src="__TMPL__/<?php echo $coupon['img']?>"
+                                 data-src="<?php echo cmf_get_image_url($coupon['img'])?>"
                                  alt="<?php echo $coupon['alt']?>">
                         </div>
                         <div class="couponName"><?php echo $coupon['name']?></div>
@@ -301,7 +302,7 @@
                 <a class="coverlink" href="https://www.couponsfab.com/brandList/Department%20Store"
                    aria-label="go brand-category Department Store page"></a>
                 <img class="categoryImg lazyImg" src="__TMPL__/public/index_files/square-loading.webp"
-                     data-src="__TMPL__/<?php echo $coupon['img']?>"
+                     data-src="<?php echo cmf_get_image_url($coupon['img'])?>"
                      alt="<?php echo $coupon['alt']?>">
                 <div class="categoryName"><?php echo $coupon['name']?></div>
             </li>
@@ -334,7 +335,7 @@
                           fill="white"></path>
                 </svg>
                 <img class="editorImg lazyImg" src="__TMPL__/public/index_files/loading.webp"
-                     data-src="__TMPL__/<?php echo $coupon['img']?>"
+                     data-src="<?php echo cmf_get_image_url($coupon['img'])?>"
                      alt="<?php echo $coupon['alt']?>">
                 <div class="editorTitle"><?php echo $coupon['title']?></div>
             </li>
@@ -373,8 +374,6 @@
     </div>
 
     <script>
-        clickQuestion(0);
-
         function clickQuestion(num) {
 
             var content = document.getElementsByClassName('answerList')[num];

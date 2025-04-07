@@ -21,7 +21,7 @@
         "item": {
           "coupon_img": {
             "title": "优惠券图片",
-            "value": "/themes/couponsfab/public/index_files/Temu-logo-600x300.webp",
+            "value": "",
             "type": "image",
             "tip": "请上传优惠券的图片",
             "rule": {
@@ -77,7 +77,7 @@
         "item": {
           "img": {
             "title": "图片",
-            "value": "/themes/couponsfab/public/index_files/kelkoo/d1f20f9d-3c90-4afd-b7a3-37486115dbd3.webp",
+            "value": "",
             "type": "image",
             "tip": "请上传图片",
             "rule": {
@@ -151,7 +151,7 @@
         "item": {
           "img": {
             "title": "图片",
-            "value": "/themes/couponsfab/public/index_files/kelkoo/d1f20f9d-3c90-4afd-b7a3-37486115dbd3.webp",
+            "value": "",
             "type": "image",
             "tip": "请上传图片",
             "rule": {
@@ -210,13 +210,13 @@
         }
       },
       "hot_categories_data": {
-        "title": "Popular Products添加数据",
+        "title": "Hot Categories添加数据",
         "value": [],
         "type": "array",
         "item": {
           "img": {
             "title": "图片",
-            "value": "/themes/couponsfab/public/index_files/category/ccc_cloth.webp",
+            "value": "",
             "type": "image",
             "tip": "请上传图片",
             "rule": {
@@ -263,7 +263,7 @@
         "item": {
           "img": {
             "title": "图片",
-            "value": "/themes/couponsfab/public/index_files/blog/Exciting%20Ramadan%20Promotions%20from%20Top%20Brands.webp",
+            "value": "",
             "type": "image",
             "tip": "请上传图片",
             "rule": {
