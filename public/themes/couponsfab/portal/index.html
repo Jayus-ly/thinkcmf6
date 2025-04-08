@@ -5,83 +5,41 @@
 <body>
 <include file="public@nav"/>
 
-<div class="bannerSwiper">
+<div class="bannerSwiper" style="display: <?php echo ($theme_widgets['swiper_list']['display'] ?? 'block') ? 'block' : 'none'?>">
 
     <div class="SwiperList" style="transition: transform 0.5s; transform: translateX(-100%);">
 
-        <div class="SwiperItem" style="position: absolute; transform: translateX(-100%);">
-            <a href="https://www.couponsfab.com/event/Temu" class="SwiperCont" aria-label="go event Temu page">
+        <?php $swiperList = $theme_widgets['swiper_list']['vars']['list'] ?? []; ?>
+        <?php foreach ($swiperList as $coupon): ?>
+            <div class="SwiperItem">
+                <a href="https://www.couponsfab.com/event/spring-sale" class="SwiperCont"
+                   aria-label="go event spring-sale page">
 
-                <img class="SwiperContPc" src="__TMPL__/public/index_files/banner_temu_pc.webp" alt=" logo">
+                    <img class="SwiperContPc" src="<?php echo cmf_get_image_url($coupon['img'])?>"
+                         alt="SPRING SAVINGS BLOWOUT! logo">
 
-                <div class="SwiperText">
-                    <p class="date" style="color: #222222"></p>
-                    <p class="festival" style="color: #222222"></p>
+                    <div class="SwiperText">
+                        <p class="date" style="color: #05311e6"><?php echo $coupon['date']?></p>
+                        <p class="festival" style="color: #05311e6"><?php echo $coupon['festival']?></p>
 
-                </div>
-            </a>
-        </div>
-        <div class="SwiperItem">
-            <a href="https://www.couponsfab.com/event/spring-sale" class="SwiperCont"
-               aria-label="go event spring-sale page">
+                        <div class="shopNowBtn">
+                            <span class="showNow">Shop Now</span>
+                            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path id="Vector 20"
+                                      d="M1.65479 5.17285C1.24057 5.17285 0.904785 5.50864 0.904785 5.92285C0.904785 6.33707 1.24057 6.67285 1.65479 6.67285V5.17285ZM11.4149 6.45318C11.7077 6.16029 11.7077 5.68541 11.4149 5.39252L6.64188 0.619551C6.34899 0.326657 5.87411 0.326657 5.58122 0.619551C5.28833 0.912444 5.28833 1.38732 5.58122 1.68021L9.82386 5.92285L5.58122 10.1655C5.28833 10.4584 5.28833 10.9333 5.58122 11.2262C5.87411 11.519 6.34899 11.519 6.64188 11.2262L11.4149 6.45318ZM1.65479 6.67285H10.8845V5.17285H1.65479V6.67285Z"
+                                      fill="white"></path>
+                            </svg>
+                        </div>
 
-                <img class="SwiperContPc" src="__TMPL__/public/index_files/events=SPRING SAVINGS BLOWOUT, Property 2=pc.webp"
-                     alt="SPRING SAVINGS BLOWOUT! logo">
-
-                <div class="SwiperText">
-                    <p class="date" style="color: #05311e6">🌷Limited-Time Coupons Await 🌷</p>
-                    <p class="festival" style="color: #05311e6">SPRING SAVINGS BLOWOUT!</p>
-
-                    <div class="shopNowBtn">
-                        <span class="showNow">Shop Now</span>
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path id="Vector 20"
-                                  d="M1.65479 5.17285C1.24057 5.17285 0.904785 5.50864 0.904785 5.92285C0.904785 6.33707 1.24057 6.67285 1.65479 6.67285V5.17285ZM11.4149 6.45318C11.7077 6.16029 11.7077 5.68541 11.4149 5.39252L6.64188 0.619551C6.34899 0.326657 5.87411 0.326657 5.58122 0.619551C5.28833 0.912444 5.28833 1.38732 5.58122 1.68021L9.82386 5.92285L5.58122 10.1655C5.28833 10.4584 5.28833 10.9333 5.58122 11.2262C5.87411 11.519 6.34899 11.519 6.64188 11.2262L11.4149 6.45318ZM1.65479 6.67285H10.8845V5.17285H1.65479V6.67285Z"
-                                  fill="white"></path>
-                        </svg>
                     </div>
+                </a>
+            </div>
+        <?php endforeach; ?>
 
-                </div>
-            </a>
-        </div>
 
-        <div class="SwiperItem">
-            <a href="https://www.couponsfab.com/event/Temu" class="SwiperCont" aria-label="go event Temu page">
-
-                <img class="SwiperContPc" src="__TMPL__/public/index_files/banner_temu_pc.webp" alt=" logo">
-
-                <div class="SwiperText">
-                    <p class="date" style="color: #222222"></p>
-                    <p class="festival" style="color: #222222"></p>
-
-                </div>
-            </a>
-        </div>
-
-        <div class="SwiperItem">
-            <a href="https://www.couponsfab.com/event/spring-sale" class="SwiperCont"
-               aria-label="go event spring-sale page">
-
-                <img class="SwiperContPc" src="__TMPL__/public/index_files/events=SPRING SAVINGS BLOWOUT, Property 2=pc.webp"
-                     alt="SPRING SAVINGS BLOWOUT! logo">
-
-                <div class="SwiperText">
-                    <p class="date" style="color: #05311e6">🌷Limited-Time Coupons Await 🌷</p>
-                    <p class="festival" style="color: #05311e6">SPRING SAVINGS BLOWOUT!</p>
-
-                    <div class="shopNowBtn">
-                        <span class="showNow">Shop Now</span>
-                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path id="Vector 20"
-                                  d="M1.65479 5.17285C1.24057 5.17285 0.904785 5.50864 0.904785 5.92285C0.904785 6.33707 1.24057 6.67285 1.65479 6.67285V5.17285ZM11.4149 6.45318C11.7077 6.16029 11.7077 5.68541 11.4149 5.39252L6.64188 0.619551C6.34899 0.326657 5.87411 0.326657 5.58122 0.619551C5.28833 0.912444 5.28833 1.38732 5.58122 1.68021L9.82386 5.92285L5.58122 10.1655C5.28833 10.4584 5.28833 10.9333 5.58122 11.2262C5.87411 11.519 6.34899 11.519 6.64188 11.2262L11.4149 6.45318ZM1.65479 6.67285H10.8845V5.17285H1.65479V6.67285Z"
-                                  fill="white"></path>
-                        </svg>
-                    </div>
-
-                </div>
-            </a>
-        </div>
     </div>
+
+    <?php if(!empty($swiperList)): ?>
     <div class="leftArrow">
         <svg xmlns="http://www.w3.org/2000/svg" width="73" height="73" viewBox="0 0 73 73" fill="none">
             <g filter="url(#filter0_dd_10360_38751)">
@@ -145,15 +103,10 @@
         </svg>
     </div>
     <div class="indicator">
-
-
         <span class=""></span>
-
-
         <span class="active"></span>
-
-
     </div>
+    <?php endif; ?>
 
 </div>
 
@@ -187,7 +140,7 @@
         </div>
         <ul class="topCouponList">
 
-            <?php $couponList = $theme_vars['coupon_data']; ?>
+            <?php $couponList = $theme_vars['coupon_data'] ?? []; ?>
             <?php foreach ($couponList as $coupon): ?>
                 <li class="topCoupItem">
                     <a class="coverlink" href="https://www.couponsfab.com/brand/temu" aria-label="go brand temu page"></a>
@@ -272,7 +225,7 @@
             <h2 class="topText">{$theme_vars.featured_coupons_name|default="Featured Coupons"}</h2>
         </div>
         <ul class="featuredCoupon">
-            <?php $featuredCouponsData = $theme_vars['popular_products_data'] ?? []; ?>
+            <?php $featuredCouponsData = $theme_vars['featured_coupons_data'] ?? []; ?>
             <?php foreach ($featuredCouponsData as $coupon): ?>
                 <li class="couponItem">
                     <a class="couponLink" href="https://www.couponsfab.com/brand/amorium-jewelry" aria-label="">
@@ -356,15 +309,15 @@
                 <div class="questionList">
                     <div class="question"><?php echo $coupon['question']?></div>
                     <div class="questionIcon">
-                        <svg class="close" style="display: block;">
+                        <svg class="close">
                             <use xlink:href="#icon-close"></use>
                         </svg>
-                        <svg class="open" style="display: none;">
+                        <svg class="open">
                             <use xlink:href="#icon-open"></use>
                         </svg>
                     </div>
                 </div>
-                <div class="answerList" style="display: block;">
+                <div class="answerList">
                     <div class="answer"><?php echo $coupon['answer']?>
                     </div>
                 </div>
@@ -374,8 +327,12 @@
     </div>
 
     <script>
-        function clickQuestion(num) {
 
+        <?php if (!empty($frequentlyAskedQuestionsData)): ?>
+        clickQuestion(0);
+        <?php endif; ?>
+
+        function clickQuestion(num) {
             var content = document.getElementsByClassName('answerList')[num];
             var close = document.getElementsByClassName('close')[num];
             var open = document.getElementsByClassName('open')[num];

@@ -406,6 +406,51 @@
           "require": true
         }
       }
+    },
+    "widgets": {
+      "swiper_list": {
+        "title": "轮播图设置",
+        "display": "1",
+        "vars": {
+          "list": {
+            "title": "添加轮播图",
+            "value": [],
+            "type": "array",
+            "item": {
+              "img": {
+                "title": "轮播图",
+                "value": "",
+                "type": "image",
+                "tip": "请上传轮播图",
+                "rule": {
+                  "require": true
+                }
+              },
+              "date": {
+                "title": "介绍1",
+                "value": "",
+                "type": "text",
+                "tip": "请输入介绍1"
+              },
+              "festival": {
+                "title": "介绍2",
+                "value": "",
+                "type": "text",
+                "tip": "请输入介绍2"
+              },
+              "href": {
+                "title": "图片跳转地址",
+                "value": "",
+                "type": "text",
+                "tip": "请输入图片跳转地址"
+              }
+            },
+            "rule": {
+              "require": true
+            }
+          }
+        }
+      }
     }
   }
 }
