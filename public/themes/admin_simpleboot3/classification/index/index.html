@@ -7,7 +7,7 @@
 <body>
 <div class="wrap">
     <ul class="nav nav-tabs">
-        <li class="active"><a>分类管理</a></li>
+        <li class="active"><a>品牌管理</a></li>
     </ul>
     <form class="well form-inline margin-top-20" method="post" action="{:url('classification/index/index')}">
         名称
@@ -17,7 +17,7 @@
         <a class="btn" href="<?php echo url('add'); ?>">新增分类</a>
     </form>
     <form method="post" class="js-ajax-form">
-        <table class="table table-hover table-bordered">
+        <table class="table table-hover table-bordered table-list" id="menus-table">
             <thead>
             <tr>
                 <th>ID</th>
@@ -26,31 +26,67 @@
                 <th>分类等级</th>
                 <th>创建时间</th>
                 <th>更新时间</th>
+                <th>操作</th>
             </tr>
             </thead>
             <tbody>
-                <foreach name="list" item="vo">
-                    <tr>
-                        <td>{$vo.id}</td>
-                        <td>{$vo.name}</td>
-                        <td>
-                            <img src="{:cmf_get_image_preview_url($vo.img_url)}" width="135" style="cursor: hand"/>
-                        </td>
-                        <td>{$vo.parent_id ? $vo.parent_id.'级':'顶级'}</td>
-                        <td>{$vo.create_time}</td>
-                        <td>{$vo.update_time}</td>
-                        <td>
-                            <a class="btn btn-xs btn-primary" href="{:url('edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
-                            <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('delete',array('id'=>$vo['id']))}">
-                                {:lang('DELETE')}
-                            </a>
-                        </td>
-                    </tr>
-                </foreach>
+
+            <tree name="list" item="vo">
+                <tr id="node-{$vo.id}" class="{$vo.parent_id?'child-of-node-'.$vo.parent_id:''}" style="{$vo.parent_id?'display:none;':''}">
+                    <td>{$vo.id}</td>
+                    <td>{$vo.name}</td>
+                    <td>
+                        <img src="{:cmf_get_image_preview_url($vo.img_url)}" width="135" style="cursor: hand"/>
+                    </td>
+                    <td>{$vo.parent_id ? '上级ID:'.$vo.parent_id :'顶级'}</td>
+                    <td>{$vo.create_time}</td>
+                    <td>{$vo.update_time}</td>
+                    <td>
+                        <?php if(empty($vo['parent_id'])): ?>
+                            <a class="btn btn-xs btn-primary" href="{:url('add',array('parent_id'=>$vo['id']))}">添加品牌</a>
+                        <?php else: ?>
+                            <a class="btn btn-xs btn-primary" href="{:url('addCoupons',array('classification_id'=>$vo['id']))}">添加优惠卷</a>
+                        <?php endif; ?>
+                        <a class="btn btn-xs btn-primary" href="{:url('edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
+                        <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('delete',array('id'=>$vo['id']))}">
+                            {:lang('DELETE')}
+                        </a>
+                    </td>
+                </tr>
+            </tree>
+
+<!--                <foreach name="list" item="vo">-->
+<!--                    <tr>-->
+<!--                        <td>{$vo.id}</td>-->
+<!--                        <td>{$vo.name}</td>-->
+<!--                        <td>-->
+<!--                            <img src="{:cmf_get_image_preview_url($vo.img_url)}" width="135" style="cursor: hand"/>-->
+<!--                        </td>-->
+<!--                        <td>{$vo.parent_id ? $vo.parent_id.'级':'顶级'}</td>-->
+<!--                        <td>{$vo.create_time}</td>-->
+<!--                        <td>{$vo.update_time}</td>-->
+<!--                        <td>-->
+<!--                            <a class="btn btn-xs btn-primary" href="{:url('edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>-->
+<!--                            <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('delete',array('id'=>$vo['id']))}">-->
+<!--                                {:lang('DELETE')}-->
+<!--                            </a>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                </foreach>-->
             </tbody>
         </table>
     </form>
 </div>
 <script src="__STATIC__/js/admin.js?v={$_static_version}"></script>
+<script>
+    $(document).ready(function () {
+        Wind.css('treeTable');
+        Wind.use('treeTable', function () {
+            $("#menus-table").treeTable({
+                indent: 20
+            });
+        });
+    });
+</script>
 </body>
 </html>

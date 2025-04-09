@@ -5,6 +5,7 @@ namespace app\classification\controller;
 
 
 use cmf\controller\AdminBaseController;
+use model\CouponsModel;
 use model\ItemClassificationModel;
 
 class IndexController extends AdminBaseController
@@ -26,13 +27,13 @@ class IndexController extends AdminBaseController
 
         $count = $sql->count();
 
-        $list = $sql->page($pageNum, $pageSize)
+        $list = $sql
             ->order('parent_id', 'asc')
-            ->order('id', 'desc')
-            ->select();
+            ->order('id', 'asc')
+            ->select()->toArray();
 
-        $this->assign('count', $count);
-        $this->assign('page', $pageNum);
+//        $this->assign('count', $count);
+//        $this->assign('page', $pageNum);
         $this->assign('list', $list);
 
         return $this->fetch();
@@ -40,6 +41,9 @@ class IndexController extends AdminBaseController
 
     public function add()
     {
+        $param = input();
+        $parentId = $param['parent_id'] ?? 0;
+        $this->assign('parent_id', $parentId);
         return $this->fetch('add');
     }
 
@@ -48,11 +52,14 @@ class IndexController extends AdminBaseController
         $param = input();
         $name = $param['name'] ?? '';
         $imgUrl = $param['img_url'] ?? '';
+        $parentId = $param['parent_id'] ?? 0;
+
 
         $model = ItemClassificationModel::getInstance();
         $model->create([
             'name' => $name,
-            'img_url' => $imgUrl
+            'img_url' => $imgUrl,
+            'parent_id' => $parentId
         ]);
         $this->success('创建成功', url("index"));
     }
@@ -109,4 +116,28 @@ class IndexController extends AdminBaseController
     }
 
 
+    public function addCoupons()
+    {
+        return $this->fetch('add_coupons');
+    }
+
+    /**
+     * 新增优惠券
+     */
+    public function addCouponsPost()
+    {
+        $param = input();
+        if (!isset($param['classification_id']) && empty($param['classification_id'])) {
+            $this->error('参数错误!');
+        }
+        $model = CouponsModel::getInstance();
+        $model->create([
+            'name' => $param['name'] ?? '',
+            'type' => $param['type'] ?? '',
+            'classification_id' => $param['classification_id'] ?? '',
+            'details' => $param['details'] ?? '',
+            'used' => $param['used'] ?? '',
+        ]);
+        $this->success('操作成功');
+    }
 }
