@@ -11,25 +11,25 @@
 <div class="indexWrap">
 
     <div class="guide">
-        <a href="https://www.couponsfab.com/" aria-label="go home">Home</a>
+        <a href="/" aria-label="go home">Home</a>
         <span class="guideIcon"> &gt; </span>
-        <span class="brandName">All Brands</span>
+        <span class="brandName">{$name|default='All Brands'}</span>
     </div>
 
 
     <div class="brandListWrap">
         <div class="categoryWrap">
             <ul class="categoryList">
-                <li class="categoryItem categoryNow">
-                    <a class="coverlink" href="https://www.couponsfab.com/brandList" aria-label="go brandList page"></a>
+                <li class="categoryItem {$active ? '' : 'categoryNow'}">
+                    <a class="coverlink" href="list" aria-label="go brandList page"></a>
                     <img class="categoryImg lazyImg"
                          src="__TMPL__/public/index_files/brandList/AllBrands.webp"
                          data-src="__TMPL__/public/index_files/brandList/AllBrands.webp" alt="all brands icon">
                     <div class="categoryName">All Brands</div>
                 </li>
                 <foreach name="classification" item="vo">
-                    <li class="categoryItem">
-                        <a class="coverlink" href="https://www.couponsfab.com/brandList/Department%20Store"
+                    <li class="categoryItem {$vo['id'] == $active ? 'categoryNow' : ''}">
+                        <a class="coverlink" href="list?active={$vo.id}&name={$vo.name}"
                            aria-label="go brandList Department Store page"></a>
                         <img class="categoryImg lazyImg"
                              src="{:cmf_get_image_preview_url($vo['img_url'])}"
@@ -43,7 +43,7 @@
 
 
         <div class="brandsWrap">
-            <h2 class="topTitle">All Brands</h2>
+            <h2 class="topTitle">{$name|default='All Brands'}</h2>
             <div class="ad-box ads-1" style="height: auto !important;">
                 <div class="adTitle">Advertisement</div>
                 <ins aria-label="Advertisement" class="adsbygoogle adHeight" data-ad-client="ca-pub-9260533539525355"
@@ -54,370 +54,22 @@
             </div>
 
 
-            <div class="letterList">
+            <div class="letterList" id="letterList"></div>
 
-                <div class="letter letterNow" onclick="changeLetter(&quot;A&quot;,  0 )">A</div>
+            <script>
+                const letters = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZ', '0-9'];
+                const letterListContainer = document.getElementById('letterList');
 
-                <div class="letter" onclick="changeLetter(&quot;B&quot;,  1 )">B</div>
-
-                <div class="letter" onclick="changeLetter(&quot;C&quot;,  2 )">C</div>
-
-                <div class="letter" onclick="changeLetter(&quot;D&quot;,  3 )">D</div>
-
-                <div class="letter" onclick="changeLetter(&quot;E&quot;,  4 )">E</div>
-
-                <div class="letter" onclick="changeLetter(&quot;F&quot;,  5 )">F</div>
-
-                <div class="letter" onclick="changeLetter(&quot;G&quot;,  6 )">G</div>
-
-                <div class="letter" onclick="changeLetter(&quot;H&quot;,  7 )">H</div>
-
-                <div class="letter" onclick="changeLetter(&quot;I&quot;,  8 )">I</div>
-
-                <div class="letter" onclick="changeLetter(&quot;J&quot;,  9 )">J</div>
-
-                <div class="letter" onclick="changeLetter(&quot;K&quot;,  10 )">K</div>
-
-                <div class="letter" onclick="changeLetter(&quot;L&quot;,  11 )">L</div>
-
-                <div class="letter" onclick="changeLetter(&quot;M&quot;,  12 )">M</div>
-
-                <div class="letter" onclick="changeLetter(&quot;N&quot;,  13 )">N</div>
-
-                <div class="letter" onclick="changeLetter(&quot;O&quot;,  14 )">O</div>
-
-                <div class="letter" onclick="changeLetter(&quot;P&quot;,  15 )">P</div>
-
-                <div class="letter" onclick="changeLetter(&quot;Q&quot;,  16 )">Q</div>
-
-                <div class="letter" onclick="changeLetter(&quot;R&quot;,  17 )">R</div>
-
-                <div class="letter" onclick="changeLetter(&quot;S&quot;,  18 )">S</div>
-
-                <div class="letter" onclick="changeLetter(&quot;T&quot;,  19 )">T</div>
-
-                <div class="letter" onclick="changeLetter(&quot;U&quot;,  20 )">U</div>
-
-                <div class="letter" onclick="changeLetter(&quot;V&quot;,  21 )">V</div>
-
-                <div class="letter" onclick="changeLetter(&quot;W&quot;,  22 )">W</div>
-
-                <div class="letter" onclick="changeLetter(&quot;X&quot;,  23 )">X</div>
-
-                <div class="letter" onclick="changeLetter(&quot;Y&quot;,  24 )">Y</div>
-
-                <div class="letter" onclick="changeLetter(&quot;Z&quot;,  25 )">Z</div>
-
-                <div class="letter" onclick="changeLetter(&quot;0-9&quot;,  26 )">0-9</div>
-
-            </div>
-
+                letters.forEach((letter, index) => {
+                    const div = document.createElement('div');
+                    div.className = 'letter' + (index === 0 ? ' letterNow' : '');
+                    div.textContent = letter;
+                    div.setAttribute('onclick', `changeLetter('${letter}', ${index})`);
+                    letterListContainer.appendChild(div);
+                });
+            </script>
 
             <ul class="brandsList">
-
-                <li class="brandItem"><a class="brandLink" href="https://www.couponsfab.com/brand/amazon"
-                                         aria-label="go brandamazonpage"></a>
-                    <div class="brandTop"><img class="brandImg lazyImg"
-                                               src="__TMPL__/public/index_files/brandList/amazon_320.webp"
-                                               data-src="https://cdn.couponsfab.com/brands/amazon_320.webp"
-                                               alt="Amazon icon"></div>
-                    <div class="brandLine">
-                        <div class="leftHalf"></div>
-                        <div class="rightHalf"></div>
-                    </div>
-                    <div class="couponDetail">
-                        <div class="brandName">Amazon</div>
-                        <div class="brandNum">109 Coupons</div>
-                    </div>
-                </li>
-
-
-                <li class="brandItem"><a class="brandLink" href="https://www.couponsfab.com/brand/airbnb"
-                                         aria-label="go brandairbnbpage"></a>
-                    <div class="brandTop"><img class="brandImg lazyImg"
-                                               src="__TMPL__/public/index_files/brandList/airbnb_320.webp"
-                                               data-src="https://cdn.couponsfab.com/brands/airbnb_320.webp"
-                                               alt="Airbnb icon"></div>
-                    <div class="brandLine">
-                        <div class="leftHalf"></div>
-                        <div class="rightHalf"></div>
-                    </div>
-                    <div class="couponDetail">
-                        <div class="brandName">Airbnb</div>
-                        <div class="brandNum">11 Coupons</div>
-                    </div>
-                </li>
-                <li class="brandItem"><a class="brandLink" href="https://www.couponsfab.com/brand/aliexpress"
-                                         aria-label="go brandaliexpresspage"></a>
-                    <div class="brandTop"><img class="brandImg lazyImg"
-                                               src="__TMPL__/public/index_files/brandList/AliExpress-160-webp.webp"
-                                               data-src="https://cdn.couponsfab.com/brands/AliExpress-160-webp.webp"
-                                               alt="AliExpress icon"></div>
-                    <div class="brandLine">
-                        <div class="leftHalf"></div>
-                        <div class="rightHalf"></div>
-                    </div>
-                    <div class="couponDetail">
-                        <div class="brandName">AliExpress</div>
-                        <div class="brandNum">94 Coupons</div>
-                    </div>
-                </li>
-                <li class="brandItem"><a class="brandLink" href="https://www.couponsfab.com/brand/adidas"
-                                         aria-label="go brandadidaspage"></a>
-                    <div class="brandTop"><img class="brandImg lazyImg"
-                                               src="__TMPL__/public/index_files/brandList/adidas.webp"
-                                               data-src="https://cdn.couponsfab.com/brands/adidas.webp"
-                                               alt="Adidas icon"></div>
-                    <div class="brandLine">
-                        <div class="leftHalf"></div>
-                        <div class="rightHalf"></div>
-                    </div>
-                    <div class="couponDetail">
-                        <div class="brandName">Adidas</div>
-                        <div class="brandNum">60 Coupons</div>
-                    </div>
-                </li>
-                <li class="brandItem"><a class="brandLink" href="https://www.couponsfab.com/brand/albertsons"
-                                         aria-label="go brandalbertsonspage"></a>
-                    <div class="brandTop"><img class="brandImg lazyImg"
-                                               src="__TMPL__/public/index_files/brandList/X72ST6GSUNHKXK22INQSRLTEB4.png"
-                                               data-src="https://cdn.couponsfab.com/brands/X72ST6GSUNHKXK22INQSRLTEB4.png"
-                                               alt="Albertsons icon"></div>
-                    <div class="brandLine">
-                        <div class="leftHalf"></div>
-                        <div class="rightHalf"></div>
-                    </div>
-                    <div class="couponDetail">
-                        <div class="brandName">Albertsons</div>
-                        <div class="brandNum">20 Coupons</div>
-                    </div>
-                </li>
-                <li class="brandItem"><a class="brandLink" href="https://www.couponsfab.com/brand/athleta"
-                                         aria-label="go brandathletapage"></a>
-                    <div class="brandTop"><img class="brandImg lazyImg"
-                                               src="__TMPL__/public/index_files/brandList/Athleta.webp"
-                                               data-src="https://cdn.couponsfab.com/brands/Athleta.webp"
-                                               alt="Athleta icon"></div>
-                    <div class="brandLine">
-                        <div class="leftHalf"></div>
-                        <div class="rightHalf"></div>
-                    </div>
-                    <div class="couponDetail">
-                        <div class="brandName">Athleta</div>
-                        <div class="brandNum">93 Coupons</div>
-                    </div>
-                </li>
-                <li class="brandItem"><a class="brandLink" href="https://www.couponsfab.com/brand/asos"
-                                         aria-label="go brandasospage"></a>
-                    <div class="brandTop"><img class="brandImg lazyImg"
-                                               src="__TMPL__/public/index_files/brandList/BDIJ4SOCPZHJROCXVV3GH4GFQU.png"
-                                               data-src="https://cdn.couponsfab.com/brands/BDIJ4SOCPZHJROCXVV3GH4GFQU.png"
-                                               alt="ASOS icon"></div>
-                    <div class="brandLine">
-                        <div class="leftHalf"></div>
-                        <div class="rightHalf"></div>
-                    </div>
-                    <div class="couponDetail">
-                        <div class="brandName">ASOS</div>
-                        <div class="brandNum">21 Coupons</div>
-                    </div>
-                </li>
-                <li class="brandItem"><a class="brandLink" href="https://www.couponsfab.com/brand/ashford"
-                                         aria-label="go brandashfordpage"></a>
-                    <div class="brandTop"><img class="brandImg lazyImg"
-                                               src="__TMPL__/public/index_files/brandList/CIKUPHPNJBF3DPH72CRMYKYRRQ.png"
-                                               data-src="https://cdn.couponsfab.com/brands/CIKUPHPNJBF3DPH72CRMYKYRRQ.png"
-                                               alt="Ashford icon"></div>
-                    <div class="brandLine">
-                        <div class="leftHalf"></div>
-                        <div class="rightHalf"></div>
-                    </div>
-                    <div class="couponDetail">
-                        <div class="brandName">Ashford</div>
-                        <div class="brandNum">56 Coupons</div>
-                    </div>
-                </li>
-                <li class="brandItem"><a class="brandLink" href="https://www.couponsfab.com/brand/abebooks"
-                                         aria-label="go brandabebookspage"></a>
-                    <div class="brandTop"><img class="brandImg lazyImg"
-                                               src="__TMPL__/public/index_files/brandList/4VR6ZLL5YNEATIGQ2CY5KVUVAE.png"
-                                               data-src="https://cdn.couponsfab.com/brands/4VR6ZLL5YNEATIGQ2CY5KVUVAE.png"
-                                               alt="AbeBooks icon"></div>
-                    <div class="brandLine">
-                        <div class="leftHalf"></div>
-                        <div class="rightHalf"></div>
-                    </div>
-                    <div class="couponDetail">
-                        <div class="brandName">AbeBooks</div>
-                        <div class="brandNum">79 Coupons</div>
-                    </div>
-                </li>
-                <li class="brandItem"><a class="brandLink" href="https://www.couponsfab.com/brand/ace-hardware"
-                                         aria-label="go brandace-hardwarepage"></a>
-                    <div class="brandTop"><img class="brandImg lazyImg"
-                                               src="__TMPL__/public/index_files/brandList/AABB26DYXZEJZFP3VFBX7FK5EY.png"
-                                               data-src="https://cdn.couponsfab.com/brands/AABB26DYXZEJZFP3VFBX7FK5EY.png"
-                                               alt="Ace Hardware icon"></div>
-                    <div class="brandLine">
-                        <div class="leftHalf"></div>
-                        <div class="rightHalf"></div>
-                    </div>
-                    <div class="couponDetail">
-                        <div class="brandName">Ace Hardware</div>
-                        <div class="brandNum">132 Coupons</div>
-                    </div>
-                </li>
-                <li class="brandItem"><a class="brandLink" href="https://www.couponsfab.com/brand/ac-lens"
-                                         aria-label="go brandac-lenspage"></a>
-                    <div class="brandTop"><img class="brandImg lazyImg"
-                                               src="__TMPL__/public/index_files/brandList/N6JJG4OTUJAW5NEK7QJHDBACZ4.png"
-                                               data-src="https://cdn.couponsfab.com/brands/N6JJG4OTUJAW5NEK7QJHDBACZ4.png"
-                                               alt="AC Lens icon"></div>
-                    <div class="brandLine">
-                        <div class="leftHalf"></div>
-                        <div class="rightHalf"></div>
-                    </div>
-                    <div class="couponDetail">
-                        <div class="brandName">AC Lens</div>
-                        <div class="brandNum">31 Coupons</div>
-                    </div>
-                </li>
-                <li class="brandItem"><a class="brandLink"
-                                         href="https://www.couponsfab.com/brand/academy-sports-outdoors"
-                                         aria-label="go brandacademy-sports-outdoorspage"></a>
-                    <div class="brandTop"><img class="brandImg lazyImg"
-                                               src="__TMPL__/public/index_files/brandList/E3KS7VDJSBBCXP5IJ5LZYEGBHY.png"
-                                               data-src="https://cdn.couponsfab.com/brands/E3KS7VDJSBBCXP5IJ5LZYEGBHY.png"
-                                               alt="Academy Sports + Outdoors icon"></div>
-                    <div class="brandLine">
-                        <div class="leftHalf"></div>
-                        <div class="rightHalf"></div>
-                    </div>
-                    <div class="couponDetail">
-                        <div class="brandName">Academy Sports + Outdoors</div>
-                        <div class="brandNum">18 Coupons</div>
-                    </div>
-                </li>
-                <li class="brandItem"><a class="brandLink" href="https://www.couponsfab.com/brand/abercrombie"
-                                         aria-label="go brandabercrombiepage"></a>
-                    <div class="brandTop"><img class="brandImg lazyImg"
-                                               src="__TMPL__/public/index_files/brandList/AGWIWOILXJBZNBTUZP4MT4XDHU.png"
-                                               data-src="https://cdn.couponsfab.com/brands/AGWIWOILXJBZNBTUZP4MT4XDHU.png"
-                                               alt="Abercrombie icon"></div>
-                    <div class="brandLine">
-                        <div class="leftHalf"></div>
-                        <div class="rightHalf"></div>
-                    </div>
-                    <div class="couponDetail">
-                        <div class="brandName">Abercrombie</div>
-                        <div class="brandNum">14 Coupons</div>
-                    </div>
-                </li>
-                <li class="brandItem"><a class="brandLink" href="https://www.couponsfab.com/brand/ashley-furniture"
-                                         aria-label="go brandashley-furniturepage"></a>
-                    <div class="brandTop"><img class="brandImg lazyImg"
-                                               src="__TMPL__/public/index_files/brandList/JNROBUW3UNBSLCT2VFG47HODBY.png"
-                                               data-src="https://cdn.couponsfab.com/brands/JNROBUW3UNBSLCT2VFG47HODBY.png"
-                                               alt="Ashley Furniture icon"></div>
-                    <div class="brandLine">
-                        <div class="leftHalf"></div>
-                        <div class="rightHalf"></div>
-                    </div>
-                    <div class="couponDetail">
-                        <div class="brandName">Ashley Furniture</div>
-                        <div class="brandNum">55 Coupons</div>
-                    </div>
-                </li>
-                <li class="brandItem"><a class="brandLink" href="https://www.couponsfab.com/brand/anthropologie"
-                                         aria-label="go brandanthropologiepage"></a>
-                    <div class="brandTop"><img class="brandImg lazyImg"
-                                               src="__TMPL__/public/index_files/brandList/Anthropologie-logo.webp"
-                                               data-src="https://cdn.couponsfab.com/brands/Anthropologie-logo.webp"
-                                               alt="Anthropologie icon"></div>
-                    <div class="brandLine">
-                        <div class="leftHalf"></div>
-                        <div class="rightHalf"></div>
-                    </div>
-                    <div class="couponDetail">
-                        <div class="brandName">Anthropologie</div>
-                        <div class="brandNum">71 Coupons</div>
-                    </div>
-                </li>
-                <li class="brandItem"><a class="brandLink" href="https://www.couponsfab.com/brand/amc"
-                                         aria-label="go brandamcpage"></a>
-                    <div class="brandTop"><img class="brandImg lazyImg"
-                                               src="__TMPL__/public/index_files/brandList/W2JEJJ6XCZDNBOIUEX54QKFS6U.png"
-                                               data-src="https://cdn.couponsfab.com/brands/W2JEJJ6XCZDNBOIUEX54QKFS6U.png"
-                                               alt="AMC Theatres icon"></div>
-                    <div class="brandLine">
-                        <div class="leftHalf"></div>
-                        <div class="rightHalf"></div>
-                    </div>
-                    <div class="couponDetail">
-                        <div class="brandName">AMC Theatres</div>
-                        <div class="brandNum">16 Coupons</div>
-                    </div>
-                </li>
-                <li class="brandItem"><a class="brandLink" href="https://www.couponsfab.com/brand/alo-yoga"
-                                         aria-label="go brandalo-yogapage"></a>
-                    <div class="brandTop"><img class="brandImg lazyImg"
-                                               src="__TMPL__/public/index_files/brandList/7SCAJNXKWRANNJU7744OAILS2U.png"
-                                               data-src="https://cdn.couponsfab.com/brands/7SCAJNXKWRANNJU7744OAILS2U.png"
-                                               alt="Alo Yoga icon"></div>
-                    <div class="brandLine">
-                        <div class="leftHalf"></div>
-                        <div class="rightHalf"></div>
-                    </div>
-                    <div class="couponDetail">
-                        <div class="brandName">Alo Yoga</div>
-                        <div class="brandNum">63 Coupons</div>
-                    </div>
-                </li>
-                <li class="brandItem"><a class="brandLink" href="https://www.couponsfab.com/brand/avon"
-                                         aria-label="go brandavonpage"></a>
-                    <div class="brandTop"><img class="brandImg lazyImg"
-                                               src="__TMPL__/public/index_files/brandList/VPQDTED64FHZDOIUPHVXNID35Q.png"
-                                               data-src="https://cdn.couponsfab.com/brands/VPQDTED64FHZDOIUPHVXNID35Q.png"
-                                               alt="Avon icon"></div>
-                    <div class="brandLine">
-                        <div class="leftHalf"></div>
-                        <div class="rightHalf"></div>
-                    </div>
-                    <div class="couponDetail">
-                        <div class="brandName">Avon</div>
-                        <div class="brandNum">42 Coupons</div>
-                    </div>
-                </li>
-                <li class="brandItem"><a class="brandLink" href="https://www.couponsfab.com/brand/apple"
-                                         aria-label="go brandapplepage"></a>
-                    <div class="brandTop"><img class="brandImg lazyImg"
-                                               src="__TMPL__/public/index_files/brandList/BEG6ZRBS5JDZLNCG3CPI6LFUI4.png"
-                                               data-src="https://cdn.couponsfab.com/brands/BEG6ZRBS5JDZLNCG3CPI6LFUI4.png"
-                                               alt="Apple icon"></div>
-                    <div class="brandLine">
-                        <div class="leftHalf"></div>
-                        <div class="rightHalf"></div>
-                    </div>
-                    <div class="couponDetail">
-                        <div class="brandName">Apple</div>
-                        <div class="brandNum">105 Coupons</div>
-                    </div>
-                </li>
-                <li class="brandItem"><a class="brandLink" href="https://www.couponsfab.com/brand/at-home"
-                                         aria-label="go brandat-homepage"></a>
-                    <div class="brandTop"><img class="brandImg lazyImg"
-                                               src="__TMPL__/public/index_files/brandList/QJULGKS5YBANVPZZGA5GNWQCSA.png"
-                                               data-src="https://cdn.couponsfab.com/brands/QJULGKS5YBANVPZZGA5GNWQCSA.png"
-                                               alt="At Home icon"></div>
-                    <div class="brandLine">
-                        <div class="leftHalf"></div>
-                        <div class="rightHalf"></div>
-                    </div>
-                    <div class="couponDetail">
-                        <div class="brandName">At Home</div>
-                        <div class="brandNum">64 Coupons</div>
-                    </div>
-                </li>
             </ul>
         </div>
     </div>
@@ -555,8 +207,10 @@
 
 
 </div>
-<script>
 
+<include file="public@foot"/>
+
+<script>
     var mobileAgent = new Array("iphone", "android", "blackberry", "webos", "incognito", "webmate", "bada", "nokia", "lg", "ucweb", "skyfire");
     var browser = navigator.userAgent.toLowerCase();
     var isMobile = false;
@@ -591,8 +245,8 @@
     var pageCount = 1;
     var brandsList = [];
     var letter = "A";
+    var activeValue = <?php echo $active; ?>;
     changeLetter(letter, 0);
-
 
     function couponListContent(change) {
 
@@ -604,23 +258,28 @@
             var newUl = document.createElement('ul');
             newUl.setAttribute("class", "brandsList");
             detaiListBox.appendChild(newUl);
+
+            page = 1;
+            pageSize = 20;
         }
 
         ajax({
             type: "GET",
-            url: "/brandListApi",
+            url: "brandListPage",
             async: false,
             data: {
                 "page": page,
-                "pageSize": pageSize,
+                "size": pageSize,
                 "startStr": letter,
+                "active":activeValue
             },
             success: function (data) {
 
                 var date = JSON.parse(data);
 
-                pageCount = date.PageCount;
-                brandsList = date.BrandList;
+                pageCount = date.data.PageCount;
+                brandsList = date.data.BrandList;
+                console.log(brandsList);
                 if (brandsList != null || brandsList.length !== 0) {
                     if (page <= pageCount) {
                         for (var i = 0; i < brandsList.length; i++) {
@@ -662,8 +321,9 @@
 
         var brandImg = document.createElement("img");
         brandImg.setAttribute("class", "brandImg lazyImg");
-        brandImg.setAttribute("src", "/static/image/square-loading.webp");
-        brandImg.setAttribute("data-src", "https://cdn.couponsfab.com" + item.ImgUrl);
+        brandImg.setAttribute("src", item.ImgUrl);
+        brandImg.setAttribute("data-src", item.ImgUrl);
+
         brandImg.setAttribute("alt", item.Name + " icon");
 
         var brandLine = document.createElement("div");
@@ -718,8 +378,6 @@
         if (obj.top < viewHeight && obj.bottom >= viewHeight) {
             let is_running = true;
             if (is_running && page < pageCount) {
-
-
                 page += 1;
                 couponListContent(false);
                 is_running = false;
@@ -729,8 +387,8 @@
             }
         }
     };
-</script>
 
-<include file="public@foot"/>
+
+</script>
 </body>
 </html>
