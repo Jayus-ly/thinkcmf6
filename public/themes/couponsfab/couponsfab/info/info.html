@@ -1,10 +1,2592 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>详情</title>
-</head>
+<title>CouponsFab</title>
+<include file="public@head"/>
+
+<link rel="stylesheet" href="__TMPL__/public/index_files/brand/brand.css">
 <body>
-Hello {$theme_vars.name|default='ThinkCMF'}!
+<include file="public@nav"/>
+
+<script>
+    var width = window.innerWidth || document.documentElement.clientWidth;
+    var isMobile, isTablet, isPc = false;
+    if (width < 768) {
+        isMobile = true;
+
+    } else if (width >= 768 && width < 1367) {
+
+        isTablet = true;
+    } else {
+
+        isPc = true;
+    }
+    var isBannerEvent = 0;
+
+    if ("Spring Discounts - Easter Specials!") {
+        isBannerEvent = 0;
+    } else {
+        isBannerEvent = -1;
+    }
+    var headFlag = 7;
+    if ("/brand/airbnb" == "/event/easter-deals") {
+        headFlag = 0 + isBannerEvent;
+    } else if ("/brand/airbnb" == "/brand/temu") {
+        headFlag = 1 + isBannerEvent;
+    } else if ("/brand/airbnb" == "/brand/amazon") {
+        headFlag = 2 + isBannerEvent;
+    } else if ("/brand/airbnb" == "/free-stuff") {
+        headFlag = 5 + isBannerEvent;
+    } else if ("/brand/airbnb" == "/recommendations" || "/brand/airbnb" == "/blog") {
+        headFlag = 6 + isBannerEvent;
+    }
+    if (headFlag < 7) {
+        if (isPc) {
+            var topTitle = document.getElementsByClassName("navLink")[headFlag];
+            topTitle.style.color = "#F82C4C";
+        } else {
+            var topTitle = document.getElementsByClassName("sideTitle")[headFlag];
+            topTitle.style.color = "#F82C4C";
+        }
+    }
+
+
+    var searchWrap = document.getElementsByClassName('searchWrap')[0];
+
+    function searchShow() {
+        searchWrap.style.display = "block";
+    }
+
+    function searchClose() {
+        searchWrap.style.display = "none";
+    }
+
+
+    function jumpSearch(searchNode) {
+        var seaTextIndex = document.querySelector(searchNode);
+        var searchInputText = seaTextIndex.value;
+        if (searchInputText !== '') {
+            if ("") {
+                window.location.href = "/search" + "?q=" + searchInputText + "&";
+            } else {
+                window.location.href = "/search" + "?q=" + searchInputText;
+            }
+        } else {
+
+            console.log("Please enter the content of your search！");
+        }
+    }
+
+    function enterSearch(searchNode) {
+        var e = window.event;
+        if (e.keyCode == 13) {
+            jumpSearch(searchNode);
+        }
+    }
+
+
+    var body = document.getElementsByTagName("body")[0];
+    var mobileMenu = document.getElementsByClassName("mobileMenu")[0];
+    var dropDown = document.getElementsByClassName("dropDown")[0];
+    var closeMenu = document.getElementsByClassName("closeMenu")[0];
+    mobileMenu.onclick = function () {
+        dropDown.style.display = "block";
+        body.style.overflow = "hidden";
+    };
+    closeMenu.onclick = function () {
+        dropDown.style.display = "none";
+        body.style.overflow = "scroll";
+    };
+
+
+    var brandListMobile = document.getElementById("brandListMobile");
+    var brandCateMobile = document.getElementById("brandCateMobile");
+    var productListMobile = document.getElementById("productListMobile");
+    var productCateMobile = document.getElementById("productCateMobile");
+    brandListMobile.onclick = function () {
+        toggleCategory(brandListMobile, brandCateMobile, 0);
+    };
+    productListMobile.onclick = function () {
+        toggleCategory(productListMobile, productCateMobile, 1);
+    };
+
+    function toggleCategory(list, category, arrowIndex) {
+        let bottomArrows = document.getElementsByClassName("bottomArrow");
+        let topArrows = document.getElementsByClassName("topArrow");
+
+
+        for (let i = 0; i < bottomArrows.length; i++) {
+            bottomArrows[i].style.display = "block";
+            topArrows[i].style.display = "none";
+        }
+
+
+        if (category.style.display === "block") {
+            category.style.display = "none";
+            bottomArrows[arrowIndex].style.display = "block";
+            topArrows[arrowIndex].style.display = "none";
+
+            resetColor(list);
+        } else {
+            category.style.display = "block";
+            bottomArrows[arrowIndex].style.display = "none";
+            topArrows[arrowIndex].style.display = "block";
+
+            setColor(list, "#E02845");
+        }
+
+
+        let otherCategory = arrowIndex === 0 ? productCateMobile : brandCateMobile;
+        let otherList = arrowIndex === 0 ? productListMobile : brandListMobile;
+        if (otherCategory.style.display === "block") {
+            otherCategory.style.display = "none";
+            bottomArrows[1 - arrowIndex].style.display = "block";
+            topArrows[1 - arrowIndex].style.display = "none";
+
+            resetColor(otherList);
+        }
+    }
+
+
+    function setColor(category, color) {
+        let navLink = category.getElementsByClassName("navLink")[0];
+        navLink.style.color = color;
+    }
+
+    function resetColor(category) {
+        setColor(category, "#333333");
+    }
+
+</script>
+
+<div class="indexWrap">
+
+
+    <div class="guide">
+        <a href="/" aria-label="go home">Home</a>
+        <span class="guideIcon"> &gt; </span>
+        <a href="https://www.couponsfab.com/brandList/Travel" aria-label="go brandList Travel page">{$classification['name']}</a>
+        <span class="guideIcon"> &gt; </span>
+        <span class="brandName">{$data['name']}</span>
+
+    </div>
+
+
+    <div class="couponsListWrap">
+        <div class="detailLeft">
+
+            <a class="current-cate" href="{$data['href']}" target="_blank" aria-label="open {$data['href']}">
+                <div class="current-cate-pic">
+                    <img class="lazyImg" src="{:cmf_get_image_preview_url($data['img_url'])}"
+                         data-src="{:cmf_get_image_preview_url($data['img_url'])}" alt="{$data['name']} icon">
+                </div>
+                <div class="current-cate-info">
+                    <h1 class="current-cate-tl">{$data['name']}</h1>
+                    <p class="current-cate-tl-txt">{$data['count']} Deals &amp; Coupons</p>
+                </div>
+            </a>
+
+            <div class="ad-box ads-1" style="height: auto !important;">
+                <div class="adTitle">Advertisement</div>
+                <ins aria-label="Advertisement" class="adsbygoogle adHeight" data-ad-client="ca-pub-9260533539525355"
+                     data-ad-channel="" data-ad-slot="1172890569" data-ad-format="auto"
+                     style="display: inline-block; width: 100%;" data-full-width-responsive="true">
+                </ins>
+                <script>(window.adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+
+
+            <div class="detail-list">
+                <div class="detailListBox">
+                    <ul class="new-ls" id="new-ls"></ul>
+                    <div class="showMoreContent">
+                        <div class="showMoreBtn">Show More Coupons</div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="productRecommend">
+                <div class="topInfo">
+                    <a class="topTitle" href="https://www.couponsfab.com/product-list"
+                       aria-label="go product categories page">
+                        <h2 class="topText">Related Deals</h2>
+                        <div class="more">More
+                            <svg>
+                                <use xlink:href="#icon-more"></use>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+                <ul class="topProductsList">
+
+                    <li class="topProdItem">
+                        <a class="coverlink" href="https://www.couponsfab.com/product/715037"
+                           aria-label="go product 715037 page"></a>
+                        <div class="productsBorder">
+                            <div class="productsImg">
+                                <img class="ProductsImg lazyImg"
+                                     src="__TMPL__/public/index_files/brand/27f1ea83fbb854d859bad49c7b53d0e7.jpg"
+                                     data-src="__TMPL__/public/index_files/brand/kelkoo/27f1ea83fbb854d859bad49c7b53d0e7.jpg"
+                                     alt="SZHAIYIJIN SD Card Reader for iPhone, Memory Card Reader with USB Camera Adapter Plug and Play Trail Game Camera SD Card Viewer Supports SD and TF Card Micro SD Card Adapter for iPad No App Required ProductsLogo">
+                            </div>
+                        </div>
+                        <div class="productInfo">
+                            <div class="couponBgc">
+
+                                <span class="couponText">20% off</span>
+
+                            </div>
+                            <div class="prodName">SZHAIYIJIN SD Card Reader for iPhone, Memory Card Reader with USB
+                                Camera Adapter Plug and Play Trail Game Camera SD Card Viewer Supports SD and TF Card
+                                Micro SD Card Adapter for iPad No App Required
+                            </div>
+                            <div class="price">
+                                <div class="newPrice">$7.99</div>
+                                <div class="oiginalPrice">$9.99</div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="topProdItem">
+                        <a class="coverlink" href="https://www.couponsfab.com/product/716334"
+                           aria-label="go product 716334 page"></a>
+                        <div class="productsBorder">
+                            <div class="productsImg">
+                                <img class="ProductsImg lazyImg"
+                                     src="__TMPL__/public/index_files/brand/c6ca8d60b548b106352cf3f02edf9261.jpg"
+                                     data-src="__TMPL__/public/index_files/brand/kelkoo/c6ca8d60b548b106352cf3f02edf9261.jpg"
+                                     alt="Hayward W3925ADC Navigator Pro Suction Pool Cleaner for In-Ground Gunite Pools up to 20 x 40 ft. (Automatic Pool Vacuum) ProductsLogo">
+                            </div>
+                        </div>
+                        <div class="productInfo">
+                            <div class="couponBgc">
+
+                                <span class="couponText">HOT DEALS</span>
+
+                            </div>
+                            <div class="prodName">Hayward W3925ADC Navigator Pro Suction Pool Cleaner for In-Ground
+                                Gunite Pools up to 20 x 40 ft. (Automatic Pool Vacuum)
+                            </div>
+                            <div class="price">
+                                <div class="newPrice">$394.99</div>
+                                <div class="oiginalPrice">$394.99</div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="topProdItem">
+                        <a class="coverlink" href="https://www.couponsfab.com/product/717626"
+                           aria-label="go product 717626 page"></a>
+                        <div class="productsBorder">
+                            <div class="productsImg">
+                                <img class="ProductsImg lazyImg"
+                                     src="__TMPL__/public/index_files/brand/a23e044fce2f27879fae86ecd29cf1df.jpg"
+                                     data-src="__TMPL__/public/index_files/brand/kelkoo/a23e044fce2f27879fae86ecd29cf1df.jpg"
+                                     alt="Anker (Pack of 2) USA to Europe International Plug Adapter, Travel Adapter, 15W Max with 2 AC, 2 USB-C &amp; 1 USB-A Port, Ideal for iPhone 15, iPad Air &amp; More, Compact for Travel, Cruise (TUV Listed) ProductsLogo">
+                            </div>
+                        </div>
+                        <div class="productInfo">
+                            <div class="couponBgc">
+
+                                <span class="couponText">23% off</span>
+
+                            </div>
+                            <div class="prodName">Anker (Pack of 2) USA to Europe International Plug Adapter, Travel
+                                Adapter, 15W Max with 2 AC, 2 USB-C &amp; 1 USB-A Port, Ideal for iPhone 15, iPad Air
+                                &amp; More, Compact for Travel, Cruise (TUV Listed)
+                            </div>
+                            <div class="price">
+                                <div class="newPrice">$19.99</div>
+                                <div class="oiginalPrice">$25.99</div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="topProdItem">
+                        <a class="coverlink" href="https://www.couponsfab.com/product/714558"
+                           aria-label="go product 714558 page"></a>
+                        <div class="productsBorder">
+                            <div class="productsImg">
+                                <img class="ProductsImg lazyImg"
+                                     src="__TMPL__/public/index_files/brand/bcc2ba58a33c5e02bde963a0ebd75103.jpg"
+                                     data-src="__TMPL__/public/index_files/brand/kelkoo/bcc2ba58a33c5e02bde963a0ebd75103.jpg"
+                                     alt="TESSAN Universal Travel Adapter, International Power Adapter with 4 USB Ports (1 USB C), Worldwide Plug Adaptor Wall Charger for USA to Europe UK France Germany Spain Ireland Australia(Type C/G/A/I) ProductsLogo">
+                            </div>
+                        </div>
+                        <div class="productInfo">
+                            <div class="couponBgc">
+
+                                <span class="couponText">21% off</span>
+
+                            </div>
+                            <div class="prodName">TESSAN Universal Travel Adapter, International Power Adapter with 4
+                                USB Ports (1 USB C), Worldwide Plug Adaptor Wall Charger for USA to Europe UK France
+                                Germany Spain Ireland Australia(Type C/G/A/I)
+                            </div>
+                            <div class="price">
+                                <div class="newPrice">$16.79</div>
+                                <div class="oiginalPrice">$21.24</div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="topProdItem">
+                        <a class="coverlink" href="https://www.couponsfab.com/product/712775"
+                           aria-label="go product 712775 page"></a>
+                        <div class="productsBorder">
+                            <div class="productsImg">
+                                <img class="ProductsImg lazyImg"
+                                     src="__TMPL__/public/index_files/brand/47cdccb17899c12666fcbfe54151c610.jpg"
+                                     data-src="__TMPL__/public/index_files/brand/kelkoo/47cdccb17899c12666fcbfe54151c610.jpg"
+                                     alt="EPICKA Universal Travel Adapter, All in One International Power Adapter AC Plug Worldwide Charger Adaptor with USB-C and 4 USB Ports, Travel Essentials for Europe, UK, Japan, etc. (TA-105, Grey) ProductsLogo">
+                            </div>
+                        </div>
+                        <div class="productInfo">
+                            <div class="couponBgc">
+
+                                <span class="couponText">8% off</span>
+
+                            </div>
+                            <div class="prodName">EPICKA Universal Travel Adapter, All in One International Power
+                                Adapter AC Plug Worldwide Charger Adaptor with USB-C and 4 USB Ports, Travel Essentials
+                                for Europe, UK, Japan, etc. (TA-105, Grey)
+                            </div>
+                            <div class="price">
+                                <div class="newPrice">$22.99</div>
+                                <div class="oiginalPrice">$24.99</div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="topProdItem">
+                        <a class="coverlink" href="https://www.couponsfab.com/product/714832"
+                           aria-label="go product 714832 page"></a>
+                        <div class="productsBorder">
+                            <div class="productsImg">
+                                <img class="ProductsImg lazyImg"
+                                     src="__TMPL__/public/index_files/brand/6b99d7cac34a38afde9d5ec4bf9489c0.jpg"
+                                     data-src="__TMPL__/public/index_files/brand/kelkoo/6b99d7cac34a38afde9d5ec4bf9489c0.jpg"
+                                     alt="Merax 3 Pcs ABS Hardside Luggage Sets TSA Lock Spinner Wheel Suitcases, Pearly White, 20/24/28 Inch ProductsLogo">
+                            </div>
+                        </div>
+                        <div class="productInfo">
+                            <div class="couponBgc">
+
+                                <span class="couponText">HOT DEALS</span>
+
+                            </div>
+                            <div class="prodName">Merax 3 Pcs ABS Hardside Luggage Sets TSA Lock Spinner Wheel
+                                Suitcases, Pearly White, 20/24/28 Inch
+                            </div>
+                            <div class="price">
+                                <div class="newPrice">$89.99</div>
+                                <div class="oiginalPrice">$89.99</div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="topProdItem">
+                        <a class="coverlink" href="https://www.couponsfab.com/product/714833"
+                           aria-label="go product 714833 page"></a>
+                        <div class="productsBorder">
+                            <div class="productsImg">
+                                <img class="ProductsImg lazyImg"
+                                     src="__TMPL__/public/index_files/brand/4c69a6ce431d68ef8838b47f9a85ee8c.jpg"
+                                     data-src="__TMPL__/public/index_files/brand/kelkoo/4c69a6ce431d68ef8838b47f9a85ee8c.jpg"
+                                     alt="SwissGear Sion Softside Expandable Luggage, Black, Checked-Large 29-Inch ProductsLogo">
+                            </div>
+                        </div>
+                        <div class="productInfo">
+                            <div class="couponBgc">
+
+                                <span class="couponText">27% off</span>
+
+                            </div>
+                            <div class="prodName">SwissGear Sion Softside Expandable Luggage, Black, Checked-Large
+                                29-Inch
+                            </div>
+                            <div class="price">
+                                <div class="newPrice">$101.99</div>
+                                <div class="oiginalPrice">$139.99</div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="topProdItem">
+                        <a class="coverlink" href="https://www.couponsfab.com/product/714834"
+                           aria-label="go product 714834 page"></a>
+                        <div class="productsBorder">
+                            <div class="productsImg">
+                                <img class="ProductsImg lazyImg"
+                                     src="__TMPL__/public/index_files/brand/26bb3fe7c701ddc5f8e7bf4f2a234957.jpg"
+                                     data-src="__TMPL__/public/index_files/brand/kelkoo/26bb3fe7c701ddc5f8e7bf4f2a234957.jpg"
+                                     alt="Samsonite Freeform 21-Inch Hardside Carry-On Luggage with Spinner Wheels - Hardshell Carry-On Suitcase - TSA, Airline-Approved - Expandable Hard Shell, Smooth Rolling Wheels for Lightweight Travel ProductsLogo">
+                            </div>
+                        </div>
+                        <div class="productInfo">
+                            <div class="couponBgc">
+
+                                <span class="couponText">32% off</span>
+
+                            </div>
+                            <div class="prodName">Samsonite Freeform 21-Inch Hardside Carry-On Luggage with Spinner
+                                Wheels - Hardshell Carry-On Suitcase - TSA, Airline-Approved - Expandable Hard Shell,
+                                Smooth Rolling Wheels for Lightweight Travel
+                            </div>
+                            <div class="price">
+                                <div class="newPrice">$136.99</div>
+                                <div class="oiginalPrice">$199.99</div>
+                            </div>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+
+
+            <div class="relatedBlogs">
+                <div class="topInfo">
+                    <a class="topTitle" href="https://www.couponsfab.com/blog" aria-label="go blog page">
+                        <h2 class="topText">Related Articles</h2>
+                        <div class="more">More
+                            <svg>
+                                <use xlink:href="#icon-more"></use>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+                <ul class="blogsList">
+
+                    <li class="blogItem">
+                        <a href="https://www.couponsfab.com/blog/back-to-school-sales-electronic-product-recommendations"
+                           aria-label="go blog page"></a>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <rect width="40" height="40" rx="20" fill="#F82C4C"></rect>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M28.2936 22.8927C29.0714 22.1149 29.0714 20.8538 28.2936 20.076L19.8068 11.5892C19.3772 11.1596 18.7749 10.9496 18.1712 11.0189L13.3286 11.575C12.4085 11.6806 11.6827 12.4064 11.5771 13.3265L11.021 18.1692C10.9516 18.7728 11.1617 19.3751 11.5913 19.8047L20.0781 28.2915C20.8559 29.0693 22.117 29.0693 22.8948 28.2915L28.2936 22.8927ZM13.6469 15.461C13.6469 16.4645 14.4604 17.278 15.4639 17.278C16.4674 17.278 17.2809 16.4645 17.2809 15.461C17.2809 14.4574 16.4674 13.6439 15.4639 13.6439C14.4604 13.6439 13.6469 14.4574 13.6469 15.461Z"
+                                  fill="white"></path>
+                        </svg>
+                        <img class="editorImg lazyImg"
+                             src="__TMPL__/public/index_files/brand/back-to-school-sales-electronic-product-recommendations.webp"
+                             data-src="__TMPL__/public/index_files/brand/blog/back-to-school-sales-electronic-product-recommendations.webp"
+                             alt="Blog Logo">
+                        <div class="editorTitle">Back to School Sales: Electronic Product Recommendations</div>
+                    </li>
+
+                    <li class="blogItem">
+                        <a href="https://www.couponsfab.com/blog/the-best-gift-card-deals-of-2024"
+                           aria-label="go blog page"></a>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <rect width="40" height="40" rx="20" fill="#F82C4C"></rect>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M28.2936 22.8927C29.0714 22.1149 29.0714 20.8538 28.2936 20.076L19.8068 11.5892C19.3772 11.1596 18.7749 10.9496 18.1712 11.0189L13.3286 11.575C12.4085 11.6806 11.6827 12.4064 11.5771 13.3265L11.021 18.1692C10.9516 18.7728 11.1617 19.3751 11.5913 19.8047L20.0781 28.2915C20.8559 29.0693 22.117 29.0693 22.8948 28.2915L28.2936 22.8927ZM13.6469 15.461C13.6469 16.4645 14.4604 17.278 15.4639 17.278C16.4674 17.278 17.2809 16.4645 17.2809 15.461C17.2809 14.4574 16.4674 13.6439 15.4639 13.6439C14.4604 13.6439 13.6469 14.4574 13.6469 15.461Z"
+                                  fill="white"></path>
+                        </svg>
+                        <img class="editorImg lazyImg"
+                             src="__TMPL__/public/index_files/brand/the-best-gift-card-deals-of-2024.webp"
+                             data-src="__TMPL__/public/index_files/brand/blog/the-best-gift-card-deals-of-2024.webp"
+                             alt="Blog Logo">
+                        <div class="editorTitle">The Best Gift Card Deals of 2024</div>
+                    </li>
+
+                    <li class="blogItem">
+                        <a href="https://www.couponsfab.com/blog/5-best-products--2024" aria-label="go blog page"></a>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
+                            <rect width="40" height="40" rx="20" fill="#F82C4C"></rect>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M28.2936 22.8927C29.0714 22.1149 29.0714 20.8538 28.2936 20.076L19.8068 11.5892C19.3772 11.1596 18.7749 10.9496 18.1712 11.0189L13.3286 11.575C12.4085 11.6806 11.6827 12.4064 11.5771 13.3265L11.021 18.1692C10.9516 18.7728 11.1617 19.3751 11.5913 19.8047L20.0781 28.2915C20.8559 29.0693 22.117 29.0693 22.8948 28.2915L28.2936 22.8927ZM13.6469 15.461C13.6469 16.4645 14.4604 17.278 15.4639 17.278C16.4674 17.278 17.2809 16.4645 17.2809 15.461C17.2809 14.4574 16.4674 13.6439 15.4639 13.6439C14.4604 13.6439 13.6469 14.4574 13.6469 15.461Z"
+                                  fill="white"></path>
+                        </svg>
+                        <img class="editorImg lazyImg" src="__TMPL__/public/index_files/brand/5-best-product-2024.webp"
+                             data-src="__TMPL__/public/index_files/brand/blog/5-best-product-2024.webp" alt="Blog Logo">
+                        <div class="editorTitle">The 5 best products to buy in 2024</div>
+                    </li>
+
+                </ul>
+            </div>
+
+
+            <div class="freeStuff relatedBlogs">
+                <div class="topInfo">
+                    <a class="topTitle" href="https://www.couponsfab.com/free-stuff" aria-label="go stuff page">
+                        <h2 class="topText">Hot Free Stuff</h2>
+                        <div class="more">More
+                            <svg>
+                                <use xlink:href="#icon-more"></use>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+                <ul class="stuffList blogsList">
+
+                    <li class="stuffItem blogItem">
+                        <a href="https://www.couponsfab.com/stuff/free-baskin-robbins-treats"
+                           aria-label="go stuff page"></a>
+                        <img class="stuffImg editorImg lazyImg"
+                             src="__TMPL__/public/index_files/brand/ebb8433c3ea7b6fcc9e8a29793ce6ceb.jpeg"
+                             data-src="__TMPL__/public/index_files/brand/images/ebb8433c3ea7b6fcc9e8a29793ce6ceb.jpeg"
+                             alt="Stuff Logo">
+                        <div class="stuffTitle editorTitle">Free Baskin Robbins Treats</div>
+                    </li>
+
+                    <li class="stuffItem blogItem">
+                        <a href="https://www.couponsfab.com/stuff/free-1-cash-per-survey-with-pinecone"
+                           aria-label="go stuff page"></a>
+                        <img class="stuffImg editorImg lazyImg"
+                             src="__TMPL__/public/index_files/brand/5ccc208e6fe86dd71cc991d09d451d5a.jpg"
+                             data-src="__TMPL__/public/index_files/brand/images/5ccc208e6fe86dd71cc991d09d451d5a.jpg"
+                             alt="Stuff Logo">
+                        <div class="stuffTitle editorTitle">Free $1 Cash Per Survey with Pinecone</div>
+                    </li>
+
+                    <li class="stuffItem blogItem">
+                        <a href="https://www.couponsfab.com/stuff/free-cash-get-a-2-bonus-with-surveypronto"
+                           aria-label="go stuff page"></a>
+                        <img class="stuffImg editorImg lazyImg"
+                             src="__TMPL__/public/index_files/brand/17bca222e8836400296dafd451bb4503.jpeg"
+                             data-src="__TMPL__/public/index_files/brand/images/17bca222e8836400296dafd451bb4503.jpeg"
+                             alt="Stuff Logo">
+                        <div class="stuffTitle editorTitle">Free Cash &amp; Get a $2 Bonus with SurveyPronto</div>
+                    </li>
+
+                </ul>
+            </div>
+
+
+            <div class="tableWrap">
+                <div class="topInfo" id="popularTitle">
+                    <h2 class="topText">Popular Airbnb Promo Code &amp; Deals</h2>
+                </div>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Discount Type</th>
+                        <th>Coupon Description</th>
+                        <th>Expired Time</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr onclick="jumpLinkCoupon( 1049405 )">
+
+                        <td>DEALS</td>
+
+
+                        <td>NEW SALE</td>
+
+
+                        <td>Airbnb Coupons And Promo Codes For September</td>
+
+
+                        <td>2025/04/12</td>
+
+                    </tr>
+
+                    <tr onclick="jumpLinkCoupon( 4855256 )">
+
+                        <td>THANKS30</td>
+
+
+                        <td>30% OFF</td>
+
+
+                        <td>30% Off Your Next Rental</td>
+
+
+                        <td>2025/04/12</td>
+
+                    </tr>
+
+                    <tr onclick="jumpLinkCoupon( 4894505 )">
+
+                        <td>BEACH2045</td>
+
+
+                        <td>20% OFF</td>
+
+
+                        <td>20% Off Your Order</td>
+
+
+                        <td>2025/04/12</td>
+
+                    </tr>
+
+                    <tr onclick="jumpLinkCoupon( 1331593 )">
+
+                        <td>DEALS</td>
+
+
+                        <td>SALE</td>
+
+
+                        <td>Airbnb Coupons - Save On Your Next Stay</td>
+
+
+                        <td>2025/04/12</td>
+
+                    </tr>
+
+                    <tr onclick="jumpLinkCoupon( 4961486 )">
+
+                        <td>ACSALE2050</td>
+
+
+                        <td>$50 OFF</td>
+
+
+                        <td>$50 Off Airbnb Booking</td>
+
+
+                        <td>2025/04/12</td>
+
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div class="topInfo" id="brandAbout">
+                <h2 class="topText">About Airbnb</h2>
+            </div>
+            <div class="about" style="height: 210px; overflow: hidden;">
+                Airbnb, an American online marketplace for both short-term and long-term rentals, was founded in 2008
+                when its creators decided to offer a spare room with an air mattress, creating the concept of an "air
+                bed and breakfast" room. This small beginning quickly led to the company's global expansion. Currently,
+                Airbnb provides a wide range of rental options, from shared room beds to entire properties. Its
+                tremendous growth has transformed its initial $20,000 funding into a $110 billion enterprise, with a
+                presence in over 100,000 cities, offering more than 7 million listings.
+
+                As Airbnb continues to expand worldwide, it is also diversifying its offerings. Hosts can now not only
+                rent out spare rooms or homes for vacation stays but also offer their spaces for long-term rentals. The
+                available rental options are incredibly diverse, including unique and extraordinary accommodations like
+                igloos, treehouses, trolley cars, and windmills, to name just a few.
+
+                Moreover, Airbnb isn't limited to providing accommodations. The platform has also developed a
+                marketplace for experiences, allowing users to immerse themselves in the local culture of the places
+                they visit. These experiences range from cooking classes and tours to music and dancing lessons. This
+                additional feature enhances the overall travel experience for Airbnb users, adding an extra layer of
+                cultural exploration and discovery.
+            </div>
+
+            <div class="flag" id="aboutFlag" style="display: block;">
+                <div class="moreBox" id="aboutMore" onclick="changeMinBox(false)" style="display: block;">
+                    <div class="more">
+                        <span class="moreText">Show More</span>
+                        <svg>
+                            <use xlink:href="#icon-moreText"></use>
+                        </svg>
+                    </div>
+                </div>
+                <div class="lessBox" id="aboutLess" onclick="changeMinBox(true)" style="display: none;">
+                    <div class="less">
+                        <span class="lessText"> Show Less</span>
+                        <svg>
+                            <use xlink:href="#icon-lessText"></use>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="topInfo" id="FAQTitle">
+                <h2 class="topText">Airbnb FAQ</h2>
+            </div>
+            <div class="FAQList">
+
+
+                <div class="FAQItem" onclick="clickQuestion( 0 )">
+                    <div class="questionList">
+                        <div class="question">What is the process for applying a promo code on Airbnb.com?</div>
+                        <div class="questionIcon">
+                            <svg class="close" style="display: block;">
+                                <use xlink:href="#icon-close"></use>
+                            </svg>
+                            <svg class="open" style="display: none;">
+                                <use xlink:href="#icon-open"></use>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="answerList" style="display: block;">
+                        <div class="answer">Once you have chosen a stay or experience that you wish to buy, any referral
+                            coupon or travel credit will be automatically applied during the checkout process. To view
+                            the discounts you have available, you can navigate to 'Payments &amp;amp; Payouts' and click
+                            on 'Credits &amp;amp; Coupons'.
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="FAQItem" onclick="clickQuestion( 1 )">
+                    <div class="questionList">
+                        <div class="question">What is the process for joining the rewards program offered by Airbnb?
+                        </div>
+                        <div class="questionIcon">
+                            <svg class="close">
+                                <use xlink:href="#icon-close"></use>
+                            </svg>
+                            <svg class="open">
+                                <use xlink:href="#icon-open"></use>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="answerList">
+                        <div class="answer">Airbnb does not offer its own rewards program. Nevertheless, there are
+                            numerous credit card rewards programs that can be utilized for savings on Airbnb stays and
+                            experiences. Individuals should explore their credit card rewards programs to determine if
+                            they are eligible for any that provide substantial benefits.
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="FAQItem" onclick="clickQuestion( 2 )">
+                    <div class="questionList">
+                        <div class="question">How can I discover discounts within the Airbnb application?</div>
+                        <div class="questionIcon">
+                            <svg class="close">
+                                <use xlink:href="#icon-close"></use>
+                            </svg>
+                            <svg class="open">
+                                <use xlink:href="#icon-open"></use>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="answerList">
+                        <div class="answer">In the Airbnb application, there are multiple options to explore discounts.
+                            If you have received a referral reward, travel credit from the Superhost program, or any
+                            other voucher, you can easily locate it in the "Credits &amp; Coupons" segment.
+                            Additionally, it is worth attempting various date ranges as certain locations may experience
+                            significant price fluctuations, allowing you to uncover potential savings.
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="FAQBox">
+
+
+                    <div class="FAQItem" onclick="clickQuestion( 3 )">
+                        <div class="questionList">
+                            <div class="question">What are the cancellation terms of Airbnb?</div>
+                            <div class="questionIcon">
+                                <svg class="close">
+                                    <use xlink:href="#icon-close"></use>
+                                </svg>
+                                <svg class="open">
+                                    <use xlink:href="#icon-open"></use>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="answerList">
+                            <div class="answer">Due to the customized rules set by individual hosts, there is a wide
+                                range of cancellation policies. Guests can receive a full refund if they cancel 24 hours
+                                prior to the check-in time under flexible policies. However, in the strictest policies,
+                                guests are not eligible for any refund if they cancel within 60 days of the check-in
+                                time and only receive a 50% refund for earlier cancellations.
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="FAQItem" onclick="clickQuestion( 4 )">
+                        <div class="questionList">
+                            <div class="question">What is the ideal timing to make a reservation for an Airbnb?</div>
+                            <div class="questionIcon">
+                                <svg class="close">
+                                    <use xlink:href="#icon-close"></use>
+                                </svg>
+                                <svg class="open">
+                                    <use xlink:href="#icon-open"></use>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="answerList">
+                            <div class="answer">Airbnb rates fluctuate daily, however, the specific pattern of these
+                                fluctuations varies depending on the location. Typically, it is advisable to reserve
+                                your Airbnb accommodation between one to three months prior to your planned trip, taking
+                                into consideration the popularity of the destination. During public holidays or major
+                                festivals, it is recommended to make your booking even earlier.
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <div class="brandHtml"><h3 id="title-1">Money-Saving Tips at Airbnb</h3>
+                <p>To save money while using Airbnb, travelers should consider booking early, as this often results in
+                    better rates, especially during peak seasons. Utilizing filters effectively can help narrow down
+                    affordable options, while traveling off-peak can lead to significant savings. It's also wise to
+                    check for discounts for longer stays, communicate directly with hosts regarding potential price
+                    flexibility, and be mindful of additional fees in the final cost. Lastly, new users should take
+                    advantage of referral credits to further reduce their expenses.</p>
+                <h3 id="title-2">Cancellation Policy of Airbnb</h3>
+                <p>During the reservation period, the cancellation policy can be accessed at any time on the property
+                    page under the "<a href="https://www.airbnb.cn/help/topic/1367" target="_blank">Cancellation
+                        Policy</a>" section and on the checkout page. If an order has already been placed, users can
+                    find their order in the "Trips" tab and view the full cancellation policy details set by the host on
+                    the order details page.</p>
+                <p>The cancellation policy is determined by the host and varies by property. If the host has selected a
+                    fully refundable policy, cancellations can be made free of charge, but it is essential to cancel
+                    before the specified date and time outlined in the policy. It’s also important to note that for
+                    certain properties, cancellations may not be fully refundable or could only be partially refunded
+                    after specific dates and times. In such cases, unless the cancellation falls under Airbnb's
+                    significant disruption policy, users will not be able to cancel the order for free.</p></div>
+
+            <div class="topInfo" id="paymentTitle">
+                <h2 class="topText">Available Payment Options at Airbnb</h2>
+            </div>
+            <ul class="pamentList">
+
+                <li class="pamentItem">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
+                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
+                    </svg>
+                    Convenience store
+                </li>
+
+                <li class="pamentItem">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
+                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
+                    </svg>
+                    Visa
+                </li>
+
+                <li class="pamentItem">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
+                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
+                    </svg>
+                    Mastercard
+                </li>
+
+                <li class="pamentItem">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
+                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
+                    </svg>
+                    Amex
+                </li>
+
+                <li class="pamentItem">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
+                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
+                    </svg>
+                    Debit card
+                </li>
+
+                <li class="pamentItem">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
+                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
+                    </svg>
+                    Troy
+                </li>
+
+                <li class="pamentItem">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
+                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
+                    </svg>
+                    Paypal
+                </li>
+
+                <li class="pamentItem">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
+                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
+                    </svg>
+                    iDeal
+                </li>
+
+                <li class="pamentItem">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
+                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
+                    </svg>
+                    Venmo
+                </li>
+
+                <li class="pamentItem">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
+                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
+                    </svg>
+                    American Express
+                </li>
+
+                <li class="pamentItem">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
+                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
+                    </svg>
+                    Credit Cards
+                </li>
+
+                <li class="pamentItem">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
+                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
+                    </svg>
+                    discover
+                </li>
+
+                <li class="pamentItem">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
+                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
+                    </svg>
+                    Solo
+                </li>
+
+                <li class="pamentItem">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
+                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
+                    </svg>
+                    Worldpay
+                </li>
+
+                <li class="pamentItem">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
+                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
+                    </svg>
+                    Aura
+                </li>
+
+                <li class="pamentItem">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
+                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
+                    </svg>
+                    Stripe
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="categoryWrap">
+
+
+            <div class="tableContents">
+                <ul class="contentsList">
+
+                    <li class="contentsItem contentsPc">
+                        <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#popularTitle"
+                           aria-label="Popular Coupon Title" onclick="smoothScroll(event, &#39;popularTitle&#39;)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12"
+                                 fill="none">
+                                <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
+                                      fill="#333333"></path>
+                            </svg>
+                            Popular Airbnb Promo Code &amp; Deals
+                        </a>
+                    </li>
+
+
+                    <li class="contentsItem contentsPc">
+                        <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#brandAbout"
+                           aria-label="About Title" onclick="smoothScroll(event, &#39;brandAbout&#39;)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12"
+                                 fill="none">
+                                <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
+                                      fill="#333333"></path>
+                            </svg>
+                            About Airbnb
+                        </a>
+                    </li>
+
+
+                    <li class="contentsItem contentsPc">
+                        <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#FAQTitle"
+                           aria-label="FAQ Title" onclick="smoothScroll(event, &#39;FAQTitle&#39;)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12"
+                                 fill="none">
+                                <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
+                                      fill="#333333"></path>
+                            </svg>
+                            Airbnb FAQ
+                        </a>
+                    </li>
+
+
+                    <li class="contentsItem contentsPc">
+                        <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#title-1"
+                           aria-label="Money-Saving Tips at Airbnb" onclick="smoothScroll(event, &#39;title-1&#39;)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12"
+                                 fill="none">
+                                <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
+                                      fill="#333333"></path>
+                            </svg>
+                            Money-Saving Tips at Airbnb
+                        </a>
+                    </li>
+
+                    <li class="contentsItem contentsPc">
+                        <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#title-2"
+                           aria-label="Cancellation Policy of Airbnb" onclick="smoothScroll(event, &#39;title-2&#39;)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12"
+                                 fill="none">
+                                <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
+                                      fill="#333333"></path>
+                            </svg>
+                            Cancellation Policy of Airbnb
+                        </a>
+                    </li>
+
+
+                    <li class="contentsItem contentsPc">
+                        <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#paymentTitle"
+                           aria-label="Available Payment Options Title"
+                           onclick="smoothScroll(event, &#39;paymentTitle&#39;)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12"
+                                 fill="none">
+                                <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
+                                      fill="#333333"></path>
+                            </svg>
+                            Available Payment Options at Airbnb
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+
+            <div class="ad-box ads-1">
+                <div class="adTitle">Advertisement</div>
+                <ins aria-label="Advertisement" class="adsbygoogle adHeight" style="display: inline-block; width: 100%;"
+                     data-ad-client="ca-pub-9260533539525355" data-ad-channel="" data-ad-slot="6149885071"
+                     data-ad-format="auto" data-full-width-responsive="true">
+                </ins>
+                <script>(window.adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+
+
+            <div class="authorCard">
+                <div class="authorInfo">
+
+                    <div class="authorImg">
+                        <img class="avatar lazyImg" src="__TMPL__/public/index_files/brand/expert_female_04.webp"
+                             data-src="__TMPL__/public/index_files/brand/images/expert_female_04.webp" alt="Iris Fallow">
+                    </div>
+
+                    <div class="author">
+                        <div class="nickname">By Iris Fallow</div>
+                        <div class="info">Savings Whiz</div>
+                    </div>
+                </div>
+                <div class="authorDesc" style="-webkit-line-clamp: 10;">Iris is a creative thinker with a knack for
+                    transforming the ordinary task of saving money into an exciting adventure. Her passion lies in
+                    discovering and sharing unconventional savings strategies that break free from the traditional mold
+                    of couponing. By blending creativity with practicality, she offers readers a fresh perspective on
+                    how to maximize their savings. Iris's innovative approach turns couponing into an engaging and
+                    enjoyable experience, appealing to both seasoned savers and newcomers alike. She explores
+                    out-of-the-box ideas such as combining digital apps with traditional coupons, leveraging social
+                    media for exclusive deals, and even crafting DIY solutions for everyday shopping challenges. Her
+                    advice encourages readers to view saving money as a fun puzzle, where each piece fits together to
+                    create a bigger picture of financial well-being. Her infectious enthusiasm and unique insights
+                    empower individuals to take control of their finances in an exciting way, proving that with a little
+                    creativity, anyone can turn saving into a rewarding lifestyle choice.
+                </div>
+
+                <div class="flag" id="authorFlag">
+                    <div class="moreBox" id="authorMore" onclick="changeAuthorDesc(false)">
+                        <div class="more">
+                            <span class="moreText">Show More</span>
+                            <svg>
+                                <use xlink:href="#icon-moreText"></use>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="lessBox" id="authorLess" onclick="changeAuthorDesc(true)" style="display: none;">
+                        <div class="less">
+                            <span class="lessText"> Show Less</span>
+                            <svg>
+                                <use xlink:href="#icon-lessText"></use>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="popularBrand">
+                <div class="topInfo">
+                    <a class="topTitle" href="https://www.couponsfab.com/brandList/Travel"
+                       aria-label="go brandList Travel page">
+                        <h2 class="topText">Similar Brands</h2>
+                        <div class="more">More
+                            <svg>
+                                <use xlink:href="#icon-more"></use>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+                <ul class="brandList">
+
+                    <li class="brandItem">
+                        <a class="brandLink" href="https://www.couponsfab.com/brand/express"
+                           aria-label="go brand express page"></a>
+                        <div class="brandImgDiv">
+                            <img class="brandImg lazyImg" src="__TMPL__/public/index_files/brand/Express.webp"
+                                 data-src="__TMPL__/public/index_files/brand/brands/Express.webp" alt="Express icon">
+                        </div>
+                        <div class="brandInfo">
+                            <p class="brandName">Express</p>
+
+                        </div>
+                    </li>
+
+                    <li class="brandItem">
+                        <a class="brandLink" href="https://www.couponsfab.com/brand/aliexpress"
+                           aria-label="go brand aliexpress page"></a>
+                        <div class="brandImgDiv">
+                            <img class="brandImg lazyImg"
+                                 src="__TMPL__/public/index_files/brand/AliExpress-160-webp.webp"
+                                 data-src="__TMPL__/public/index_files/brand/brands/AliExpress-160-webp.webp"
+                                 alt="AliExpress icon">
+                        </div>
+                        <div class="brandInfo">
+                            <p class="brandName">AliExpress</p>
+
+                        </div>
+                    </li>
+
+                    <li class="brandItem">
+                        <a class="brandLink" href="https://www.couponsfab.com/brand/hotels-com"
+                           aria-label="go brand hotels-com page"></a>
+                        <div class="brandImgDiv">
+                            <img class="brandImg lazyImg" src="__TMPL__/public/index_files/brand/hotel-a1.webp"
+                                 data-src="__TMPL__/public/index_files/brand/brands/hotel-a1.webp" alt="Hotels icon">
+                        </div>
+                        <div class="brandInfo">
+                            <p class="brandName">Hotels</p>
+
+                        </div>
+                    </li>
+
+                    <li class="brandItem">
+                        <a class="brandLink" href="https://www.couponsfab.com/brand/cheapoair"
+                           aria-label="go brand cheapoair page"></a>
+                        <div class="brandImgDiv">
+                            <img class="brandImg lazyImg" src="__TMPL__/public/index_files/brand/CHEAPQAIR1.webp"
+                                 data-src="__TMPL__/public/index_files/brand/brands/CHEAPQAIR1.webp"
+                                 alt="CheapOair icon">
+                        </div>
+                        <div class="brandInfo">
+                            <p class="brandName">CheapOair</p>
+
+                        </div>
+                    </li>
+
+                    <li class="brandItem">
+                        <a class="brandLink" href="https://www.couponsfab.com/brand/rentalcars"
+                           aria-label="go brand rentalcars page"></a>
+                        <div class="brandImgDiv">
+                            <img class="brandImg lazyImg"
+                                 src="__TMPL__/public/index_files/brand/AM62ND2VAJGVHCVR66ACONHWSU.png"
+                                 data-src="__TMPL__/public/index_files/brand/brands/AM62ND2VAJGVHCVR66ACONHWSU.png"
+                                 alt="RentalCars icon">
+                        </div>
+                        <div class="brandInfo">
+                            <p class="brandName">RentalCars</p>
+
+                        </div>
+                    </li>
+
+                    <li class="brandItem">
+                        <a class="brandLink" href="https://www.couponsfab.com/brand/emirates-airline"
+                           aria-label="go brand emirates-airline page"></a>
+                        <div class="brandImgDiv">
+                            <img class="brandImg lazyImg"
+                                 src="__TMPL__/public/index_files/brand/DCYIBF2H4ZEXTFAZAM4G343PVI.png"
+                                 data-src="__TMPL__/public/index_files/brand/brands/DCYIBF2H4ZEXTFAZAM4G343PVI.png"
+                                 alt="Emirates Airline icon">
+                        </div>
+                        <div class="brandInfo">
+                            <p class="brandName">Emirates Airline</p>
+
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="popularBrand">
+                <div class="topInfo">
+                    <a class="topTitle" href="https://www.couponsfab.com/brandList" aria-label="go brandList page">
+                        <h2 class="topText">Popular Brands</h2>
+                        <div class="more">More
+                            <svg>
+                                <use xlink:href="#icon-more"></use>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+                <ul class="brandList">
+
+                    <li class="brandItem">
+                        <a class="brandLink" href="https://www.couponsfab.com/brand/temu"
+                           aria-label="go brand temu page"></a>
+                        <div class="brandText">Temu</div>
+                    </li>
+
+                    <li class="brandItem">
+                        <a class="brandLink" href="https://www.couponsfab.com/brand/walmart"
+                           aria-label="go brand walmart page"></a>
+                        <div class="brandText">Walmart</div>
+                    </li>
+
+                    <li class="brandItem">
+                        <a class="brandLink" href="https://www.couponsfab.com/brand/dick-s-sporting-goods"
+                           aria-label="go brand dick-s-sporting-goods page"></a>
+                        <div class="brandText">Dick's Sporting Goods</div>
+                    </li>
+
+                    <li class="brandItem">
+                        <a class="brandLink" href="https://www.couponsfab.com/brand/target"
+                           aria-label="go brand target page"></a>
+                        <div class="brandText">Target</div>
+                    </li>
+
+                    <li class="brandItem">
+                        <a class="brandLink" href="https://www.couponsfab.com/brand/amazon"
+                           aria-label="go brand amazon page"></a>
+                        <div class="brandText">Amazon</div>
+                    </li>
+
+                    <li class="brandItem">
+                        <a class="brandLink" href="https://www.couponsfab.com/brand/staples"
+                           aria-label="go brand staples page"></a>
+                        <div class="brandText">Staples</div>
+                    </li>
+
+                    <li class="brandItem">
+                        <a class="brandLink" href="https://www.couponsfab.com/brand/papa-johns"
+                           aria-label="go brand papa-johns page"></a>
+                        <div class="brandText">Papa John's</div>
+                    </li>
+
+                    <li class="brandItem">
+                        <a class="brandLink" href="https://www.couponsfab.com/brand/best-buy"
+                           aria-label="go brand best-buy page"></a>
+                        <div class="brandText">Best Buy</div>
+                    </li>
+
+                    <li class="brandItem">
+                        <a class="brandLink" href="https://www.couponsfab.com/brand/subway"
+                           aria-label="go brand subway page"></a>
+                        <div class="brandText">Subway</div>
+                    </li>
+
+                    <li class="brandItem">
+                        <a class="brandLink" href="https://www.couponsfab.com/brand/shutterfly"
+                           aria-label="go brand shutterfly page"></a>
+                        <div class="brandText">Shutterfly</div>
+                    </li>
+
+                    <li class="brandItem">
+                        <a class="brandLink" href="https://www.couponsfab.com/brand/shein"
+                           aria-label="go brand shein page"></a>
+                        <div class="brandText">SHEIN</div>
+                    </li>
+
+                    <li class="brandItem">
+                        <a class="brandLink" href="https://www.couponsfab.com/brand/groupon"
+                           aria-label="go brand groupon page"></a>
+                        <div class="brandText">Groupon</div>
+                    </li>
+
+                </ul>
+            </div>
+
+
+            <div class="chooseWrap">
+                <div class="topInfo">
+                    <h2 class="topText">Why trust us？</h2>
+                </div>
+
+                <ul class="chooseList">
+                    <li class="chooseText">
+                        <strong>Extensive Variety:</strong> CouponsFab offers an extensive selection of coupons from
+                        various retailers across a range of different categories.
+                    </li>
+                    <li class="chooseText">
+                        <strong>Savings Galore:</strong> On average, our users save 20% on their orders with our
+                        coupons, and some even enjoy savings of 50% or more.
+                    </li>
+                    <li class="chooseText">
+                        <strong>Verified and Reliable Coupons:</strong> Our dedicated team works diligently to ensure
+                        that all the coupons listed on our site are up-to-date and valid.
+                    </li>
+                    <li class="chooseText">
+                        <strong>Exclusive Offers:</strong> We partner with retailers to bring you unique discounts and
+                        promotions.
+                    </li>
+                </ul>
+                <div class="chooseText">
+                    Start saving today with CouponsFab and join millions of satisfied users who have already saved
+                    thousands of dollars.
+                </div>
+            </div>
+
+
+            <div class="tableContents" style="position: fixed; display: none;">
+                <ul class="contentsList">
+
+                    <li class="contentsItem contentsPc">
+                        <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#popularTitle"
+                           aria-label="Popular Coupon Title" onclick="smoothScroll(event, &#39;popularTitle&#39;)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12"
+                                 fill="none">
+                                <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
+                                      fill="#333333"></path>
+                            </svg>
+                            Popular Airbnb Promo Code &amp; Deals
+                        </a>
+                    </li>
+
+
+                    <li class="contentsItem contentsPc">
+                        <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#brandAbout"
+                           aria-label="About Title" onclick="smoothScroll(event, &#39;brandAbout&#39;)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12"
+                                 fill="none">
+                                <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
+                                      fill="#333333"></path>
+                            </svg>
+                            About Airbnb
+                        </a>
+                    </li>
+
+
+                    <li class="contentsItem contentsPc">
+                        <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#FAQTitle"
+                           aria-label="FAQ Title" onclick="smoothScroll(event, &#39;FAQTitle&#39;)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12"
+                                 fill="none">
+                                <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
+                                      fill="#333333"></path>
+                            </svg>
+                            Airbnb FAQ
+                        </a>
+                    </li>
+
+
+                    <li class="contentsItem contentsPc">
+                        <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#title-1"
+                           aria-label="Money-Saving Tips at Airbnb" onclick="smoothScroll(event, &#39;title-1&#39;)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12"
+                                 fill="none">
+                                <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
+                                      fill="#333333"></path>
+                            </svg>
+                            Money-Saving Tips at Airbnb
+                        </a>
+                    </li>
+
+                    <li class="contentsItem contentsPc">
+                        <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#title-2"
+                           aria-label="Cancellation Policy of Airbnb" onclick="smoothScroll(event, &#39;title-2&#39;)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12"
+                                 fill="none">
+                                <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
+                                      fill="#333333"></path>
+                            </svg>
+                            Cancellation Policy of Airbnb
+                        </a>
+                    </li>
+
+
+                    <li class="contentsItem contentsPc">
+                        <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#paymentTitle"
+                           aria-label="Available Payment Options Title"
+                           onclick="smoothScroll(event, &#39;paymentTitle&#39;)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12"
+                                 fill="none">
+                                <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
+                                      fill="#333333"></path>
+                            </svg>
+                            Available Payment Options at Airbnb
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <div class="blogsWrap">
+
+        <div class="blogsTitle">
+            <a href="https://www.couponsfab.com/blog/exclusive-deals-for-women"
+               aria-label="go blog exclusive-deals-for-women page"></a>
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M9.57367 22.1543C9.02801 21.246 9.17472 20.0823 9.92874 19.3379L17.1215 13.1547C18.037 12.251 19.5162 12.2755 20.4011 13.2092L21.7885 14.6728C22.8039 15.7441 22.5592 17.4815 21.2874 18.2307L10.4068 23.2114L9.57367 22.1543Z"
+                      fill="#C70000"></path>
+                <path d="M16.4891 1.43054C15.7295 0.415143 14.2906 0.207807 13.2752 0.967442L1.19738 10.2966C0.181993 11.0562 -0.0253364 12.4951 0.734294 13.5105L2.19941 15.4689C2.38931 15.7228 2.74765 15.7675 3.0364 15.6367C4.13918 15.1369 5.47895 15.451 6.23413 16.4604C6.98931 17.4698 6.91234 18.8438 6.12159 19.7606C5.91454 20.0007 5.85634 20.3571 6.04624 20.6109L7.51164 22.5697C8.27128 23.5851 9.71021 23.7924 10.7256 23.0328L22.8034 13.7036C23.8188 12.944 24.0261 11.5051 23.2665 10.4897L21.8011 8.53091C21.6112 8.27706 21.2529 8.23229 20.9641 8.36315C19.8613 8.86295 18.5215 8.54895 17.7663 7.5395C17.0111 6.53004 17.0881 5.15607 17.8789 4.23924C18.0859 3.99918 18.1441 3.64276 17.9542 3.38892L16.4891 1.43054Z"
+                      fill="#F82C4C"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M4.94462 11.7849C5.32096 13.2137 6.78431 14.0668 8.21311 13.6905C9.6419 13.3142 10.4951 11.8508 10.1187 10.422C9.7424 8.99321 8.27905 8.14003 6.85025 8.51637C5.42146 8.89271 4.56828 10.3561 4.94462 11.7849ZM7.8133 12.1726C7.22281 12.3281 6.61804 11.9755 6.4625 11.3851C6.30697 10.7946 6.65957 10.1898 7.25006 10.0343C7.84055 9.87872 8.44532 10.2313 8.60086 10.8218C8.75639 11.4123 8.40379 12.0171 7.8133 12.1726Z"
+                      fill="white"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M13.3815 13.8971C13.7578 15.3259 15.2212 16.1791 16.65 15.8027C18.0788 15.4264 18.932 13.963 18.5556 12.5342C18.1793 11.1054 16.7159 10.2523 15.2871 10.6286C13.8583 11.0049 13.0052 12.4683 13.3815 13.8971ZM16.2502 14.2848C15.6597 14.4404 15.0549 14.0878 14.8994 13.4973C14.7438 12.9068 15.0965 12.302 15.6869 12.1465C16.2774 11.991 16.8822 12.3436 17.0377 12.934C17.1933 13.5245 16.8407 14.1293 16.2502 14.2848Z"
+                      fill="white"></path>
+                <path d="M11.6619 5.09831C11.3233 5.09687 11.0477 5.3702 11.0462 5.7088L10.9903 18.8721C10.9888 19.2107 11.2621 19.4864 11.6007 19.4878C11.9393 19.4893 12.215 19.2159 12.2164 18.8773L12.2724 5.71401C12.2738 5.37541 12.0005 5.09975 11.6619 5.09831Z"
+                      fill="white"></path>
+            </svg>
+            <div class="itemTitle">Exclusive Deals for Women! The Best Women's Day Discounts &amp; Promotions of 2025
+            </div>
+            <svg class="rightArrow" xmlns="http://www.w3.org/2000/svg" width="18" height="16" viewBox="0 0 18 16"
+                 fill="none">
+                <path d="M1 7C0.447715 7 4.82823e-08 7.44772 0 8C-4.82823e-08 8.55228 0.447715 9 1 9L1 7ZM17.7071 8.70711C18.0976 8.31658 18.0976 7.68342 17.7071 7.29289L11.3431 0.928933C10.9526 0.538409 10.3195 0.538409 9.92893 0.928933C9.53841 1.31946 9.53841 1.95262 9.92893 2.34315L15.5858 8L9.92893 13.6569C9.53841 14.0474 9.53841 14.6805 9.92893 15.0711C10.3195 15.4616 10.9526 15.4616 11.3431 15.0711L17.7071 8.70711ZM1 9L17 9L17 7L1 7L1 9Z"
+                      fill="#666666"></path>
+            </svg>
+        </div>
+
+        <div class="blogsTitle">
+            <a href="https://www.couponsfab.com/blog/exciting-ramadan-promotions-from-top-brands"
+               aria-label="go blog exciting-ramadan-promotions-from-top-brands page"></a>
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M9.57367 22.1543C9.02801 21.246 9.17472 20.0823 9.92874 19.3379L17.1215 13.1547C18.037 12.251 19.5162 12.2755 20.4011 13.2092L21.7885 14.6728C22.8039 15.7441 22.5592 17.4815 21.2874 18.2307L10.4068 23.2114L9.57367 22.1543Z"
+                      fill="#C70000"></path>
+                <path d="M16.4891 1.43054C15.7295 0.415143 14.2906 0.207807 13.2752 0.967442L1.19738 10.2966C0.181993 11.0562 -0.0253364 12.4951 0.734294 13.5105L2.19941 15.4689C2.38931 15.7228 2.74765 15.7675 3.0364 15.6367C4.13918 15.1369 5.47895 15.451 6.23413 16.4604C6.98931 17.4698 6.91234 18.8438 6.12159 19.7606C5.91454 20.0007 5.85634 20.3571 6.04624 20.6109L7.51164 22.5697C8.27128 23.5851 9.71021 23.7924 10.7256 23.0328L22.8034 13.7036C23.8188 12.944 24.0261 11.5051 23.2665 10.4897L21.8011 8.53091C21.6112 8.27706 21.2529 8.23229 20.9641 8.36315C19.8613 8.86295 18.5215 8.54895 17.7663 7.5395C17.0111 6.53004 17.0881 5.15607 17.8789 4.23924C18.0859 3.99918 18.1441 3.64276 17.9542 3.38892L16.4891 1.43054Z"
+                      fill="#F82C4C"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M4.94462 11.7849C5.32096 13.2137 6.78431 14.0668 8.21311 13.6905C9.6419 13.3142 10.4951 11.8508 10.1187 10.422C9.7424 8.99321 8.27905 8.14003 6.85025 8.51637C5.42146 8.89271 4.56828 10.3561 4.94462 11.7849ZM7.8133 12.1726C7.22281 12.3281 6.61804 11.9755 6.4625 11.3851C6.30697 10.7946 6.65957 10.1898 7.25006 10.0343C7.84055 9.87872 8.44532 10.2313 8.60086 10.8218C8.75639 11.4123 8.40379 12.0171 7.8133 12.1726Z"
+                      fill="white"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M13.3815 13.8971C13.7578 15.3259 15.2212 16.1791 16.65 15.8027C18.0788 15.4264 18.932 13.963 18.5556 12.5342C18.1793 11.1054 16.7159 10.2523 15.2871 10.6286C13.8583 11.0049 13.0052 12.4683 13.3815 13.8971ZM16.2502 14.2848C15.6597 14.4404 15.0549 14.0878 14.8994 13.4973C14.7438 12.9068 15.0965 12.302 15.6869 12.1465C16.2774 11.991 16.8822 12.3436 17.0377 12.934C17.1933 13.5245 16.8407 14.1293 16.2502 14.2848Z"
+                      fill="white"></path>
+                <path d="M11.6619 5.09831C11.3233 5.09687 11.0477 5.3702 11.0462 5.7088L10.9903 18.8721C10.9888 19.2107 11.2621 19.4864 11.6007 19.4878C11.9393 19.4893 12.215 19.2159 12.2164 18.8773L12.2724 5.71401C12.2738 5.37541 12.0005 5.09975 11.6619 5.09831Z"
+                      fill="white"></path>
+            </svg>
+            <div class="itemTitle">Exciting Ramadan Promotions from Top Brands</div>
+            <svg class="rightArrow" xmlns="http://www.w3.org/2000/svg" width="18" height="16" viewBox="0 0 18 16"
+                 fill="none">
+                <path d="M1 7C0.447715 7 4.82823e-08 7.44772 0 8C-4.82823e-08 8.55228 0.447715 9 1 9L1 7ZM17.7071 8.70711C18.0976 8.31658 18.0976 7.68342 17.7071 7.29289L11.3431 0.928933C10.9526 0.538409 10.3195 0.538409 9.92893 0.928933C9.53841 1.31946 9.53841 1.95262 9.92893 2.34315L15.5858 8L9.92893 13.6569C9.53841 14.0474 9.53841 14.6805 9.92893 15.0711C10.3195 15.4616 10.9526 15.4616 11.3431 15.0711L17.7071 8.70711ZM1 9L17 9L17 7L1 7L1 9Z"
+                      fill="#666666"></path>
+            </svg>
+        </div>
+
+        <div class="blogsTitle">
+            <a href="https://www.couponsfab.com/blog/fast-food-deals-for-the-super-bowl"
+               aria-label="go blog fast-food-deals-for-the-super-bowl page"></a>
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M9.57367 22.1543C9.02801 21.246 9.17472 20.0823 9.92874 19.3379L17.1215 13.1547C18.037 12.251 19.5162 12.2755 20.4011 13.2092L21.7885 14.6728C22.8039 15.7441 22.5592 17.4815 21.2874 18.2307L10.4068 23.2114L9.57367 22.1543Z"
+                      fill="#C70000"></path>
+                <path d="M16.4891 1.43054C15.7295 0.415143 14.2906 0.207807 13.2752 0.967442L1.19738 10.2966C0.181993 11.0562 -0.0253364 12.4951 0.734294 13.5105L2.19941 15.4689C2.38931 15.7228 2.74765 15.7675 3.0364 15.6367C4.13918 15.1369 5.47895 15.451 6.23413 16.4604C6.98931 17.4698 6.91234 18.8438 6.12159 19.7606C5.91454 20.0007 5.85634 20.3571 6.04624 20.6109L7.51164 22.5697C8.27128 23.5851 9.71021 23.7924 10.7256 23.0328L22.8034 13.7036C23.8188 12.944 24.0261 11.5051 23.2665 10.4897L21.8011 8.53091C21.6112 8.27706 21.2529 8.23229 20.9641 8.36315C19.8613 8.86295 18.5215 8.54895 17.7663 7.5395C17.0111 6.53004 17.0881 5.15607 17.8789 4.23924C18.0859 3.99918 18.1441 3.64276 17.9542 3.38892L16.4891 1.43054Z"
+                      fill="#F82C4C"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M4.94462 11.7849C5.32096 13.2137 6.78431 14.0668 8.21311 13.6905C9.6419 13.3142 10.4951 11.8508 10.1187 10.422C9.7424 8.99321 8.27905 8.14003 6.85025 8.51637C5.42146 8.89271 4.56828 10.3561 4.94462 11.7849ZM7.8133 12.1726C7.22281 12.3281 6.61804 11.9755 6.4625 11.3851C6.30697 10.7946 6.65957 10.1898 7.25006 10.0343C7.84055 9.87872 8.44532 10.2313 8.60086 10.8218C8.75639 11.4123 8.40379 12.0171 7.8133 12.1726Z"
+                      fill="white"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M13.3815 13.8971C13.7578 15.3259 15.2212 16.1791 16.65 15.8027C18.0788 15.4264 18.932 13.963 18.5556 12.5342C18.1793 11.1054 16.7159 10.2523 15.2871 10.6286C13.8583 11.0049 13.0052 12.4683 13.3815 13.8971ZM16.2502 14.2848C15.6597 14.4404 15.0549 14.0878 14.8994 13.4973C14.7438 12.9068 15.0965 12.302 15.6869 12.1465C16.2774 11.991 16.8822 12.3436 17.0377 12.934C17.1933 13.5245 16.8407 14.1293 16.2502 14.2848Z"
+                      fill="white"></path>
+                <path d="M11.6619 5.09831C11.3233 5.09687 11.0477 5.3702 11.0462 5.7088L10.9903 18.8721C10.9888 19.2107 11.2621 19.4864 11.6007 19.4878C11.9393 19.4893 12.215 19.2159 12.2164 18.8773L12.2724 5.71401C12.2738 5.37541 12.0005 5.09975 11.6619 5.09831Z"
+                      fill="white"></path>
+            </svg>
+            <div class="itemTitle">Fast Food Deals for the Super Bowl: Enjoy the Game with Delicious Meals!</div>
+            <svg class="rightArrow" xmlns="http://www.w3.org/2000/svg" width="18" height="16" viewBox="0 0 18 16"
+                 fill="none">
+                <path d="M1 7C0.447715 7 4.82823e-08 7.44772 0 8C-4.82823e-08 8.55228 0.447715 9 1 9L1 7ZM17.7071 8.70711C18.0976 8.31658 18.0976 7.68342 17.7071 7.29289L11.3431 0.928933C10.9526 0.538409 10.3195 0.538409 9.92893 0.928933C9.53841 1.31946 9.53841 1.95262 9.92893 2.34315L15.5858 8L9.92893 13.6569C9.53841 14.0474 9.53841 14.6805 9.92893 15.0711C10.3195 15.4616 10.9526 15.4616 11.3431 15.0711L17.7071 8.70711ZM1 9L17 9L17 7L1 7L1 9Z"
+                      fill="#666666"></path>
+            </svg>
+        </div>
+
+        <div class="blogsTitle">
+            <a href="https://www.couponsfab.com/blog/Tips-Saving-Money-Valentines-Day"
+               aria-label="go blog Tips-Saving-Money-Valentines-Day page"></a>
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M9.57367 22.1543C9.02801 21.246 9.17472 20.0823 9.92874 19.3379L17.1215 13.1547C18.037 12.251 19.5162 12.2755 20.4011 13.2092L21.7885 14.6728C22.8039 15.7441 22.5592 17.4815 21.2874 18.2307L10.4068 23.2114L9.57367 22.1543Z"
+                      fill="#C70000"></path>
+                <path d="M16.4891 1.43054C15.7295 0.415143 14.2906 0.207807 13.2752 0.967442L1.19738 10.2966C0.181993 11.0562 -0.0253364 12.4951 0.734294 13.5105L2.19941 15.4689C2.38931 15.7228 2.74765 15.7675 3.0364 15.6367C4.13918 15.1369 5.47895 15.451 6.23413 16.4604C6.98931 17.4698 6.91234 18.8438 6.12159 19.7606C5.91454 20.0007 5.85634 20.3571 6.04624 20.6109L7.51164 22.5697C8.27128 23.5851 9.71021 23.7924 10.7256 23.0328L22.8034 13.7036C23.8188 12.944 24.0261 11.5051 23.2665 10.4897L21.8011 8.53091C21.6112 8.27706 21.2529 8.23229 20.9641 8.36315C19.8613 8.86295 18.5215 8.54895 17.7663 7.5395C17.0111 6.53004 17.0881 5.15607 17.8789 4.23924C18.0859 3.99918 18.1441 3.64276 17.9542 3.38892L16.4891 1.43054Z"
+                      fill="#F82C4C"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M4.94462 11.7849C5.32096 13.2137 6.78431 14.0668 8.21311 13.6905C9.6419 13.3142 10.4951 11.8508 10.1187 10.422C9.7424 8.99321 8.27905 8.14003 6.85025 8.51637C5.42146 8.89271 4.56828 10.3561 4.94462 11.7849ZM7.8133 12.1726C7.22281 12.3281 6.61804 11.9755 6.4625 11.3851C6.30697 10.7946 6.65957 10.1898 7.25006 10.0343C7.84055 9.87872 8.44532 10.2313 8.60086 10.8218C8.75639 11.4123 8.40379 12.0171 7.8133 12.1726Z"
+                      fill="white"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M13.3815 13.8971C13.7578 15.3259 15.2212 16.1791 16.65 15.8027C18.0788 15.4264 18.932 13.963 18.5556 12.5342C18.1793 11.1054 16.7159 10.2523 15.2871 10.6286C13.8583 11.0049 13.0052 12.4683 13.3815 13.8971ZM16.2502 14.2848C15.6597 14.4404 15.0549 14.0878 14.8994 13.4973C14.7438 12.9068 15.0965 12.302 15.6869 12.1465C16.2774 11.991 16.8822 12.3436 17.0377 12.934C17.1933 13.5245 16.8407 14.1293 16.2502 14.2848Z"
+                      fill="white"></path>
+                <path d="M11.6619 5.09831C11.3233 5.09687 11.0477 5.3702 11.0462 5.7088L10.9903 18.8721C10.9888 19.2107 11.2621 19.4864 11.6007 19.4878C11.9393 19.4893 12.215 19.2159 12.2164 18.8773L12.2724 5.71401C12.2738 5.37541 12.0005 5.09975 11.6619 5.09831Z"
+                      fill="white"></path>
+            </svg>
+            <div class="itemTitle">Tips and Tricks for Saving Money and Making the Most of Valentine's Day 2025</div>
+            <svg class="rightArrow" xmlns="http://www.w3.org/2000/svg" width="18" height="16" viewBox="0 0 18 16"
+                 fill="none">
+                <path d="M1 7C0.447715 7 4.82823e-08 7.44772 0 8C-4.82823e-08 8.55228 0.447715 9 1 9L1 7ZM17.7071 8.70711C18.0976 8.31658 18.0976 7.68342 17.7071 7.29289L11.3431 0.928933C10.9526 0.538409 10.3195 0.538409 9.92893 0.928933C9.53841 1.31946 9.53841 1.95262 9.92893 2.34315L15.5858 8L9.92893 13.6569C9.53841 14.0474 9.53841 14.6805 9.92893 15.0711C10.3195 15.4616 10.9526 15.4616 11.3431 15.0711L17.7071 8.70711ZM1 9L17 9L17 7L1 7L1 9Z"
+                      fill="#666666"></path>
+            </svg>
+        </div>
+
+        <div class="blogsTitle">
+            <a href="https://www.couponsfab.com/blog/presidents-day-deals-you-can-t-miss"
+               aria-label="go blog presidents-day-deals-you-can-t-miss page"></a>
+            <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M9.57367 22.1543C9.02801 21.246 9.17472 20.0823 9.92874 19.3379L17.1215 13.1547C18.037 12.251 19.5162 12.2755 20.4011 13.2092L21.7885 14.6728C22.8039 15.7441 22.5592 17.4815 21.2874 18.2307L10.4068 23.2114L9.57367 22.1543Z"
+                      fill="#C70000"></path>
+                <path d="M16.4891 1.43054C15.7295 0.415143 14.2906 0.207807 13.2752 0.967442L1.19738 10.2966C0.181993 11.0562 -0.0253364 12.4951 0.734294 13.5105L2.19941 15.4689C2.38931 15.7228 2.74765 15.7675 3.0364 15.6367C4.13918 15.1369 5.47895 15.451 6.23413 16.4604C6.98931 17.4698 6.91234 18.8438 6.12159 19.7606C5.91454 20.0007 5.85634 20.3571 6.04624 20.6109L7.51164 22.5697C8.27128 23.5851 9.71021 23.7924 10.7256 23.0328L22.8034 13.7036C23.8188 12.944 24.0261 11.5051 23.2665 10.4897L21.8011 8.53091C21.6112 8.27706 21.2529 8.23229 20.9641 8.36315C19.8613 8.86295 18.5215 8.54895 17.7663 7.5395C17.0111 6.53004 17.0881 5.15607 17.8789 4.23924C18.0859 3.99918 18.1441 3.64276 17.9542 3.38892L16.4891 1.43054Z"
+                      fill="#F82C4C"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M4.94462 11.7849C5.32096 13.2137 6.78431 14.0668 8.21311 13.6905C9.6419 13.3142 10.4951 11.8508 10.1187 10.422C9.7424 8.99321 8.27905 8.14003 6.85025 8.51637C5.42146 8.89271 4.56828 10.3561 4.94462 11.7849ZM7.8133 12.1726C7.22281 12.3281 6.61804 11.9755 6.4625 11.3851C6.30697 10.7946 6.65957 10.1898 7.25006 10.0343C7.84055 9.87872 8.44532 10.2313 8.60086 10.8218C8.75639 11.4123 8.40379 12.0171 7.8133 12.1726Z"
+                      fill="white"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd"
+                      d="M13.3815 13.8971C13.7578 15.3259 15.2212 16.1791 16.65 15.8027C18.0788 15.4264 18.932 13.963 18.5556 12.5342C18.1793 11.1054 16.7159 10.2523 15.2871 10.6286C13.8583 11.0049 13.0052 12.4683 13.3815 13.8971ZM16.2502 14.2848C15.6597 14.4404 15.0549 14.0878 14.8994 13.4973C14.7438 12.9068 15.0965 12.302 15.6869 12.1465C16.2774 11.991 16.8822 12.3436 17.0377 12.934C17.1933 13.5245 16.8407 14.1293 16.2502 14.2848Z"
+                      fill="white"></path>
+                <path d="M11.6619 5.09831C11.3233 5.09687 11.0477 5.3702 11.0462 5.7088L10.9903 18.8721C10.9888 19.2107 11.2621 19.4864 11.6007 19.4878C11.9393 19.4893 12.215 19.2159 12.2164 18.8773L12.2724 5.71401C12.2738 5.37541 12.0005 5.09975 11.6619 5.09831Z"
+                      fill="white"></path>
+            </svg>
+            <div class="itemTitle">Presidents' Day Deals You Can't Miss: Top Brands Offering Huge Discounts</div>
+            <svg class="rightArrow" xmlns="http://www.w3.org/2000/svg" width="18" height="16" viewBox="0 0 18 16"
+                 fill="none">
+                <path d="M1 7C0.447715 7 4.82823e-08 7.44772 0 8C-4.82823e-08 8.55228 0.447715 9 1 9L1 7ZM17.7071 8.70711C18.0976 8.31658 18.0976 7.68342 17.7071 7.29289L11.3431 0.928933C10.9526 0.538409 10.3195 0.538409 9.92893 0.928933C9.53841 1.31946 9.53841 1.95262 9.92893 2.34315L15.5858 8L9.92893 13.6569C9.53841 14.0474 9.53841 14.6805 9.92893 15.0711C10.3195 15.4616 10.9526 15.4616 11.3431 15.0711L17.7071 8.70711ZM1 9L17 9L17 7L1 7L1 9Z"
+                      fill="#666666"></path>
+            </svg>
+        </div>
+
+    </div>
+
+
+</div>
+<script type="text/javascript" id="" charset="">if (localStorage["gtm.consent.option.enum"]) {
+    var option = localStorage["gtm.consent.option.enum"];
+    if (option === "granted") dataLayer.push({event: "update_GTM_consent_granted"}); else if (option === "denied") dataLayer.push({event: "update_GTM_consent_denied"}); else throw Error("invalid consent mode option: " + option);
+}
+document.addEventListener("click", function (a) {
+    a = a.target.parentNode.className;
+    a.includes("fc-confirm-choices") && (dataLayer.push({event: "update_GTM_consent_denied"}), localStorage["gtm.consent.option.enum"] = "denied")
+});
+document.addEventListener("click", function (a) {
+    a = a.target.parentNode.className;
+    if (a.includes("fc-data-preferences-accept-all") || a.includes("fc-cta-consent")) dataLayer.push({event: "update_GTM_consent_granted"}), localStorage["gtm.consent.option.enum"] = "granted"
+});</script>
+<script type="text/javascript" id="" charset="">!function (d, h, e) {
+    d.TiktokAnalyticsObject = e;
+    var a = d[e] = d[e] || [];
+    a.methods = "page track identify instances debug on off once ready alias group enableCookie disableCookie holdConsent revokeConsent grantConsent".split(" ");
+    a.setAndDefer = function (b, c) {
+        b[c] = function () {
+            b.push([c].concat(Array.prototype.slice.call(arguments, 0)))
+        }
+    };
+    for (d = 0; d < a.methods.length; d++) a.setAndDefer(a, a.methods[d]);
+    a.instance = function (b) {
+        b = a._i[b] || [];
+        for (var c = 0; c < a.methods.length; c++) a.setAndDefer(b, a.methods[c]);
+        return b
+    };
+    a.load =
+        function (b, c) {
+            var f = "https://analytics.tiktok.com/i18n/pixel/events.js", g = c && c.partner;
+            a._i = a._i || {};
+            a._i[b] = [];
+            a._i[b]._u = f;
+            a._i[b]._partner = g || "GoogleTagManagerClient";
+            a._t = a._t || {};
+            a._t[b] = +new Date;
+            a._o = a._o || {};
+            a._o[b] = c || {};
+            a._partner = a._partner || "GoogleTagManagerClient";
+            c = document.createElement("script");
+            c.type = "text/javascript";
+            c.async = !0;
+            c.src = f + "?sdkid\x3d" + b + "\x26lib\x3d" + e;
+            b = document.getElementsByTagName("script")[0];
+            b.parentNode.insertBefore(c, b)
+        };
+    a.load("CQUM75JC77UBOMHHMDR0");
+    a.page()
+}(window,
+    document, "ttq");</script>
+
+
+<include file="public@foot"/>
+<div id="installContainer" style="display: none;"></div>
+
+
+<script>
+
+    var linkElements = document.querySelectorAll('a');
+    var linkParams = "";
+
+    linkElements.forEach(function (linkElement) {
+        var originalHref = linkElement.getAttribute('href');
+
+        if (originalHref && originalHref.startsWith('/')) {
+
+            if (linkParams) {
+
+                if (originalHref.includes('?')) {
+
+                    linkElement.setAttribute('href', originalHref + '&' + linkParams);
+                } else {
+
+                    linkElement.setAttribute('href', originalHref + '?' + linkParams);
+                }
+            }
+        }
+    });
+
+
+    function ajax(options) {
+        var xhr = null;
+        var params = formsParams(options.data);
+
+        if (window.XMLHttpRequest) {
+            xhr = new XMLHttpRequest()
+        } else {
+            xhr = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        if (options.type == "GET") {
+            xhr.open(options.type, options.url + "?" + params, options.async);
+            xhr.send(null)
+            if (xhr.status === 200) {
+                options.success(xhr.responseText)
+            }
+        } else if (options.type == "POST") {
+            xhr.open(options.type, options.url, options.async);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+            xhr.send(params);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    options.success(xhr.responseText);
+                }
+            }
+        }
+
+        function formsParams(data) {
+            var arr = [];
+            for (var prop in data) {
+                arr.push(prop + "=" + data[prop]);
+            }
+            return arr.join("&");
+        }
+    }
+</script>
+<script>
+
+
+    function lazyImg() {
+        const images = document.querySelectorAll(".lazyImg")
+        const observer = new IntersectionObserver((entries = []) => {
+            entries.forEach(item => {
+                if (item.isIntersecting) {
+                    const img = item.target
+                    img.setAttribute('src', img.getAttribute('data-src'))
+                    observer.unobserve(img)
+                }
+            })
+        })
+
+        images.forEach(image => {
+            observer.observe(image);
+        })
+    }
+
+    lazyImg();
+
+
+    var pathname = window.location.pathname;
+    if ("/brand/airbnb" == "/about") {
+        var about = document.getElementById("about");
+        about.setAttribute("class", "footerLink navNow");
+    } else if ("/brand/airbnb" == "/contact") {
+        var contact = document.getElementById("contact");
+        contact.setAttribute("class", "footerLink navNow");
+    } else if ("/brand/airbnb" == "/guidance") {
+        var guidance = document.getElementById("guidance");
+        guidance.setAttribute("class", "footerLink navNow");
+    } else if ("/brand/airbnb" == "/disclaimer") {
+        var disclaimer = document.getElementById("disclaimer");
+        disclaimer.setAttribute("class", "footerLink navNow");
+    } else if ("/brand/airbnb" == "/privacy") {
+        var privacy = document.getElementById("privacy");
+        privacy.setAttribute("class", "footerLink navNow");
+    } else if ("/brand/airbnb" == "/terms") {
+        var terms = document.getElementById("terms");
+        terms.setAttribute("class", "footerLink navNow");
+    }
+
+
+    document.ready = function (callback) {
+        if (document.addEventListener) {
+            document.addEventListener("DOMContentLoaded",
+                function () {
+                    document.removeEventListener("DOMContentLoaded", arguments.callee, false);
+                    callback()
+                },
+                false)
+        } else {
+            if (document.attachEvent) {
+                document.attachEvent("onreadystatechange",
+                    function () {
+                        if (document.readyState == "complete") {
+                            document.detachEvent("onreadystatechange", arguments.callee);
+                            callback()
+                        }
+                    })
+            } else {
+                if (document.lastChild == document.body) {
+                    callback()
+                }
+            }
+        }
+    };
+
+
+    function uuid() {
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16 | 0,
+                v = c == 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
+
+    var userID = uuid();
+    if (localStorage.getItem('userID') === "undefined" || localStorage.getItem('userID') === null) {
+        window.localStorage.setItem("userID", userID);
+    } else {
+        userID = localStorage.getItem('userID');
+    }
+
+    document.ready(function () {
+
+        var userAgent = navigator.userAgent;
+
+        var ad_type = "PAGE";
+        var AdTypeCpc = JSON.parse("{\"1\":0.78,\"2\":0.78,\"3\":0.78,\"4\":0.78,\"6\":0.78,\"7\":0.78,\"geo\":\"CN\"}");
+        var vCont = AdTypeCpc[1];
+
+        document.addEventListener('visibilitychange', function (e) {
+            var adsList = document.querySelectorAll(".adsbygoogle");
+            for (var i = 0; i < adsList.length; i++) {
+                if (adsList[i].getAttribute('tabindex') == "0") {
+                    if (adsList[i].getAttribute('data-vignette-loaded') == "true") {
+                        ad_type = "INTER";
+                        vCont = AdTypeCpc[2];
+                    }
+                    if (adsList[i].getAttribute('data-slotcar-interstitial') == "true") {
+                        ad_type = "MANUAL";
+                        vCont = AdTypeCpc[3];
+                    }
+                    if (adsList[i].getAttribute('data-slotcar-rewarded') == "true") {
+                        ad_type = "REWORDS";
+                        vCont = AdTypeCpc[4];
+                    }
+                    console.log(ad_type);
+                    break
+                }
+            }
+        });
+
+
+        if (userAgent.includes("FBIOS")) {
+            console.log("FBIOS: true");
+
+            window.addEventListener("blur", handleVisibilityChange);
+        } else {
+            console.log("FBIOS: false");
+
+            document.addEventListener('visibilitychange', function (e) {
+                if (document.visibilityState == "hidden") {
+
+                    handleVisibilityChange();
+                }
+            });
+        }
+
+
+        function handleVisibilityChange() {
+            var activeElement = document.activeElement;
+            if (activeElement !== null) {
+                try {
+                    activeElement.focus();
+                    if ("IFRAME" === activeElement.tagName) {
+
+                        if (activeElement.id != null && activeElement.id != undefined) {
+                            let str = activeElement.id;
+
+                            let searchStr = "/21614283239/ca-pub-5841863421039972-tag/CouponsFab-RV-Mobile-0607";
+                            if (str.includes(searchStr)) {
+                                ad_type = "REWORDS";
+                                vCont = AdTypeCpc[4];
+                            }
+                        }
+                        console.log("进入 visibilitychange 监听事件")
+
+                        dataLayer.push({
+                            "event": "gaEvent",
+                            "opt": "adc",
+                            "label": AdTypeCpc.geo,
+                            "category": ad_type,
+                            "value": vCont
+                        });
+                    }
+                    activeElement.blur();
+                } catch (e) {
+                    console.error("Error:", e.message);
+                }
+            }
+
+            ad_type = "PAGE";
+            vCont = AdTypeCpc[1];
+        };
+    })
+
+</script>
+
+
+<iframe height="0" width="0" style="display: none; visibility: hidden;"
+        src="__TMPL__/public/index_files/brand/saved_resource.html"></iframe>
+<script>
+
+
+    function smoothScroll(event, targetId) {
+        event.preventDefault();
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+            var offsetPosition = 0
+            offsetPosition = targetElement.offsetTop;
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: 'smooth'
+            });
+        }
+    }
+
+    var width = window.innerWidth || document.documentElement.clientWidth;
+    if (width > 991) {
+        const toc = document.getElementsByClassName('tableContents')[1];
+        toc.style.display = "none";
+        const sidebar = document.getElementsByClassName('categoryWrap')[0];
+        const sidebarBottom = sidebar.offsetTop + sidebar.offsetHeight;
+        window.addEventListener('scroll', function () {
+
+            const pageTop = window.scrollY;
+
+            if (pageTop > sidebarBottom) {
+                toc.setAttribute("style", "position: fixed;");
+                toc.style.display = 'block';
+            } else {
+                toc.style.display = "none";
+            }
+
+
+            var links = document.querySelectorAll('.contentsPc a');
+            var scrollPos = window.scrollY;
+            links.forEach(link => {
+                var targetId = link.getAttribute('href').substring(1);
+                var targetSection = document.getElementById(targetId);
+                if (targetSection) {
+
+                    if (targetSection.offsetTop <= scrollPos &&
+                        (targetSection.offsetTop + targetSection.offsetHeight) > scrollPos) {
+
+                        links.forEach(l => l.parentElement.classList.remove('active'));
+
+                        link.parentElement.classList.add('active');
+                    }
+                }
+            });
+
+
+            if (links[0] && (window.scrollY <= links[0].offsetTop)) {
+                links.forEach(link => link.parentElement.classList.remove('active'));
+            }
+        });
+    }
+
+
+    function jumpLinkCoupon(id) {
+        if ("") {
+            window.location.href = "/brand/" + "airbnb" + "/" + id + "?";
+        } else {
+            window.location.href = "/brand/" + "airbnb" + "/" + id;
+        }
+    }
+
+    var platform = "desktop";
+
+    var bannerEvent = document.getElementsByClassName("bannerEvent")[0];
+    var bannerHeight = bannerEvent.offsetHeight;
+    window.scrollTo({top: bannerHeight});
+
+
+    if ("Airbnb, an American online marketplace for both short-term and long-term rentals, was founded in 2008 when its creators decided to offer a spare room with an air mattress, creating the concept of an \"air bed and breakfast\" room. This small beginning quickly led to the company's global expansion. Currently, Airbnb provides a wide range of rental options, from shared room beds to entire properties. Its tremendous growth has transformed its initial $20,000 funding into a $110 billion enterprise, with a presence in over 100,000 cities, offering more than 7 million listings.\n\nAs Airbnb continues to expand worldwide, it is also diversifying its offerings. Hosts can now not only rent out spare rooms or homes for vacation stays but also offer their spaces for long-term rentals. The available rental options are incredibly diverse, including unique and extraordinary accommodations like igloos, treehouses, trolley cars, and windmills, to name just a few.\n\nMoreover, Airbnb isn't limited to providing accommodations. The platform has also developed a marketplace for experiences, allowing users to immerse themselves in the local culture of the places they visit. These experiences range from cooking classes and tours to music and dancing lessons. This additional feature enhances the overall travel experience for Airbnb users, adding an extra layer of cultural exploration and discovery.") {
+        changeBox("about", 0);
+    }
+
+
+    function changeBox() {
+        var minBox = document.getElementsByClassName("about")[0];
+        var boxHeight = minBox.offsetHeight;
+        var flag = document.getElementById("aboutFlag");
+        var scrollDistance;
+
+
+        var showmore = document.getElementById("aboutMore");
+        var showless = document.getElementById("aboutLess");
+
+        if (boxHeight > 210) {
+            flag.style.display = "block";
+            minBox.style.height = "210px";
+            minBox.style.overflow = "hidden";
+            showmore.style.display = "block";
+        } else {
+            flag.style.display = "none";
+        }
+    }
+
+    var scrollDistance;
+
+    function changeMinBox(flag) {
+        var minBox = document.getElementsByClassName("about")[0];
+
+        var showmore = document.getElementById("aboutMore");
+        var showless = document.getElementById("aboutLess");
+        if (flag == false) {
+            showmore.style.display = "none";
+            showless.style.display = "block";
+            minBox.style.height = "auto";
+            minBox.style.overflow = "none";
+            scrollDistance = window.pageYOffset || document.documentElement.scrollTop;
+
+        } else {
+            showmore.style.display = "block";
+            showless.style.display = "none";
+            minBox.style.height = "210px";
+            minBox.style.overflow = "hidden";
+            window.scrollTo({
+                top: scrollDistance,
+            });
+        }
+    }
+
+
+    function changeFAQBox(flag) {
+        var FAQBox = document.getElementsByClassName("FAQBox")[0];
+
+        var showmore = document.getElementById("faqMore");
+        var showless = document.getElementById("faqLess");
+        if (flag == false) {
+            showmore.style.display = "none";
+            showless.style.display = "block";
+            FAQBox.style.display = "block";
+            scrollDistance = window.pageYOffset || document.documentElement.scrollTop;
+
+        } else {
+            showmore.style.display = "block";
+            showless.style.display = "none";
+            FAQBox.style.display = "none";
+            window.scrollTo({
+                top: scrollDistance,
+            });
+        }
+    }
+
+
+    function clickQuestion(num) {
+
+        var content = document.getElementsByClassName('answerList')[num];
+        var close = document.getElementsByClassName('close')[num];
+        var open = document.getElementsByClassName('open')[num];
+        if (content.style.display == 'block') {
+            content.style.display = 'none';
+            close.style.display = 'none';
+            open.style.display = 'block';
+        } else {
+            content.style.display = 'block';
+            close.style.display = 'block';
+            open.style.display = 'none';
+        }
+    }
+
+    clickQuestion(0);
+
+
+    var authorDesc = document.getElementsByClassName("authorDesc")[0];
+    var authorFlag = document.getElementById("authorFlag");
+
+    if (authorDesc.offsetHeight <= 260) {
+        authorFlag.style.display = "none";
+    } else {
+        authorFlag.style.display = "blcok";
+        authorDesc.setAttribute("style", "-webkit-line-clamp: 10;");
+    }
+
+
+    function changeAuthorDesc(flag) {
+
+        var authorMore = document.getElementById("authorMore");
+        var authorLess = document.getElementById("authorLess");
+        if (flag == false) {
+            authorMore.style.display = "none";
+            authorLess.style.display = "block";
+            authorDesc.setAttribute("style", "-webkit-line-clamp: none;");
+            scrollDistance = window.pageYOffset || document.documentElement.scrollTop;
+
+        } else {
+            authorMore.style.display = "block";
+            authorLess.style.display = "none";
+            authorDesc.setAttribute("style", "-webkit-line-clamp: 10;");
+            window.scrollTo({
+                top: scrollDistance,
+            });
+        }
+    }
+
+    var platform = "desktop";
+
+    let page = 1;
+    let pageSize = 8;
+    var adsIndex = 3;
+    var pageCount = 1;
+    var dataCount = 1;
+    var coupons = [];
+
+    var id = <?php echo $id; ?>;
+    couponListContent();
+    function couponListContent() {
+        const fragment = document.createDocumentFragment();
+        ajax({
+            type: "GET",
+            url: "getCouponsListPost?id=" + id,
+            async: false,
+            data: {
+                "page": page,
+                "size": pageSize,
+            },
+            success: function (data) {
+                console.log('data', data);
+                var newUl = document.getElementById('new-ls');
+
+
+                var date = JSON.parse(data);
+                coupons = date.data.Coupons;
+                pageCount = date.data.PageCount;
+                if (page >= pageCount) {
+                    var showMoreContent = document.getElementsByClassName("showMoreContent")[0];
+                    showMoreContent.style.display = "none";
+                }
+                if (page <= pageCount) {
+                    for (var i = 0; i < coupons.length; i++) {
+                        itemLi(fragment, coupons[i]);
+                        dataCount++;
+                    }
+                } else {
+
+
+                }
+                newUl.appendChild(fragment);
+                lazyImg();
+            }
+        });
+    }
+
+    function itemLi(fragment, couponData) {
+        var li = document.createElement('li');
+        li.setAttribute("class", "new-item couponItem");
+
+
+        var a = document.createElement('a');
+        a.setAttribute("class", "coverlink rewardButton");
+
+        a.setAttribute("aria-label", "go brand " + couponData.classification_id + " " + couponData.id);
+        a.setAttribute("href", "/brand/" + couponData.classification_id + "/" + couponData.id);
+        var divNewCon = document.createElement('div');
+        divNewCon.setAttribute("class", "couponWrap");
+        var divNewConDes = document.createElement('div');
+        divNewConDes.setAttribute("class", "couponInfo");
+        var storeSales = document.createElement('div');
+        storeSales.setAttribute("class", "sales");
+
+        var salesStr = couponData.SalesStruct;
+        for (let index = 0; index < salesStr.length; index++) {
+            let sales = salesStr[index]
+            for (const key in salesStr[index]) {
+
+                var p = document.createElement('p');
+                if (sales[key] == "CODEHERE") {
+                    p.setAttribute("class", "big");
+                    p.innerHTML = "CODE HERE";
+                } else {
+                    p.setAttribute("class", key + "");
+                    p.innerHTML = sales[key];
+                }
+                storeSales.appendChild(p);
+            }
+        }
+
+        var newConInfo = document.createElement('div');
+        newConInfo.setAttribute("class", "couponDesp");
+
+        if (couponData.Type == "CODE") {
+            var pType = document.createElement('p');
+            pType.setAttribute("class", "code");
+            pType.innerHTML = "CODE";
+        } else {
+            var pType = document.createElement('p');
+            pType.setAttribute("class", "sale");
+            pType.innerHTML = "SALE";
+        }
+
+        var pTl = document.createElement('div');
+        pTl.setAttribute("class", "couponTitle");
+        var pTitle = document.createElement('p');
+        pTitle.innerHTML = couponData.Title;
+        pTl.appendChild(pTitle);
+
+        var pCate = document.createElement('div');
+        pCate.setAttribute("class", "couponCate");
+
+
+        fragment.appendChild(li);
+        li.appendChild(a);
+        li.appendChild(divNewCon);
+
+        divNewCon.appendChild(divNewConDes);
+        divNewConDes.appendChild(storeSales);
+        divNewConDes.appendChild(newConInfo);
+
+        newConInfo.appendChild(pType);
+        newConInfo.appendChild(pTl);
+
+        if (couponData.VerifyTime || couponData.PageView) {
+            newConInfo.appendChild(pCate);
+        }
+
+        if (couponData.VerifyTime) {
+            var verified = document.createElement('div');
+            verified.setAttribute("class", "verified");
+            verified.innerText = "Verified";
+            pCate.appendChild(verified);
+        }
+
+        if (couponData.PageView) {
+            if (couponData.VerifyTime) {
+                var drop = document.createElement('div');
+                drop.setAttribute("class", "drop");
+                drop.innerHTML = '<svg t="1702964897735" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4485" id="mx_n_1702964897736" width="20" height="20"><path d="M512 624a112 112 0 1 0 0-224 112 112 0 0 0 0 224z" p-id="4486" fill="#999999"></path></svg>';
+                pCate.appendChild(drop);
+            }
+            var pView = document.createElement('p');
+            pView.setAttribute("class", "view");
+            pView.innerHTML = couponData.PageView;
+            pCate.appendChild(pView);
+        }
+
+        var couponBtn = document.createElement('div');
+        if (platform != "mobile") {
+            couponBtn.setAttribute("class", "couponBtn");
+            li.appendChild(couponBtn);
+            if (couponData.Type == "CODE") {
+                var codeBtn = document.createElement('div');
+                codeBtn.setAttribute("class", "codeBtn");
+                codeBtn.innerText = "Get Code";
+                var colorBox = document.createElement('div');
+                colorBox.setAttribute("class", "colorBox");
+                var code = document.createElement('div');
+                code.setAttribute("class", "code");
+                code.innerHTML = couponData.Code;
+                couponBtn.appendChild(codeBtn);
+                couponBtn.appendChild(colorBox);
+                couponBtn.appendChild(code);
+            } else {
+                var dealBtn = document.createElement('div');
+                dealBtn.setAttribute("class", "dealBtn");
+                dealBtn.innerText = "Get Deal";
+                var bgcBox = document.createElement('div');
+                bgcBox.setAttribute("class", "bgcBox");
+                couponBtn.appendChild(dealBtn);
+                couponBtn.appendChild(bgcBox);
+            }
+        }
+    }
+
+
+    function createAdsLi(parentsNode, adsIndex) {
+
+        var adTitle = document.createElement('div');
+        adTitle.setAttribute('class', 'adTitle');
+        adTitle.innerText = "Advertisement";
+        var ListSlots = ["1172890569", "7546727229", "6233645555", "4920563880", "1005369602", "4388977197", "1762813855", "7355155534", "2884323835", "9789747189"];
+        var addli = document.createElement('li');
+        addli.setAttribute('class', 'item_card');
+        var adsDiv = document.createElement('div');
+        adsDiv.setAttribute('class', 'ad-box ads-1');
+        adsDiv.setAttribute('style', "height: auto !important;");
+        var ins = document.createElement('ins');
+        ins.setAttribute('aria-label', 'Advertisement');
+        ins.setAttribute('class', 'adsbygoogle adHeight');
+        ins.setAttribute('data-ad-client', 'ca-pub-9260533539525355');
+        ins.setAttribute('data-ad-channel', '');
+        if (ListSlots.length > adsIndex) {
+            ins.setAttribute('data-ad-slot', ListSlots[adsIndex]);
+        } else {
+            ins.setAttribute('data-ad-slot', ListSlots[ListSlots.length - 1]);
+        }
+        ins.setAttribute('data-ad-format', 'auto');
+        ins.setAttribute('style', 'display: inline-block;width: 100%; margin: 0 auto;');
+        ins.setAttribute('data-full-width-responsive', 'true');
+        var scriptBox = document.createElement('script');
+        scriptBox.innerHTML = "(window.adsbygoogle = window.adsbygoogle || []).push({})";
+        adsDiv.appendChild(ins);
+        adsDiv.appendChild(scriptBox);
+        parentsNode.appendChild(addli);
+        addli.appendChild(adTitle);
+        addli.appendChild(adsDiv);
+
+    }
+
+
+    var showMoreContent = document.getElementsByClassName("showMoreContent")[0];
+    var showMoreBtn = document.getElementsByClassName("showMoreBtn")[0];
+    var lastScrollPosition = 0;
+
+    showMoreBtn.onclick = function () {
+
+
+        lastScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+        page += 1;
+        couponListContent();
+        window.scrollTo({top: lastScrollPosition});
+
+
+    }
+
+</script>
+
+
+<div id="batBeacon874250295301" style="width: 0px; height: 0px; display: none; visibility: hidden;"><img
+        id="batBeacon261858820205" width="0" height="0" alt="" src="__TMPL__/public/index_files/brand/0"
+        style="width: 0px; height: 0px; display: none; visibility: hidden;"></div>
+<div style="display: none; visibility: hidden;">
+    <script async="null" src="__TMPL__/public/index_files/brand/ytag.js"></script>
+    <script>window.yjDataLayer = window.yjDataLayer || [];
+
+    function ytag() {
+        yjDataLayer.push(arguments)
+    }
+
+    ytag({type: "ycl_cookie", config: {ycl_use_non_cookie_storage: !0}});</script>
+</div>
+<div style="display: none; visibility: hidden;">
+    <script async="null" src="__TMPL__/public/index_files/brand/ytag.js"></script>
+    <script>window.yjDataLayer = window.yjDataLayer || [];
+
+    function ytag() {
+        yjDataLayer.push(arguments)
+    }
+
+    ytag({type: "ycl_cookie", config: {ycl_use_non_cookie_storage: !0}});</script>
+</div>
+<iframe allow="join-ad-interest-group" data-tagging-id="G-SRL4CHNM9H" data-load-time="1744193271549" height="0"
+        width="0"
+        src="https://td.doubleclick.net/td/ga/rul?tid=G-SRL4CHNM9H&amp;gacid=1094251434.1743479483&amp;gtm=45je5480h2v9121850317z89121835570za200zb9121835570&amp;dma=0&amp;gcs=G1--&amp;gcd=13l3l3l3l5l1&amp;npa=0&amp;pscdl=noapi&amp;aip=1&amp;fledge=1&amp;frm=0&amp;tag_exp=102509683~102788824~102803279~102813109~102887800~102926062~102975949~103016951~103021830~103027016~103047562~103051953&amp;z=299774320"
+        style="display: none; visibility: hidden;"></iframe>
+<div id="wetab-content-root">
+    <wetab-chat-screenshot style="position: relative; z-index: 2147483647;">
+        <template shadowrootmode="open">
+            <link rel="stylesheet" href="chrome-extension://aikflfpejipbpjdlfabpgclhblkpaafo/content.css">
+            <style id="theme_style">
+                :host {
+                    --color-black: 0 0 0;
+                    --color-white: 255 255 255;
+                    --color-blue: 74 122 255;
+                    --color-green: 52 199 89;
+                    --color-yellow: 255 149 0;
+                    --color-orange: 255 155 48;
+                    --color-red: 255 77 79;
+                    --color-t1: 28 28 30;
+                    --color-t2: 58 58 60;
+                    --color-t3: 142 142 148;
+                    --color-t4: 199 199 204;
+                    --color-t5: 255 255 255;
+                    --color-b1: 209 209 214;
+                    --color-b2: 229 229 234;
+                    --color-b3: 248 248 248;
+                    --color-b4: 255 255 255;
+                    --color-b5: 255 255 255;
+                    --color-m1: 255 255 255;
+                    --color-m2: 0 0 0;
+                    --color-todo-t1: 47 87 255;
+                    --color-todo-t2: 83 147 255;
+                    --color-note-t1: 192 131 93;
+                    --color-note-t2: 198 174 159;
+                    --color-calc-t1: 255 255 255;
+                    --color-calc-t2: 200 200 204;
+                    --color-calc-t3: 142 142 148;
+                    --color-calc-t4: 94 94 98;
+                    --color-calc-b1: 75 78 84;
+                    --color-calc-b2: 50 52 57;
+                    --color-calc-b3: 34 36 39;
+                    --color-calc-l1: 254 189 95;
+                    --color-calc-l2: 251 132 54;
+                    --color-calc-l3: 96 99 107;
+                    --color-calc-l4: 58 60 66;
+                    --color-calc-l6: 32 33 38;
+                    --color-calc-l7: 81 84 90;
+                    --color-calc-l5: 63 65 72;
+                    --color-calc-l8: 72 74 79;
+                    --color-calc-l0: 40 41 45;
+                    --color-calc-l9: 252 163 36;
+                    --color-calc-yellow: 240 168 16;
+                    --color-calendar-red: 255 77 79;
+                    --color-calendar-b1: 255 101 101;
+                    --color-calendar-b2: 255 246 241;
+                    --color-worldcup-t1: 168 238 65;
+                    --color-rate-t1: 28 28 30;
+                    --color-rate-t2: 58 58 60;
+                    --color-rate-t3: 141 142 148;
+                    --color-rate-t4: 109 147 229;
+                    --color-rate-b1: 255 255 255;
+                    --color-rate-b2: 248 248 248;
+                    --color-rate-b3: 34 36 39;
+                    --color-rate-b4: 55 69 157;
+                    --color-rate-b5: 238 240 239;
+                    --color-rate-l1: 70 154 255;
+                    --color-rate-l2: 72 90 188;
+                    --color-game-b1: 38 42 53;
+                    --color-game-b2: 70 74 88;
+                    --color-game-b3: 23 26 34;
+                    --color-game-b4: 44 47 59;
+                    --color-game-b5: 20 174 60;
+                    --color-game-t1: 200 200 204;
+                    --color-game-t2: 142 142 148;
+                    --color-movie-b1: 94 104 71;
+                    --color-clock-b1: 22 21 28;
+                    --color-wclock-b1: 19 20 21;
+                    --color-wclock-t1: 37 216 27;
+                    --color-wclock-t2: 47 142 42;
+                    --color-wclock-t3: 30 82 27;
+                    --color-bookmark-t1: 98 173 91;
+                    --color-bookmark-b1: 248 248 248;
+                    --color-bookmark-b2: 255 255 255;
+                    --color-record-t1: 255 115 48;
+                    --color-image-t1: 68 10 214;
+                    --color-image-b1: 0 0 0;
+                    --color-image-b2: 255 255 255;
+                    --color-image-b4: 17 17 17;
+                    --color-translate-green: 36 161 81;
+                    --color-tomato-work: 244 78 33;
+                    --color-tomato-rest: 54 168 106;
+                    --color-write-t1: 69 116 246;
+                    --color-write-blue: 48 101 246;
+                    --color-settings-blue: 0 122 255
+                }
+            </style>
+            <div class="module-app" data-v-app="">
+                <div class="z-[2147483647]">
+                    <div class="handle fixed bottom-[24px] hidden w-fit items-end gap-y-[8px] flex-col z-[2147483647]">
+                        <div class="action-list mr-[4px] flex flex-col-reverse rounded-full bg-color-b1 p-[4px] z-[2147483644]">
+                            <span class="action s-trans inline-flex cursor-pointer items-center justify-center rounded-full p-[6px] transition-colors hover:bg-[#EFF2FA]"
+                                  style="box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px;"><i
+                                    class="iconfont !text-[20px] !leading-[1] i:screenshot-20-outline-bold"></i></span>
+                        </div>
+                        <div class="relative hidden w-[48px] cursor-pointer items-center justify-center whitespace-nowrap break-keep rounded-l-full bg-color-b1 px-[14px] py-[10px] ring-0 transition-all"
+                             style="box-shadow: rgba(99, 99, 99, 0.1) 0px 2px 8px 0px; user-select: none;"><img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAAEgBckRAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAMKADAAQAAAABAAAAMAAAAADbN2wMAAAIOklEQVRoBe1ZW2xcRxn+z+76hu21HTcXN03jkEBQaCoFiRhQHRCloY1SVEW9PERJHQcqQuK6UQNRaGgCRlWr9IE08EAlJG4PSBTxACjioUgJLzUvFSSqkjT1NbGdjS+76/Wuvbfh+/5zZn12s3YBqSKCHWnOzPz3+ef2zxyR/yg922MMGYeG3bLreWMCBGSzItfeNyaXQ3ndmExGRBErwlEhy8aPO444IhkQfhTp1i3z6h1y9x4y5n1Yw8w6CWCDyJVrxsAeCcDGPMCbN7H1kaeJ2+bX5ZQUdO87ArtA8csfO871IdRhG83eBO/tO+x24Fc/cRx1LSVl4efjh41cuWpMHq418H8e+SrG4r7VMR0X0hU0jI2Zr3NkKHjtGudnREYi5qFMXjaDyIlG8/VbPhU8S/j/RHrup6bqX+2IujX9nlzr6TFhyzQ4YgyzbXf1mIu2rgz0e9RIjEwfDLjjQBhcffLZI+ZCLi+dliHECgCaVm+cj+VytToLKX42KX0zMylpDNe5BPi6GoBNL2TkycdrdTEpP2Ac1dderpO8J5BcLgMAfSeqhLOaublRngImq51A+7u9ixxq0v6nkr8IN37sBgiUZtUq5y0Ie+vmhDlIqY4EqKyS7koPdPWawZ7Ti1O21MiRMRMZvmFMImG2luJs+8Dzi9OaMJ0WFslJEZ+SGPZ/wcJoOnfOiRM3N2faJiIyll1AAzMvMiX/GBo1N9vXOfdZXvBcxOrp5D7rT0UKclgvdpOawVra05WT118OXB6fkAe49LhR696GeYuZuJZnzQ/P5t/N5wPb7HKSxTmtenQlWI1ZIEnIHJ2JySsnAjyLHmCbhuX4QeYs1+WEyku9gW0HnslKNp3XTdW/zCi3SAGt5M775O6UnPl+E/GLicKRqqvlvO7vblO/97aF5NS3A5JKJgobg0UXLbmnv2EG+45LO9ezgdVE2oOgqlr64fPPkdEYE7o+IBndsUhre4Xy75cS8syexiK5VlmlrHig4oG7wQMTEaNx2XK2nD5tqv34or2o+wXzjh/pr8fj5pMLC9I9Mmpm/HB//dgxUz8clVE/rEgBwvwOHBhllUxF5So3Quw7zRMT5kd+IaxT+GRaEro/+ZBFCgjHgdGBC0aRkuFRM8DNz8NLcl56Z2bMehfiCr+94Aq3dBZXpICnES3Ant6x/4irZHzcHEtnZAPAFqe3g6lpGaIQWn4rJQmeA8zL98AVroTsyd5D6cuJhJyhVXqSeXi7lX8waK4MTOYSVjmFL98DzwISxqPzcupo6NNkZgIK3J6FKNlbjNnm7duyekipcOJJ50tFLiKSjFmckUcOBlHHueE7OgrMqFAhhT7xWI0kZ2Nat0p88kuOTK8H69bEZd1aROk+4WSiAMK09Nqsv/K9sKTTaYXTQH8q7gGQqdScdO9tdmk8YstTUyN/UYRfMeoOQoz9T+PQB6FVbpUUKSBB3/E6DU9oqcoBTOPugOTXr3MeDoflccUBGQi6OArbvKlW2u65cw0WKfjaI7OIGgIqMAiM4xOwqV3qKWjNSueP6MlFMtIAKme8xHSou2X5qOK9K6a3OSxzHBn21mVDqFIj11e2OBdsm6W9DAhWNwyhLk2XLiXbv/pI/UnbrpQVD1Q8UPFAxQP/1x7ARTSMvOK/4oSDL5jfLPck8mFGTc6YfcM3TR7Z3J42z30Y/VJ4xozdR81vl8IXDtFSAr7p4Djmdb+/oUV2njvtPrmU0pW2ef0fG5e30znZwbCMTwRUUhWS/rY18iXHceZLecq1afhUGu8VgtdLRyI/P+usLkfnBRplUF4sgQCqg29HB3rNO/531TIcMj1tHhsekSSi8B2MMjQkce8SgvfPjqERSdyaNHvK8VoYDecbLa8BiM86GcCVBtKWlmXRO5QfweBuMSDSALojJhLDdaG/ycGIeI9glufmmPk9XpaeIJsdVsZiTGqE65DgXEJ+d2PMnF/bJrsxGgydNdFwGH0+Mr/4Xmxxy5VW1x00+GMwCGA7EdYo1wZC1Ct/w2veo32vyieiU/I2iBo0xqdEEHJold52gvE6pxNNJj4oqdp6efTk6/Luwqz5UyDgdFr5noiCI8ARwZ+Lf38KcRTsSNiSyjN4lIvHFrbveDg7PR2Rfgxxg17KaCSnDhLpref5Z0r5ifesxF+rurm4XNj1UC4ej6U705CpPaZOr5P2sud6wpVb+l1yDfB1sSCQSikYOTWfkYa6pPzgeJVs2xoqGEl3KRnpwKsGW1eCnYvZzmWvj0rz4JYg3vurpakhKclk2uUDvfKjZPLXXcjid8kO0BgyMtNrLBOzc7Lzi1k5drhB6mp9rDQeeNqrH1aQrScVhk4RbEdAG167ptqRo99skN1fyUkinnCdAnrS2gzSsmnJRQxeWODxQHMgPyUnepukKexjAbxgOEjJQyPLJeKU1kdQ2v7C9jp5cEtOzr45jWfYFSqPsuxmUE6uz40laPYeoBzc+NmtUTn1nVZpbgq5/2NghO7vnsVa+AxjL7Dvj6+6Rza2tMj9uEGOEqaGsIRc5YF2C2ObuaExKC+9uEI+/5k4ng5y7ghYRwJfmpbsAIc/5CzIt7oysmtnc8Eb1M6fSvzHaY2iEK+p8utr5Y0N6517m5udgdZWZ3TjBuf+ulo5o52m9UhaUA4y5QV9V2Tid345LD0HsxIKpNxXfgLLJJVTBi6vvTE7uWdXfSt/zdI4KuGQa0JdGT1urg/eveHpmZWtsqOx0bnsURYVt/EKNzstf8VD2SorigR0MEVRvnWGf3r94c9zsy8ebij8nCRPJVU8UPFAxQN3hwf+CagI4zojNrTOAAAAAElFTkSuQmCC"
+                                alt="" width="20" height="20" class="rounded-full"><!----><!----></div>
+                    </div>
+                </div>
+                <div class="tool p-screenshot __cg_ss_action_wrapper__ fixed flex flex-col items-start gap-y-[8px] rounded-[4px] p-[4px] z-[2147483647]"
+                     style="display: none;">
+                    <div class="flex items-center rounded-[6px] bg-color-b5 px-[12px] py-[8px]">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                             aria-hidden="true" role="img"
+                             class="hi-iconify handle cursor-move text-[16px] text-color-t3 handle cursor-move text-[16px] text-color-t3 iconify iconify--i"
+                             width="1em" height="1em" viewBox="0 0 16 16">
+                            <path fill="currentColor"
+                                  d="M7 3q0 .074-.007.147t-.022.146-.036.142-.05.139q-.027.068-.062.133t-.076.126-.087.119-.1.109-.108.099q-.057.046-.119.087-.06.041-.126.076-.065.035-.133.063t-.139.05q-.07.02-.142.035-.073.015-.146.022T5.5 4.5t-.147-.007-.146-.022q-.072-.014-.142-.036t-.139-.05-.133-.062-.126-.076q-.062-.04-.119-.087t-.109-.1-.099-.108-.087-.119-.076-.126-.063-.133-.05-.139q-.02-.07-.035-.142-.015-.073-.022-.146T4 3t.007-.147.022-.146.036-.142q.021-.07.05-.139.027-.068.062-.133t.076-.126.087-.119.1-.109.108-.099q.057-.046.119-.087.06-.041.126-.076.065-.035.133-.063t.139-.05q.07-.02.142-.035.073-.015.146-.022T5.5 1.5t.147.007.146.022q.072.014.142.036t.139.05.133.062.126.076q.062.04.119.087t.109.1.099.108.087.119.076.126.063.133.05.139q.02.07.035.142.015.073.022.146T7 3m0 5q0 .074-.007.147t-.022.146-.036.142-.05.139q-.027.068-.062.133t-.076.126-.087.119-.1.109-.108.099q-.057.046-.119.087-.06.041-.126.076-.065.035-.133.063t-.139.05q-.07.02-.142.035-.073.015-.146.022T5.5 9.5t-.147-.007-.146-.022q-.072-.014-.142-.036t-.139-.05-.133-.062-.126-.076q-.062-.04-.119-.087t-.109-.1-.099-.108-.087-.119-.076-.126-.063-.133-.05-.139q-.02-.07-.035-.142-.015-.073-.022-.146T4 8t.007-.147.022-.146q.014-.072.036-.142t.05-.139.062-.133.076-.126q.04-.062.087-.119t.1-.109.108-.099.119-.087.126-.076.133-.063.139-.05q.07-.02.142-.035.073-.015.146-.022T5.5 6.5t.147.007.146.022q.072.014.142.036t.139.05.133.062.126.076q.062.04.119.087t.109.1.099.108.087.119.076.126.063.133.05.139q.02.07.035.142.015.073.022.146T7 8m0 5q0 .074-.007.147t-.022.146-.036.142-.05.139q-.027.068-.062.133t-.076.126-.087.119-.1.109-.108.098q-.057.047-.119.088-.06.041-.126.076-.065.035-.133.063t-.139.05q-.07.02-.142.035-.073.015-.146.022T5.5 14.5t-.147-.007-.146-.022q-.072-.014-.142-.036t-.139-.05-.133-.062-.126-.076q-.062-.04-.119-.088-.057-.046-.109-.098t-.099-.11-.087-.118q-.041-.06-.076-.126-.035-.065-.063-.133t-.05-.139q-.02-.07-.035-.142-.015-.073-.022-.146T4 13t.007-.147.022-.146q.014-.072.036-.142t.05-.139.062-.133.076-.126q.04-.062.087-.119t.1-.109.108-.098q.057-.047.119-.088.06-.041.126-.076.065-.035.133-.063t.139-.05q.07-.02.142-.035.073-.015.146-.022T5.5 11.5t.147.007.146.022q.072.014.142.036t.139.05.133.062.126.076q.062.04.119.088.057.046.109.098t.099.11.087.118q.041.06.076.126.035.065.063.133t.05.139q.02.07.035.142.015.073.022.146T7 13m5-10q0 .074-.007.147t-.022.146-.036.142-.05.139q-.027.068-.062.133t-.076.126-.087.119-.1.109-.108.099q-.057.046-.119.087-.06.041-.126.076-.065.035-.133.063t-.139.05q-.07.02-.142.035-.073.015-.146.022T10.5 4.5t-.147-.007-.146-.022q-.072-.014-.142-.036t-.139-.05-.133-.062-.126-.076q-.062-.04-.119-.087t-.109-.1-.099-.108-.087-.119-.076-.126-.063-.133-.05-.139q-.02-.07-.035-.142-.015-.073-.022-.146T9 3t.007-.147.022-.146.036-.142q.021-.07.05-.139.027-.068.062-.133t.076-.126.087-.119.1-.109.108-.099q.057-.046.119-.087.06-.041.126-.076.065-.035.133-.063t.139-.05q.07-.02.142-.035.073-.015.146-.022T10.5 1.5t.147.007.146.022.142.036q.07.021.139.05.068.027.133.062t.126.076.119.087.109.1.099.108q.046.057.087.119.041.06.076.126.035.065.063.133t.05.139q.02.07.035.142.015.073.022.146T12 3m0 5q0 .074-.007.147t-.022.146-.036.142-.05.139q-.027.068-.062.133t-.076.126-.087.119-.1.109-.108.099q-.057.046-.119.087-.06.041-.126.076-.065.035-.133.063t-.139.05q-.07.02-.142.035-.073.015-.146.022T10.5 9.5t-.147-.007-.146-.022q-.072-.014-.142-.036t-.139-.05-.133-.062-.126-.076q-.062-.04-.119-.087t-.109-.1-.099-.108-.087-.119-.076-.126-.063-.133-.05-.139q-.02-.07-.035-.142-.015-.073-.022-.146T9 8t.007-.147.022-.146q.014-.072.036-.142t.05-.139.062-.133.076-.126q.04-.062.087-.119t.1-.109.108-.099.119-.087.126-.076.133-.063.139-.05q.07-.02.142-.035.073-.015.146-.022T10.5 6.5t.147.007.146.022.142.036q.07.021.139.05.068.027.133.062t.126.076.119.087.109.1.099.108q.046.057.087.119.041.06.076.126.035.065.063.133t.05.139q.02.07.035.142.015.073.022.146T12 8m0 5q0 .074-.007.147t-.022.146-.036.142-.05.139q-.027.068-.062.133t-.076.126-.087.119-.1.109-.108.098q-.057.047-.119.088-.06.041-.126.076-.065.035-.133.063t-.139.05q-.07.02-.142.035-.073.015-.146.022t-.147.007-.147-.007-.146-.022q-.072-.014-.142-.036t-.139-.05-.133-.062-.126-.076q-.062-.04-.119-.088-.057-.046-.109-.098t-.099-.11-.087-.118q-.041-.06-.076-.126-.035-.065-.063-.133t-.05-.139q-.02-.07-.035-.142-.015-.073-.022-.146T9 13t.007-.147.022-.146q.014-.072.036-.142t.05-.139.062-.133.076-.126q.04-.062.087-.119t.1-.109.108-.098q.057-.047.119-.088.06-.041.126-.076.065-.035.133-.063t.139-.05q.07-.02.142-.035.073-.015.146-.022t.147-.007.147.007.146.022.142.036.139.05.133.062.126.076.119.088q.057.046.109.098t.099.11.087.118q.041.06.076.126.035.065.063.133t.05.139q.02.07.035.142.015.073.022.146T12 13"></path>
+                        </svg>
+                        <span class="ml-[4px] flex items-center gap-x-[8px]"><div
+                                class="s-trans cursor-pointer rounded-[6px] p-[4px] leading-[0] transition-colors hover:bg-color-m2/[0.08]"><svg
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                aria-hidden="true" role="img"
+                                class="hi-iconify text-[16px] leading-[16px] text-color-t2 text-[16px] leading-[16px] text-color-t2 iconify iconify--i"
+                                width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor"
+                                                                                   fill-rule="evenodd"
+                                                                                   d="M13.465 1.4c-.489-.26-.973-.4-2.31-.4h-6.31c-1.336 0-1.821.14-2.31.4A2.73 2.73 0 001.4 2.536c-.261.488-.4.973-.4 2.309v6.31c0 1.337.14 1.821.4 2.31.262.49.646.873 1.135 1.134.489.262.974.401 2.31.401h6.31c1.337 0 1.821-.14 2.31-.4a2.73 2.73 0 001.134-1.135c.262-.489.401-.973.401-2.31v-6.31c0-1.336-.14-1.821-.4-2.31A2.73 2.73 0 0013.464 1.4M4.643 2.5h6.714l.182.004c.694.015.954.078 1.219.22.227.121.397.29.519.518.165.309.223.611.223 1.604v6.308c0 .993-.058 1.295-.223 1.604a1.23 1.23 0 01-.52.519c-.308.165-.61.223-1.603.223H4.846c-.993 0-1.295-.058-1.604-.223a1.23 1.23 0 01-.519-.52c-.153-.286-.214-.567-.222-1.4V4.643c.008-.833.07-1.114.222-1.4a1.23 1.23 0 01.52-.52c.286-.153.567-.214 1.4-.222"></path></svg></div>
+                            <!----><div
+                                    class="s-trans cursor-pointer rounded-[6px] p-[4px] leading-[0] transition-colors hover:bg-color-m2/[0.08]"><svg
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    aria-hidden="true" role="img"
+                                    class="hi-iconify text-[16px] leading-[16px] text-color-t2 text-[16px] leading-[16px] text-color-t2 iconify iconify--i"
+                                    width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor"
+                                                                                       fill-rule="evenodd"
+                                                                                       d="M8 15q.172 0 .343-.008t.343-.026.341-.042.339-.058.335-.076.331-.091.326-.108.32-.124q.16-.066.315-.14.155-.072.307-.154.151-.08.299-.169.147-.088.29-.184.143-.095.28-.197.139-.103.272-.212t.26-.224.249-.237q.121-.122.237-.25.115-.126.224-.26.11-.132.212-.27t.197-.281.184-.29.17-.3q.08-.15.154-.306.073-.155.14-.314.065-.159.123-.32.058-.163.108-.327t.091-.331.076-.335q.033-.169.058-.339t.042-.34.026-.344T15 8t-.008-.343q-.009-.172-.026-.343t-.042-.341-.058-.339q-.034-.168-.076-.335t-.091-.331-.108-.326-.124-.32q-.066-.16-.14-.315-.072-.155-.154-.307-.08-.151-.169-.299-.088-.147-.184-.29-.095-.143-.197-.28-.103-.139-.212-.272t-.224-.26-.237-.249q-.122-.121-.25-.237-.126-.115-.26-.224-.132-.11-.27-.211-.138-.103-.281-.198t-.29-.184-.3-.17q-.15-.08-.306-.154-.155-.073-.314-.14-.159-.065-.32-.123-.163-.058-.327-.108t-.331-.091-.335-.075-.339-.06q-.17-.024-.34-.041-.172-.017-.344-.026T8 1t-.343.008q-.172.009-.343.026t-.341.042-.339.059-.335.075-.331.091-.326.108-.32.124-.315.14q-.155.073-.307.154-.151.08-.299.169-.147.088-.29.184-.143.095-.28.198-.139.102-.272.21-.133.11-.26.225-.127.116-.249.237-.121.122-.237.25-.115.126-.224.26-.11.132-.211.27-.103.138-.198.281t-.184.29-.17.3q-.08.15-.154.306-.073.155-.14.314-.065.159-.123.32-.058.163-.108.327t-.091.331-.075.335q-.034.169-.06.339-.024.17-.041.34-.017.172-.026.344T1 8t.008.343q.009.172.026.343t.042.341.059.339.075.335.091.331.108.326.124.32q.066.16.14.315.073.155.154.307.08.151.169.299.088.147.184.29.095.143.198.28.102.139.21.272.11.133.225.26.116.127.237.249.122.121.25.237.126.115.26.224.132.11.27.212t.281.197.29.184.3.17q.15.08.306.154.155.073.314.14.159.065.32.123.163.058.327.108t.331.091.335.076q.169.033.339.058t.34.042.344.026T8 15m0-1.5q.135 0 .27-.007.135-.006.27-.02.133-.013.267-.033t.266-.046.263-.059.26-.072q.13-.039.257-.085.127-.045.252-.097.124-.051.247-.11.122-.057.24-.12.12-.064.236-.134.115-.069.228-.144.112-.075.22-.155.109-.08.213-.166t.205-.177.195-.186q.096-.095.186-.195t.177-.205q.085-.104.166-.213.08-.108.155-.22.075-.113.144-.228.07-.116.134-.235.063-.12.12-.241.059-.123.11-.247.052-.125.098-.252.045-.127.084-.256.04-.13.072-.26.033-.132.06-.264t.046-.266.032-.268.02-.27Q13.5 8.135 13.5 8t-.007-.27-.02-.27q-.013-.133-.033-.267t-.046-.266-.059-.263-.072-.26q-.039-.13-.085-.257-.045-.127-.097-.252-.051-.124-.11-.247-.057-.122-.12-.24-.064-.12-.134-.236-.069-.115-.144-.228-.075-.112-.155-.22-.08-.109-.166-.213-.086-.105-.177-.205-.09-.1-.186-.195-.095-.096-.195-.186t-.205-.177q-.104-.085-.213-.166-.108-.08-.22-.155-.113-.075-.228-.145-.116-.069-.235-.133-.12-.063-.241-.12-.123-.059-.247-.11-.125-.052-.252-.097t-.256-.085-.26-.072-.264-.06-.266-.045-.268-.034-.27-.02Q8.136 2.5 8 2.5t-.27.007q-.135.006-.27.02-.133.013-.267.033t-.266.046-.263.059-.26.072q-.13.039-.257.085-.127.045-.252.097-.124.051-.247.11-.122.057-.24.12-.12.064-.236.133-.115.07-.228.145-.112.075-.22.155-.109.08-.213.166-.105.086-.205.177-.1.09-.195.186-.096.095-.186.195t-.177.205q-.085.104-.166.213-.08.108-.155.22-.075.113-.145.228-.069.116-.133.235-.063.12-.12.241-.059.123-.11.247-.052.125-.097.252t-.085.256-.072.26q-.033.132-.06.264t-.045.266-.034.268-.02.27Q2.5 7.864 2.5 8t.007.27q.006.135.02.27.013.133.033.267t.046.266.059.263.072.26q.039.13.085.257.045.127.097.252.051.124.11.247.057.122.12.24.064.12.133.236.07.115.145.228.075.112.155.22.08.109.166.213t.177.205.186.195q.095.096.195.186t.205.177q.104.085.213.166.108.08.22.155.113.075.228.144.116.07.235.134.12.063.241.12.123.059.247.11.125.052.252.098.127.045.256.084.13.04.26.072.132.033.264.06t.266.046.268.032.27.02q.134.007.269.007"></path></svg></div>
+                            <!----><div
+                                    class="s-trans cursor-pointer rounded-[6px] p-[4px] leading-[0] transition-colors hover:bg-color-m2/[0.08]"><svg
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    aria-hidden="true" role="img"
+                                    class="hi-iconify text-[16px] leading-[16px] text-color-t2 text-[16px] leading-[16px] text-color-t2 iconify iconify--i"
+                                    width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor"
+                                                                                       d="M9.22 3.22a.75.75 0 011.06 0l4.25 4.25a1 1 0 01.064.072l.004.006.021.032.029.041.004.01.009.014.013.03.017.033.008.022.006.013.005.018.013.04.006.027.005.016.002.019.007.035.002.027.003.023v.023L14.75 8l-.002.029v.023l-.003.021-.002.029-.007.034-.002.02-.005.015-.006.028-.013.039-.005.02-.006.011-.008.023-.017.032-.013.03-.009.014-.004.01-.029.041-.016.027-.073.084-4.25 4.25a.75.75 0 01-1.06-1.06l2.968-2.97H2a.75.75 0 01-.743-.648L1.25 8A.75.75 0 012 7.25h10.189l-2.97-2.97a.75.75 0 01-.072-.976z"></path></svg></div>
+                            <!----><div
+                                    class="s-trans cursor-pointer rounded-[6px] p-[4px] leading-[0] transition-colors hover:bg-color-m2/[0.08]"><svg
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    aria-hidden="true" role="img"
+                                    class="hi-iconify text-[16px] leading-[16px] text-color-t2 text-[16px] leading-[16px] text-color-t2 iconify iconify--i"
+                                    width="1em" height="1em" viewBox="0 0 16 16"><g fill="currentColor"><defs><clippath
+                                    id="iconifyVue1"><rect width="16" height="16" rx="0"></rect></clippath></defs><g
+                                    clip-path="url(#iconifyVue1)"><path
+                                    d="M14.096 1.904a3.087 3.087 0 010 4.366l-8.09 8.09c-.41.41-.965.64-1.544.64H2.746A1.746 1.746 0 011 13.254v-1.716c0-.579.23-1.134.64-1.543l8.09-8.09a3.087 3.087 0 014.366 0M8.536 5l-5.785 5.785a.86.86 0 00-.251.605v1.682c0 .236.192.428.428.428H4.61c.227 0 .445-.09.605-.25L11 7.463zm2.139-2.015L9.5 4.159 11.84 6.5l1.175-1.174a1.656 1.656 0 00-2.34-2.341"></path></g></g></svg></div>
+                            <!----><div
+                                    class="s-trans cursor-pointer rounded-[6px] p-[4px] leading-[0] transition-colors hover:bg-color-m2/[0.08]"><svg
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    aria-hidden="true" role="img"
+                                    class="hi-iconify text-[16px] leading-[16px] text-color-t2 text-[16px] leading-[16px] text-color-t2 iconify iconify--i"
+                                    width="1em" height="1em" viewBox="0 0 16 16"><g fill="currentColor"><path
+                                    fill-rule="evenodd"
+                                    d="M13.465 1.4c-.489-.26-.973-.4-2.31-.4h-6.31c-1.336 0-1.821.14-2.31.4A2.73 2.73 0 001.4 2.536c-.261.488-.4.973-.4 2.309v6.31c0 1.337.14 1.821.4 2.31.262.49.646.873 1.135 1.134.489.262.974.401 2.31.401h6.31c1.337 0 1.821-.14 2.31-.4a2.73 2.73 0 001.134-1.135c.262-.489.401-.973.401-2.31v-6.31c0-1.336-.14-1.821-.4-2.31A2.73 2.73 0 0013.464 1.4M4.643 2.5h6.714l.183.004c.694.015.953.078 1.218.22.227.121.397.29.519.518.165.309.223.611.223 1.604v6.308c0 .993-.058 1.295-.223 1.604a1.23 1.23 0 01-.52.519c-.308.165-.61.223-1.603.223H4.846c-.993 0-1.295-.058-1.604-.223a1.23 1.23 0 01-.519-.52c-.153-.286-.214-.567-.222-1.4V4.643c.008-.833.07-1.114.222-1.4a1.23 1.23 0 01.52-.52c.286-.153.567-.214 1.4-.222"></path><path
+                                    d="M3 8h5v5H4a1 1 0 01-1-1Zm5-5h4a1 1 0 011 1v4H8Z"></path></g></svg></div><!----><div
+                                    class="s-trans cursor-pointer rounded-[6px] p-[4px] leading-[0] transition-colors hover:bg-color-m2/[0.08]"><svg
+                                    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    aria-hidden="true" role="img"
+                                    class="hi-iconify text-[16px] leading-[16px] text-color-t2 text-[16px] leading-[16px] text-color-t2 iconify iconify--i"
+                                    width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor"
+                                                                                       d="M13.25 2a.75.75 0 010 1.5h-4.5v9.75a.75.75 0 01-.648.743L8 14a.75.75 0 01-.75-.75V3.5h-4.5a.75.75 0 01-.743-.648L2 2.75A.75.75 0 012.75 2z"></path></svg></div>
+                            <!----></span><i class="mx-[4px] inline-block h-[12px] w-0"
+                                             style="border: 1.2px solid rgb(238, 238, 238);"></i><span
+                            class="hover:border-transparent mx-[8px] inline-flex h-[24px] cursor-pointer items-center justify-center whitespace-nowrap rounded-[6px] border border-color-m2/[0.06] px-[8px] text-[12px] font-medium leading-[16px] text-color-blue transition-colors hover:bg-color-blue/[0.06]"><svg
+                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            aria-hidden="true" role="img"
+                            class="hi-iconify mr-[4px] text-[16px] leading-[16px] mr-[4px] text-[16px] leading-[16px] iconify iconify--i"
+                            width="1em" height="1em" viewBox="0 0 16 16"><g fill="currentColor"><path
+                            fill-rule="evenodd"
+                            d="M15 8A7 7 0 101 8v3.154c0 1.338.14 1.822.4 2.311.262.49.646.873 1.135 1.134.489.262.974.401 2.31.401H8a7 7 0 007-7M2.5 8A5.5 5.5 0 118 13.5H4.846c-.993 0-1.295-.058-1.604-.223a1.23 1.23 0 01-.519-.52c-.153-.286-.214-.567-.222-1.4z"></path><path
+                            d="M10.25 7.25a.75.75 0 010 1.5h-4.5a.75.75 0 010-1.5z"></path><path
+                            d="M8.75 10.25a.75.75 0 01-1.5 0v-4.5a.75.75 0 011.5 0z"></path></g></svg> 对话 </span><!----><i
+                            class="mx-[4px] inline-block h-[12px] w-0"
+                            style="border: 1.2px solid rgb(238, 238, 238);"></i><span
+                            class="ml-[4px] flex items-center gap-x-[8px]"><div
+                            class="s-trans cursor-pointer rounded-[6px] p-[4px] leading-[0] transition-colors hover:bg-color-m2/[0.06]"><svg
+                            xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            aria-hidden="true" role="img"
+                            class="hi-iconify text-[16px] leading-[16px] text-color-t2 text-[16px] leading-[16px] text-color-t2 iconify iconify--i"
+                            width="1em" height="1em" viewBox="0 0 16 16"><g fill="currentColor"><path
+                            d="M9.125 4.25a4.875 4.875 0 110 9.75H3.75a.75.75 0 010-1.5h5.375a3.375 3.375 0 000-6.75H3.75a.75.75 0 010-1.5z"></path><path
+                            d="M4.47 2.22a.75.75 0 111.06 1.06L3.783 5.027l1.774 1.971a.75.75 0 01.022.98l-.077.08a.75.75 0 01-1.06-.056l-2.25-2.5A.75.75 0 012.22 4.47z"></path></g></svg></div>
+                        <!----><div
+                                class="s-trans cursor-pointer rounded-[6px] p-[4px] leading-[0] transition-colors hover:bg-color-m2/[0.06]"><svg
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                aria-hidden="true" role="img"
+                                class="hi-iconify text-[16px] leading-[16px] text-color-t2 text-[16px] leading-[16px] text-color-t2 iconify iconify--i"
+                                width="1em" height="1em" viewBox="0 0 16 16"><g fill="currentColor"><path
+                                d="M15 9.75v.936c0 .926-.092 1.4-.356 1.895a2.57 2.57 0 01-1.063 1.063c-.494.264-.969.356-1.895.356H4.314c-.926 0-1.4-.092-1.895-.356a2.57 2.57 0 01-1.063-1.063c-.242-.453-.34-.89-.354-1.673L1.001 9.75a.75.75 0 111.499 0v.936c0 .636.038.893.145 1.12l.033.067q.157.292.449.449c.247.132.487.178 1.187.178h7.372l.339-.005c.448-.015.646-.065.848-.173q.292-.157.449-.449c.132-.247.178-.487.178-1.187V9.75a.75.75 0 011.5 0"></path><path
+                                d="M8 1a.75.75 0 01.75.75v7a.75.75 0 01-1.5 0v-7A.75.75 0 018 1"></path><path
+                                d="M10.741 5.199A.75.75 0 0111.76 6.3l-3.25 3a.75.75 0 01-1.018 0l-3.25-3A.75.75 0 015.26 5.2L8 7.729z"></path></g></svg></div>
+                        <!----><div
+                                class="s-trans cursor-pointer rounded-[6px] p-[4px] leading-[0] transition-colors hover:bg-color-m2/[0.06]"><svg
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                aria-hidden="true" role="img"
+                                class="hi-iconify text-[16px] leading-[16px] text-color-t2 text-[16px] leading-[16px] text-color-t2 iconify iconify--i"
+                                width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor"
+                                                                                   d="M4.28 3.22 8 6.939l3.72-3.72a.75.75 0 01.976-.072l.084.073a.75.75 0 010 1.06L9.061 8l3.72 3.72a.75.75 0 01-1.061 1.06L8 9.061l-3.72 3.72a.75.75 0 01-.976.072l-.084-.073a.75.75 0 010-1.06L6.939 8l-3.72-3.72A.75.75 0 114.28 3.22"></path></svg></div>
+                        <!----><div
+                                class="s-trans cursor-pointer rounded-[6px] p-[4px] leading-[0] transition-colors hover:bg-color-m2/[0.06]"><svg
+                                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                aria-hidden="true" role="img"
+                                class="hi-iconify text-[16px] leading-[16px] text-color-t2 text-[16px] leading-[16px] text-color-t2 iconify iconify--i"
+                                width="1em" height="1em" viewBox="0 0 16 16"><path fill="currentColor"
+                                                                                   d="M13.712 3.228a.75.75 0 011.076 1.044l-7.25 7.5a.75.75 0 01-1.083-.007l-4.25-4.5a.75.75 0 011.09-1.03l3.712 3.93z"></path></svg></div>
+                        <!----></span></div><!----></div>
+            </div>
+        </template>
+    </wetab-chat-screenshot>
+    <wetab-chat-contextmenu class="wetab-root" style="position: relative; z-index: 2147483647;">
+        <template shadowrootmode="open">
+            <link rel="stylesheet" href="chrome-extension://aikflfpejipbpjdlfabpgclhblkpaafo/content.css">
+            <style id="theme_style">
+                :host {
+                    --color-black: 0 0 0;
+                    --color-white: 255 255 255;
+                    --color-blue: 74 122 255;
+                    --color-green: 52 199 89;
+                    --color-yellow: 255 149 0;
+                    --color-orange: 255 155 48;
+                    --color-red: 255 77 79;
+                    --color-t1: 28 28 30;
+                    --color-t2: 58 58 60;
+                    --color-t3: 142 142 148;
+                    --color-t4: 199 199 204;
+                    --color-t5: 255 255 255;
+                    --color-b1: 209 209 214;
+                    --color-b2: 229 229 234;
+                    --color-b3: 248 248 248;
+                    --color-b4: 255 255 255;
+                    --color-b5: 255 255 255;
+                    --color-m1: 255 255 255;
+                    --color-m2: 0 0 0;
+                    --color-todo-t1: 47 87 255;
+                    --color-todo-t2: 83 147 255;
+                    --color-note-t1: 192 131 93;
+                    --color-note-t2: 198 174 159;
+                    --color-calc-t1: 255 255 255;
+                    --color-calc-t2: 200 200 204;
+                    --color-calc-t3: 142 142 148;
+                    --color-calc-t4: 94 94 98;
+                    --color-calc-b1: 75 78 84;
+                    --color-calc-b2: 50 52 57;
+                    --color-calc-b3: 34 36 39;
+                    --color-calc-l1: 254 189 95;
+                    --color-calc-l2: 251 132 54;
+                    --color-calc-l3: 96 99 107;
+                    --color-calc-l4: 58 60 66;
+                    --color-calc-l6: 32 33 38;
+                    --color-calc-l7: 81 84 90;
+                    --color-calc-l5: 63 65 72;
+                    --color-calc-l8: 72 74 79;
+                    --color-calc-l0: 40 41 45;
+                    --color-calc-l9: 252 163 36;
+                    --color-calc-yellow: 240 168 16;
+                    --color-calendar-red: 255 77 79;
+                    --color-calendar-b1: 255 101 101;
+                    --color-calendar-b2: 255 246 241;
+                    --color-worldcup-t1: 168 238 65;
+                    --color-rate-t1: 28 28 30;
+                    --color-rate-t2: 58 58 60;
+                    --color-rate-t3: 141 142 148;
+                    --color-rate-t4: 109 147 229;
+                    --color-rate-b1: 255 255 255;
+                    --color-rate-b2: 248 248 248;
+                    --color-rate-b3: 34 36 39;
+                    --color-rate-b4: 55 69 157;
+                    --color-rate-b5: 238 240 239;
+                    --color-rate-l1: 70 154 255;
+                    --color-rate-l2: 72 90 188;
+                    --color-game-b1: 38 42 53;
+                    --color-game-b2: 70 74 88;
+                    --color-game-b3: 23 26 34;
+                    --color-game-b4: 44 47 59;
+                    --color-game-b5: 20 174 60;
+                    --color-game-t1: 200 200 204;
+                    --color-game-t2: 142 142 148;
+                    --color-movie-b1: 94 104 71;
+                    --color-clock-b1: 22 21 28;
+                    --color-wclock-b1: 19 20 21;
+                    --color-wclock-t1: 37 216 27;
+                    --color-wclock-t2: 47 142 42;
+                    --color-wclock-t3: 30 82 27;
+                    --color-bookmark-t1: 98 173 91;
+                    --color-bookmark-b1: 248 248 248;
+                    --color-bookmark-b2: 255 255 255;
+                    --color-record-t1: 255 115 48;
+                    --color-image-t1: 68 10 214;
+                    --color-image-b1: 0 0 0;
+                    --color-image-b2: 255 255 255;
+                    --color-image-b4: 17 17 17;
+                    --color-translate-green: 36 161 81;
+                    --color-tomato-work: 244 78 33;
+                    --color-tomato-rest: 54 168 106;
+                    --color-write-t1: 69 116 246;
+                    --color-write-blue: 48 101 246;
+                    --color-settings-blue: 0 122 255
+                }
+            </style>
+            <div class="module-app" data-v-app=""><!----></div>
+        </template>
+    </wetab-chat-contextmenu>
+</div>
 </body>
 </html>

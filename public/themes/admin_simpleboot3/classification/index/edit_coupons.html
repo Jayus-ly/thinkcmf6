@@ -22,6 +22,12 @@
             </select>
         </div>
         <div class="form-group">
+            <label for="input-code" class="col-sm-2 control-label"><span class="form-required">*</span>优惠码</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-code" name="code" value="{$data.code}">
+            </div>
+        </div>
+        <div class="form-group">
             <label for="input-details" class="col-sm-2 control-label"><span class="form-required">*</span>详细介绍</label>
             <div class="col-md-6 col-sm-10">
                 <input type="text" class="form-control" id="input-details" name="details" value="{$data.details}">
@@ -32,6 +38,14 @@
             <div class="col-md-6 col-sm-10">
                 <input type="text" class="form-control" id="input-used" name="used" value="{$data.used}">
             </div>
+        </div>
+        <div class="form-group">
+            <label for="input-is_new" class="col-sm-2 control-label"><span class="form-required">*</span>优惠券是否上新</label>
+            <select class="form-control" id="input-is_new" name="is_new" style="width: 400px">
+                <option value="">请选择</option>
+                <option value="0" {$data.is_new ?  "" : 'selected="selected"'}>否</option>
+                <option value="1" {$data.is_new ? 'selected="selected"' : ""}>是</option>
+            </select>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">

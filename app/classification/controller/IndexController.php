@@ -109,15 +109,12 @@ class IndexController extends AdminBaseController
         $name = $param['name'] ?? '';
         $imgUrl = $param['img_url'] ?? '';
         $parentId = $param['parent_id'] ?? '';
-
-
         $about = $param['about'] ?? '';
         $href = $param['href'] ?? '';
         $paymentOptions = $param['payment_options'] ?? '';
         if (!empty($paymentOptions)) {
             $paymentOptions = implode('/', $paymentOptions);
         }
-
 
         $model = ItemClassificationModel::getInstance();
         $model->where('id', $id)->update([
@@ -175,6 +172,8 @@ class IndexController extends AdminBaseController
             'classification_id' => $param['classification_id'] ?? 0,
             'details' => $param['details'] ?? '',
             'used' => $param['used'] ?? '',
+            'code' => $param['code'] ?? '',
+            'is_new' => $param['is_new'] ?? 0,
         ]);
 
         // 获取模型实例（推荐使用 find 或者 select）
@@ -244,6 +243,8 @@ class IndexController extends AdminBaseController
             'classification_id' => $param['classification_id'] ?? '',
             'details' => $param['details'] ?? '',
             'used' => $param['used'] ?? '',
+            'code' => $param['code'] ?? '',
+            'is_new' => $param['is_new'] ?? 0,
         ]);
 
         $this->success('更新成功', url("couponsList"));
