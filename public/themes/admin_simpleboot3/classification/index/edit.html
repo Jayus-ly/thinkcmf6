@@ -3,6 +3,10 @@
 <link rel="stylesheet" href="__TMPL__/public/assets/themes/{:cmf_get_admin_style()}/flatpickr.min.css">
 <script src="__TMPL__/public/assets/js/flatpickr.js"></script>
 
+<!-- 放在页面头部或底部 -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 <body>
 <div class="wrap">
@@ -36,10 +40,58 @@
             <select class="form-control" name="parent_id" id="target" style="width: 400px">
                 <option value="0" selected="selected">顶级分类</option>
                 <foreach name="array" item="vo">
-                    <option value="{$vo.id}">{$vo.name}</option>
+                    <option value="{$vo.id}"
+                    <?php if($vo['id']==$data['parent_id']): ?>
+                    selected
+                    <?php endif; ?>
+                    >{$vo.name}</option>
                 </foreach>
             </select>
         </div>
+
+        <?php if(!empty($parent_id)): ?>
+
+        <div class="form-group">
+            <label for="input-about" class="col-sm-2 control-label"><span class="form-required">*</span>关于品牌</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-about" name="about" value="{$data.about|default=''}">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="input-href" class="col-sm-2 control-label"><span class="form-required">*</span>品牌网址</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-href" name="href" value="{$data.href|default=''}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-tags" class="col-sm-2 control-label">
+                <span class="form-required">*</span>选择Payment
+            </label>
+            <div class="col-md-6 col-sm-10">
+                <select class="form-control select2" id="input-tags" name="payment_options[]" multiple="multiple" style="width: 100%;">
+                    <foreach name="payment" item="vo">
+                        <option value="{$vo}"
+                        <?php if(in_array($vo, $data['payment_options'])): ?>
+                        selected
+                        <?php endif; ?>>{$vo}</option>
+                    </foreach>
+                </select>
+            </div>
+        </div>
+        <script>
+            $(function() {
+                $('.select2').select2({
+                    placeholder: "请选择分类",
+                    allowClear: true,
+                    width: 'resolve'
+                });
+            });
+        </script>
+
+
+        <?php endif; ?>
+
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <input type="hidden" name="id" value="{$data.id|default=0}" />

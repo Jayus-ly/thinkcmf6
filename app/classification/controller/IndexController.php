@@ -45,7 +45,11 @@ class IndexController extends AdminBaseController
         $param = input();
         $parentId = $param['parent_id'] ?? 0;
         $this->assign('parent_id', $parentId);
-        return $this->fetch('add');
+
+
+        $payment = config('common.payment_options') ?? [];
+
+        return $this->fetch('add', ['payment' => $payment]);
     }
 
     public function addPost()
@@ -55,12 +59,21 @@ class IndexController extends AdminBaseController
         $imgUrl = $param['img_url'] ?? '';
         $parentId = $param['parent_id'] ?? 0;
 
+        $about = $param['about'] ?? '';
+        $href = $param['href'] ?? '';
+        $paymentOptions = $param['payment_options'] ?? '';
+        if (!empty($paymentOptions)) {
+            $paymentOptions = implode('/', $paymentOptions);
+        }
 
         $model = ItemClassificationModel::getInstance();
         $model->create([
             'name' => $name,
             'img_url' => $imgUrl,
-            'parent_id' => $parentId
+            'parent_id' => $parentId,
+            'about' => $about,
+            'href' => $href,
+            'payment_options' => $paymentOptions,
         ]);
         $this->success('创建成功', url("index"));
     }
@@ -76,14 +89,17 @@ class IndexController extends AdminBaseController
         $model = ItemClassificationModel::getInstance();
 
 
+        $payment = config('common.payment_options') ?? [];
+
         $data = $model->find($id)->toArray();
 
+        $data['payment_options'] = explode('/', $data['payment_options']);
         // 获取所有顶级分类
         $array = $model->where('parent_id', ItemClassificationModel::PARENT_ID_LEVEL_TOP)
             ->where('id','!=', $id)
             ->select()->toArray();
 
-        return $this->fetch('edit', ['data' => $data, 'array' => $array]);
+        return $this->fetch('edit', ['data' => $data, 'array' => $array, 'parent_id' => $data['parent_id'], 'payment' => $payment]);
     }
 
     public function editPost()
@@ -94,11 +110,23 @@ class IndexController extends AdminBaseController
         $imgUrl = $param['img_url'] ?? '';
         $parentId = $param['parent_id'] ?? '';
 
+
+        $about = $param['about'] ?? '';
+        $href = $param['href'] ?? '';
+        $paymentOptions = $param['payment_options'] ?? '';
+        if (!empty($paymentOptions)) {
+            $paymentOptions = implode('/', $paymentOptions);
+        }
+
+
         $model = ItemClassificationModel::getInstance();
         $model->where('id', $id)->update([
             'name' => $name,
             'img_url' => $imgUrl,
-            'parent_id' => $parentId
+            'parent_id' => $parentId,
+            'about' => $about,
+            'href' => $href,
+            'payment_options' => $paymentOptions,
         ]);
         $this->success('更新成功', url("index"));
     }
@@ -144,10 +172,19 @@ class IndexController extends AdminBaseController
         $model->create([
             'name' => $param['name'] ?? '',
             'type' => $param['type'] ?? '',
-            'classification_id' => $param['classification_id'] ?? '',
+            'classification_id' => $param['classification_id'] ?? 0,
             'details' => $param['details'] ?? '',
             'used' => $param['used'] ?? '',
         ]);
+
+        // 获取模型实例（推荐使用 find 或者 select）
+        $item = ItemClassificationModel::where('id', $param['classification_id'])->find();
+
+        if ($item) {
+            $item->count += 1;
+            $item->save();
+        }
+
         $this->success('操作成功');
     }
 
