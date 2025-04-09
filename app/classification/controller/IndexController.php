@@ -27,6 +27,7 @@ class IndexController extends AdminBaseController
         $count = $sql->count();
 
         $list = $sql->page($pageNum, $pageSize)
+            ->order('parent_id', 'asc')
             ->order('id', 'desc')
             ->select();
 

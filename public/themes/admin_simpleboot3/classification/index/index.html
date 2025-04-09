@@ -33,7 +33,9 @@
                     <tr>
                         <td>{$vo.id}</td>
                         <td>{$vo.name}</td>
-                        <td>{$vo.img_url}</td>
+                        <td>
+                            <img src="{:cmf_get_image_preview_url($vo.img_url)}" width="135" style="cursor: hand"/>
+                        </td>
                         <td>{$vo.parent_id ? $vo.parent_id.'级':'顶级'}</td>
                         <td>{$vo.create_time}</td>
                         <td>{$vo.update_time}</td>
@@ -47,19 +49,6 @@
                 </foreach>
             </tbody>
         </table>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="">Previous</a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="#"></a>
-                </li>
-                <li class="page-item">
-                    <a class="page-link" href="">Next</a>
-                </li>
-            </ul>
-        </nav>
     </form>
 </div>
 <script src="__STATIC__/js/admin.js?v={$_static_version}"></script>
