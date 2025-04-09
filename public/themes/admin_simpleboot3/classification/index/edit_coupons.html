@@ -6,38 +6,38 @@
 </head>
 <body>
 <div class="wrap">
-    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('addCouponsPost')}">
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('editCouponsPost')}">
         <div class="form-group">
             <label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>优惠券名称</label>
             <div class="col-md-6 col-sm-10">
-                <input type="text" class="form-control" id="input-name" name="name">
+                <input type="text" class="form-control" id="input-name" name="name" value="{$data.name}">
             </div>
         </div>
         <div class="form-group">
             <label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>优惠券类型</label>
-            <select class="form-control" name="type" id="target"  style="width: 400px">
+            <select class="form-control" name="type" id="target" style="width: 400px">
                 <option value="">请选择优惠券类型</option>
-                <option value="0">CODE</option>
-                <option value="1">SALE</option>
+                <option value="0" {$data.type ?  "" : 'selected="selected"'}>CODE</option>
+                <option value="1" {$data.type ? 'selected="selected"' : ""}>SALE</option>
             </select>
         </div>
         <div class="form-group">
             <label for="input-details" class="col-sm-2 control-label"><span class="form-required">*</span>详细介绍</label>
             <div class="col-md-6 col-sm-10">
-                <input type="text" class="form-control" id="input-details" name="details">
+                <input type="text" class="form-control" id="input-details" name="details" value="{$data.details}">
             </div>
         </div>
         <div class="form-group">
             <label for="input-used" class="col-sm-2 control-label"><span class="form-required">*</span>使用次数</label>
             <div class="col-md-6 col-sm-10">
-                <input type="text" class="form-control" id="input-used" name="used" value="">
+                <input type="text" class="form-control" id="input-used" name="used" value="{$data.used}">
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <input type="hidden" name="classification_id" value="{$classification_id|default=0}" />
+                <input type="hidden" name="id" value="{$data.id|default=0}" />
                 <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
-                <a class="btn btn-default" href="{:url('index')}">{:lang('BACK')}</a>
+                <a class="btn btn-default" href="{:url('couponsList')}">{:lang('BACK')}</a>
             </div>
         </div>
     </form>

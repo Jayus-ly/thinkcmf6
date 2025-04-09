@@ -1,0 +1,71 @@
+<include file="public@header"/>
+
+<link rel="stylesheet" href="__TMPL__/public/assets/themes/{:cmf_get_admin_style()}/flatpickr.min.css">
+<script src="__TMPL__/public/assets/js/flatpickr.js"></script>
+
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class=""><a href="{:url('index')}">品牌管理</a></li>
+        <li class="active"><a href="{:url('couponsList')}">优惠券列表</a></li>
+    </ul>
+    <form class="well form-inline margin-top-20" method="post" action="{:url('classification/index/couponsList')}">
+        名称
+        <input type="text" name="name" class="form-control" value="{:input('request.name')}" placeholder="输入名称搜索">
+        品牌ID
+        <input type="text" name="classification_id" class="form-control" value="{:input('request.classification_id')}" placeholder="输入品牌ID搜索">
+        <input type="submit" class="btn btn-primary" value="{:lang('Search')}"/>
+        <a class="btn btn-danger" href="{:url('classification/index/couponsList')}">{:lang('Clear')}</a>
+    </form>
+    <form method="post" class="js-ajax-form">
+        <table class="table table-hover table-bordered table-list" id="menus-table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>所属品牌ID</th>
+                <th>优惠券名称</th>
+                <th>类型</th>
+                <th>使用次数</th>
+                <th>详细介绍</th>
+                <th>创建时间</th>
+                <th>更新时间</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+                            <foreach name="list" item="vo">
+                                <tr>
+                                    <td>{$vo.id}</td>
+                                    <td>{$vo.classification_id}</td>
+                                    <td>{$vo.name}</td>
+                                    <td>{$vo.type}</td>
+                                    <td>{$vo.used}</td>
+                                    <td>{$vo.details}</td>
+                                    <td>{$vo.create_time}</td>
+                                    <td>{$vo.update_time}</td>
+                                    <td>
+                                        <a class="btn btn-xs btn-primary" href="{:url('couponsEdit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
+                                        <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('couponsDeletePost',array('id'=>$vo['id']))}">
+                                            {:lang('DELETE')}
+                                        </a>
+                                    </td>
+                                </tr>
+                            </foreach>
+            </tbody>
+        </table>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js?v={$_static_version}"></script>
+<script>
+    $(document).ready(function () {
+        Wind.css('treeTable');
+        Wind.use('treeTable', function () {
+            $("#menus-table").treeTable({
+                indent: 20
+            });
+        });
+    });
+</script>
+</body>
+</html>

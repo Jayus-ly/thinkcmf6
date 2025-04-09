@@ -7,6 +7,7 @@ namespace app\classification\controller;
 use cmf\controller\AdminBaseController;
 use model\CouponsModel;
 use model\ItemClassificationModel;
+use function Symfony\Component\Finder\in;
 
 class IndexController extends AdminBaseController
 {
@@ -118,7 +119,16 @@ class IndexController extends AdminBaseController
 
     public function addCoupons()
     {
-        return $this->fetch('add_coupons');
+        $param = input();
+
+        if (!isset($param['classification_id']) && empty($param['classification_id'])) {
+            $this->error('参数错误!');
+        }
+
+        $classificationId = $param['classification_id'] ?? 0;
+
+
+        return $this->fetch('add_coupons', ['classification_id' => $classificationId]);
     }
 
     /**
@@ -139,5 +149,82 @@ class IndexController extends AdminBaseController
             'used' => $param['used'] ?? '',
         ]);
         $this->success('操作成功');
+    }
+
+
+    /**
+     * 优惠券列表
+     * @return mixed
+     */
+    public function couponsList()
+    {
+        $param = input();
+
+        $classificationId = $param['classification_id'] ?? 0;
+        $name = $param['name'] ?? 0;
+
+        $list = CouponsModel::getInstance()->when($name, function ($query) use ($name) {
+            return $query->where('name', 'like', '%' . $name . '%');
+        })->when($classificationId, function ($query) use ($classificationId) {
+            return $query->where(['classification_id' => $classificationId]);
+        })->select()->toArray();
+
+
+        return $this->fetch('coupons_list', ['list' => $list]);
+    }
+
+    public function couponsEdit()
+    {
+        $param = input();
+
+        $id = $param['id'] ?? '';
+
+        if (empty($id)) {
+            $this->error('参数错误');
+        }
+
+        $model = CouponsModel::getInstance();
+
+
+        $data = $model->find($id)->toArray();
+
+        return $this->fetch('edit_coupons', ['data' => $data]);
+    }
+
+    public function editCouponsPost()
+    {
+        $param = input();
+        $id = $param['id'] ?? 0;
+
+        if (empty($id)) {
+            $this->error('参数错误');
+        }
+        $model = CouponsModel::getInstance();
+
+        $model->where('id', $id)->update([
+            'name' => $param['name'] ?? '',
+            'type' => $param['type'] ?? '',
+            'classification_id' => $param['classification_id'] ?? '',
+            'details' => $param['details'] ?? '',
+            'used' => $param['used'] ?? '',
+        ]);
+
+        $this->success('更新成功', url("couponsList"));
+    }
+
+    /**
+     * 删除优惠券
+     */
+    public function couponsDeletePost()
+    {
+        $param = input();
+        $id = $param['id'] ?? 0;
+        if (empty($id)) {
+            $this->error('参数错误');
+        }
+        $model = CouponsModel::getInstance();
+
+        $model->where('id', $id)->delete();
+        $this->success('删除成功');
     }
 }

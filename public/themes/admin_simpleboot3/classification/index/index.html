@@ -8,13 +8,14 @@
 <div class="wrap">
     <ul class="nav nav-tabs">
         <li class="active"><a>品牌管理</a></li>
+        <li class=""><a href="{:url('couponsList')}">优惠券列表</a></li>
     </ul>
     <form class="well form-inline margin-top-20" method="post" action="{:url('classification/index/index')}">
         名称
         <input type="text" name="name" class="form-control" value="{:input('request.name')}" placeholder="输入名称搜索">
         <input type="submit" class="btn btn-primary" value="{:lang('Search')}"/>
         <a class="btn btn-danger" href="{:url('blog/index/index')}">{:lang('Clear')}</a>
-        <a class="btn" href="<?php echo url('add'); ?>">新增分类</a>
+        <a class="btn btn-primary" href="<?php echo url('add'); ?>">新增分类</a>
     </form>
     <form method="post" class="js-ajax-form">
         <table class="table table-hover table-bordered table-list" id="menus-table">
@@ -45,7 +46,8 @@
                         <?php if(empty($vo['parent_id'])): ?>
                             <a class="btn btn-xs btn-primary" href="{:url('add',array('parent_id'=>$vo['id']))}">添加品牌</a>
                         <?php else: ?>
-                            <a class="btn btn-xs btn-primary" href="{:url('addCoupons',array('classification_id'=>$vo['id']))}">添加优惠卷</a>
+                            <a class="btn btn-xs btn-primary" href="{:url('addCoupons',array('classification_id'=>$vo['id']))}">添加优惠券</a>
+                            <a class="btn btn-xs btn-primary" href="{:url('couponsList',array('classification_id'=>$vo['id']))}">优惠券列表</a>
                         <?php endif; ?>
                         <a class="btn btn-xs btn-primary" href="{:url('edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
                         <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('delete',array('id'=>$vo['id']))}">
