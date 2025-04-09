@@ -1,0 +1,45 @@
+<include file="public@header"/>
+
+<link rel="stylesheet" href="__TMPL__/public/assets/themes/{:cmf_get_admin_style()}/flatpickr.min.css">
+<script src="__TMPL__/public/assets/js/flatpickr.js"></script>
+
+</head>
+<body>
+<div class="wrap">
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('addPost')}">
+        <div class="form-group">
+            <label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('Name')}</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-name" name="name" value="{$data.name|default=''}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>上传图片</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="hidden" name="img_url" id="thumb" value="">
+                <a href="javascript:uploadOneImage('图片上传','#thumb');">
+                    <if condition="empty($data['img_url'])">
+                        <img src="__TMPL__/public/assets/images/default-thumbnail.png"
+                             id="thumb-preview" width="135" style="cursor: hand"/>
+                        <else/>
+                        <img src="{:cmf_get_image_preview_url($data['img_url'])}" id="thumb-preview"
+                             width="135" style="cursor: hand"/>
+                    </if>
+
+                </a>
+                <input type="button" class="btn btn-sm"
+                       onclick="$('#thumb-preview').attr('src','/themes/admin_simpleboot3/public/assets/images/default-thumbnail.png');$('#thumb').val('');return false;"
+                       value="取消图片">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+                <a class="btn btn-default" href="{:url('index')}">{:lang('BACK')}</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js?v={$_static_version}"></script>
+</body>
+</html>

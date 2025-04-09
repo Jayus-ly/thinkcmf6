@@ -1,13 +1,14 @@
 
+<?php if ($theme_widgets['foot']['display']): ?>
 <footer class="footer">
     <div class="footerWrap">
         <div class="wrapper">
             <a href="https://www.couponsfab.com/" class="logo" rel="home" aria-label="go home">
-                <img src="{$theme_vars.coupon_fab_logo|default="__TMPL__/public/index_files/couponfab_logo.webp"}"
-                alt="{$theme_vars.coupon_fab_logo_alt|default="CouponsFab logo"}">
+                <img src="{$theme_widgets.coupon_fab.vars.coupon_fab_logo|default="__TMPL__/public/index_files/couponfab_logo.webp"}"
+                alt="{$theme_widgets.coupon_fab.vars.coupon_fab_logo_alt|default="CouponsFab logo"}">
             </a>
             <div class="bottomDesp">
-                <p>{$theme_vars.foot_alt|default="CouponsFab is your one stop shop for the best discounts and exclusive promotions!"}</p>
+                <p>{$theme_widgets.foot.vars.foot_alt|default="CouponsFab is your one stop shop for the best discounts and exclusive promotions!"}</p>
             </div>
             <div class="footerPage">
                 <a class="footerLink" id="about" href="https://www.couponsfab.com/about" aria-label="go about page">About</a>
@@ -796,3 +797,6 @@ document.addEventListener("click", function (a) {
 <div id="batBeacon836739394388" style="width: 0px; height: 0px; display: none; visibility: hidden;"><img
         id="batBeacon796532581744" width="0" height="0" alt="" src="__TMPL__/public/index_files/0"
         style="width: 0px; height: 0px; display: none; visibility: hidden;"></div>
+
+
+<?php endif; ?>

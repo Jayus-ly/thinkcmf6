@@ -1,0 +1,67 @@
+<include file="public@header"/>
+
+<link rel="stylesheet" href="__TMPL__/public/assets/themes/{:cmf_get_admin_style()}/flatpickr.min.css">
+<script src="__TMPL__/public/assets/js/flatpickr.js"></script>
+
+</head>
+<body>
+<div class="wrap">
+    <ul class="nav nav-tabs">
+        <li class="active"><a>分类管理</a></li>
+    </ul>
+    <form class="well form-inline margin-top-20" method="post" action="{:url('classification/index/index')}">
+        名称
+        <input type="text" name="name" class="form-control" value="{:input('request.name')}" placeholder="输入名称搜索">
+        <input type="submit" class="btn btn-primary" value="{:lang('Search')}"/>
+        <a class="btn btn-danger" href="{:url('blog/index/index')}">{:lang('Clear')}</a>
+        <a class="btn" href="<?php echo url('add'); ?>">新增分类</a>
+    </form>
+    <form method="post" class="js-ajax-form">
+        <table class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>分类名称</th>
+                <th>图片地址</th>
+                <th>分类等级</th>
+                <th>创建时间</th>
+                <th>更新时间</th>
+            </tr>
+            </thead>
+            <tbody>
+                <foreach name="list" item="vo">
+                    <tr>
+                        <td>{$vo.id}</td>
+                        <td>{$vo.name}</td>
+                        <td>{$vo.img_url}</td>
+                        <td>{$vo.parent_id ? $vo.parent_id.'级':'顶级'}</td>
+                        <td>{$vo.create_time}</td>
+                        <td>{$vo.update_time}</td>
+                        <td>
+                            <a class="btn btn-xs btn-primary" href="{:url('edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
+                            <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('delete',array('id'=>$vo['id']))}">
+                                {:lang('DELETE')}
+                            </a>
+                        </td>
+                    </tr>
+                </foreach>
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="">Previous</a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="#"></a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" href="">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js?v={$_static_version}"></script>
+</body>
+</html>

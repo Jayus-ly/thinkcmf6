@@ -2,410 +2,10 @@
   "name": "首页",
   "action": "portal/Index/index",
   "description": "首页模板文件",
+  "is_public": "1",
   "order": 5.0,
   "more": {
     "vars": {
-      "coupon_name": {
-        "title": "Today's Top Coupons",
-        "value": "Today's Top Coupons",
-        "type": "text",
-        "placeholder": "可重置该栏目名称 设置后该栏目名称会替换",
-        "rule": {
-          "require": true
-        }
-      },
-      "coupon_data": {
-        "title": "Today's Top Coupons添加数据",
-        "value": [],
-        "type": "array",
-        "item": {
-          "coupon_img": {
-            "title": "优惠券图片",
-            "value": "",
-            "type": "image",
-            "tip": "请上传优惠券的图片",
-            "rule": {
-              "require": true
-            }
-          },
-          "coupon_name": {
-            "title": "优惠券名称",
-            "value": "Temu",
-            "type": "text",
-            "tip": "请输入优惠券名称",
-            "rule": {
-              "require": true
-            }
-          },
-          "coupon_detail": {
-            "title": "优惠详情",
-            "value": "New Around Here? 30% Off $39+ For CouponsFab Shoppers",
-            "type": "text",
-            "tip": "请输入优惠详情",
-            "rule": {
-              "require": true
-            }
-          },
-          "coupon_sales": {
-            "title": "优惠折扣",
-            "value": "30% OFF",
-            "type": "text",
-            "tip": "请输入优惠折扣信息",
-            "rule": {
-              "require": true
-            }
-          }
-        },
-        "rule": {
-          "require": true
-        }
-      },
-
-      "popular_products_name": {
-        "title": "Popular Products",
-        "value": "Popular Products",
-        "type": "text",
-        "placeholder": "可重置该栏目名称 设置后该栏目名称会替换",
-        "rule": {
-          "require": true
-        }
-      },
-      "popular_products_data": {
-        "title": "Popular Products添加数据",
-        "value": [],
-        "type": "array",
-        "item": {
-          "img": {
-            "title": "图片",
-            "value": "",
-            "type": "image",
-            "tip": "请上传图片",
-            "rule": {
-              "require": true
-            }
-          },
-          "alt": {
-            "title": "介绍",
-            "value": "6Pcs new acrylic Christmas decoration pendants, creative Christmas Thanksgiving Hanukkah car decoration pendants, creative monk statue holiday decoration pendants ProductsLogo",
-            "type": "text",
-            "tip": "请输入介绍",
-            "rule": {
-              "require": true
-            }
-          },
-          "name": {
-            "title": "名称",
-            "value": "6Pcs new acrylic Christmas decoration pendants, creative Christmas\n                            Thanksgiving Hanukkah car decoration pendants, creative monk statue holiday decoration pendants",
-            "type": "text",
-            "tip": "请输入名称",
-            "rule": {
-              "require": true
-            }
-          },
-          "couponText": {
-            "title": "打折百分比",
-            "value": "74% off",
-            "type": "text",
-            "tip": "请输入打折百分比",
-            "rule": {
-              "require": true
-            }
-          },
-          "newPrice": {
-            "title": "打折后价格",
-            "value": "$5.12",
-            "type": "text",
-            "tip": "请输入打折后价格",
-            "rule": {
-              "require": true
-            }
-          },
-          "oiginalPrice": {
-            "title": "打折前价格",
-            "value": "$19.99",
-            "type": "text",
-            "tip": "请输入打折前价格",
-            "rule": {
-              "require": true
-            }
-          }
-        },
-        "rule": {
-          "require": true
-        }
-      },
-
-      "featured_coupons_name": {
-        "title": "Featured Coupons",
-        "value": "Featured Coupons",
-        "type": "text",
-        "placeholder": "可重置该栏目名称 设置后该栏目名称会替换",
-        "rule": {
-          "require": true
-        }
-      },
-      "featured_coupons_data": {
-        "title": "Featured Coupons添加数据",
-        "value": [],
-        "type": "array",
-        "item": {
-          "img": {
-            "title": "图片",
-            "value": "",
-            "type": "image",
-            "tip": "请上传图片",
-            "rule": {
-              "require": true
-            }
-          },
-          "alt": {
-            "title": "介绍",
-            "value": "SouthBeachSwimsuits logo",
-            "type": "text",
-            "tip": "请输入介绍",
-            "rule": {
-              "require": true
-            }
-          },
-          "name": {
-            "title": "名称",
-            "value": "SouthBeachSwimsuits",
-            "type": "text",
-            "tip": "请输入名称",
-            "rule": {
-              "require": true
-            }
-          },
-          "couponAbout": {
-            "title": "关于",
-            "value": "Swimwear available from South Beach.",
-            "type": "text",
-            "tip": "请输入关于",
-            "rule": {
-              "require": true
-            }
-          },
-          "couponType": {
-            "title": "类型",
-            "value": "CODE",
-            "type": "text",
-            "tip": "请输入类型",
-            "rule": {
-              "require": true
-            }
-          }
-        },
-        "rule": {
-          "require": true
-        }
-      },
-
-      "hot_categories_name": {
-        "title": "Hot Categories",
-        "value": "Hot Categories",
-        "type": "text",
-        "placeholder": "可重置该栏目名称 设置后该栏目名称会替换",
-        "rule": {
-          "require": true
-        }
-      },
-      "hot_categories_data": {
-        "title": "Hot Categories添加数据",
-        "value": [],
-        "type": "array",
-        "item": {
-          "img": {
-            "title": "图片",
-            "value": "",
-            "type": "image",
-            "tip": "请上传图片",
-            "rule": {
-              "require": true
-            }
-          },
-          "alt": {
-            "title": "介绍",
-            "value": "Clothing &amp; Accessories icon",
-            "type": "text",
-            "tip": "请输入介绍",
-            "rule": {
-              "require": true
-            }
-          },
-          "name": {
-            "title": "名称",
-            "value": "Clothing &amp; Accessories",
-            "type": "text",
-            "tip": "请输入名称",
-            "rule": {
-              "require": true
-            }
-          }
-        },
-        "rule": {
-          "require": true
-        }
-      },
-
-      "latest_blog_name": {
-        "title": "Latest Blog",
-        "value": "Latest Blog",
-        "type": "text",
-        "placeholder": "可重置该栏目名称 设置后该栏目名称会替换",
-        "rule": {
-          "require": true
-        }
-      },
-      "latest_blog_data": {
-        "title": "Latest Blog添加数据",
-        "value": [],
-        "type": "array",
-        "item": {
-          "img": {
-            "title": "图片",
-            "value": "",
-            "type": "image",
-            "tip": "请上传图片",
-            "rule": {
-              "require": true
-            }
-          },
-          "alt": {
-            "title": "介绍",
-            "value": "Blog Logo",
-            "type": "text",
-            "tip": "请输入介绍",
-            "rule": {
-              "require": true
-            }
-          },
-          "title": {
-            "title": "标题",
-            "value": "Exciting Ramadan Promotions from Top Brands",
-            "type": "text",
-            "tip": "请输入标题",
-            "rule": {
-              "require": true
-            }
-          }
-        },
-        "rule": {
-          "require": true
-        }
-      },
-
-
-      "frequently_asked_questions_name": {
-        "title": "Frequently Asked Questions",
-        "value": "Frequently Asked Questions",
-        "type": "text",
-        "placeholder": "可重置该栏目名称 设置后该栏目名称会替换",
-        "rule": {
-          "require": true
-        }
-      },
-      "frequently_asked_questions_data": {
-        "title": "Frequently Asked Questions添加数据",
-        "value": [],
-        "type": "array",
-        "item": {
-          "question": {
-            "title": "问题",
-            "value": "1. How does CouponsFab work",
-            "type": "text",
-            "tip": "请输入问题",
-            "rule": {
-              "require": true
-            }
-          },
-          "answer": {
-            "title": "回答",
-            "value": "CouponsFab collaborates with retailers and brands to offer exclusive discounts\n                        and deals to its users. Users can search for coupons either by browsing through different\n                        categories or by searching for specific brands. Once they find a coupon they want to use, they\n                        can click on it to reveal the code or activate the discount. They can then use the coupon code\n                        during checkout on the retailer's website to avail the discount.",
-            "type": "text",
-            "tip": "请输入回答",
-            "rule": {
-              "require": true
-            }
-          }
-        },
-        "rule": {
-          "require": true
-        }
-      },
-
-      "about_couponsFab_name": {
-        "title": "About CouponsFab",
-        "value": "About CouponsFab",
-        "type": "text",
-        "placeholder": "可重置该栏目名称 设置后该栏目名称会替换",
-        "rule": {
-          "require": true
-        }
-      },
-      "about_couponsFab_text_strong": {
-        "title": "About CouponsFab 粗文字",
-        "value": "CouponsFab",
-        "type": "text",
-        "placeholder": "请输入粗文字",
-        "rule": {
-          "require": true
-        }
-      },
-      "about_couponsFab_detail": {
-        "title": "About CouponsFab 详细",
-        "value": ", your one-stop destination for amazing deals and discounts on a wide range of\n            products and brands! We strive to bring you the best deals and offers from various retailers, making sure\n            you can save on all your favorite purchases. With a vast selection of brands on our website, you can find\n            deals and discounts on fashion, electronics, home goods, travel, and much more. We partner with popular\n            retailers and brands to bring you exclusive discounts that you won't find anywhere else. Our blog features\n            informative posts about the latest deals, trends, and tips to help you save even more money. Join our\n            community of savvy shoppers today and start saving big on your purchases!",
-        "type": "text",
-        "placeholder": "请输入详细",
-        "rule": {
-          "require": true
-        }
-      },
-      "coupon_fab_logo": {
-        "title": "首页logo",
-        "value": "/themes/couponsfab/public/index_files/couponfab_logo.webp",
-        "type": "image"
-      },
-      "coupon_fab_logo_alt": {
-        "title": "logo介绍",
-        "value": "CouponsFab logo",
-        "type": "text",
-        "placeholder": "请输入logo介绍"
-      },
-      "foot_alt": {
-        "title": "底部介绍",
-        "value": "CouponsFab is your one stop shop for the best discounts and exclusive promotions!",
-        "type": "text",
-        "placeholder": "请输入底部介绍"
-      },
-      "trending_stores_data": {
-        "title": "Trending Stores添加数据",
-        "value": [],
-        "type": "array",
-        "tip": "Search按钮页",
-        "item": {
-          "name": {
-            "title": "热门名称",
-            "value": "Temu",
-            "type": "text",
-            "tip": "请输入热门名称",
-            "rule": {
-              "require": true
-            }
-          },
-          "href": {
-            "title": "跳转地址",
-            "value": "https://www.couponsfab.com/brand/walmart",
-            "type": "text",
-            "tip": "请输入跳转地址",
-            "rule": {
-              "require": true
-            }
-          }
-        },
-        "rule": {
-          "require": true
-        }
-      }
     },
     "widgets": {
       "swiper_list": {
@@ -448,6 +48,453 @@
             "rule": {
               "require": true
             }
+          }
+        }
+      },
+      "coupon": {
+        "title": "Today's Top Coupons 设置",
+        "display": "1",
+        "vars": {
+          "coupon_name": {
+            "title": "Today's Top Coupons",
+            "value": "Today's Top Coupons",
+            "type": "text",
+            "placeholder": "可重置该栏目名称 设置后该栏目名称会替换",
+            "rule": {
+              "require": true
+            }
+          },
+          "coupon_data": {
+            "title": "Today's Top Coupons添加数据",
+            "value": [],
+            "type": "array",
+            "item": {
+              "coupon_img": {
+                "title": "优惠券图片",
+                "value": "",
+                "type": "image",
+                "tip": "请上传优惠券的图片",
+                "rule": {
+                  "require": true
+                }
+              },
+              "coupon_name": {
+                "title": "优惠券名称",
+                "value": "Temu",
+                "type": "text",
+                "tip": "请输入优惠券名称",
+                "rule": {
+                  "require": true
+                }
+              },
+              "coupon_detail": {
+                "title": "优惠详情",
+                "value": "New Around Here? 30% Off $39+ For CouponsFab Shoppers",
+                "type": "text",
+                "tip": "请输入优惠详情",
+                "rule": {
+                  "require": true
+                }
+              },
+              "coupon_sales": {
+                "title": "优惠折扣",
+                "value": "30% OFF",
+                "type": "text",
+                "tip": "请输入优惠折扣信息",
+                "rule": {
+                  "require": true
+                }
+              }
+            },
+            "rule": {
+              "require": true
+            }
+          }
+        }
+      },
+      "popular_products": {
+        "title": "Popular Products 设置",
+        "display": "1",
+        "vars": {
+          "popular_products_name": {
+            "title": "Popular Products",
+            "value": "Popular Products",
+            "type": "text",
+            "placeholder": "可重置该栏目名称 设置后该栏目名称会替换",
+            "rule": {
+              "require": true
+            }
+          },
+          "popular_products_data": {
+            "title": "Popular Products添加数据",
+            "value": [],
+            "type": "array",
+            "item": {
+              "img": {
+                "title": "图片",
+                "value": "",
+                "type": "image",
+                "tip": "请上传图片",
+                "rule": {
+                  "require": true
+                }
+              },
+              "alt": {
+                "title": "介绍",
+                "value": "6Pcs new acrylic Christmas decoration pendants, creative Christmas Thanksgiving Hanukkah car decoration pendants, creative monk statue holiday decoration pendants ProductsLogo",
+                "type": "text",
+                "tip": "请输入介绍",
+                "rule": {
+                  "require": true
+                }
+              },
+              "name": {
+                "title": "名称",
+                "value": "6Pcs new acrylic Christmas decoration pendants, creative Christmas\n                            Thanksgiving Hanukkah car decoration pendants, creative monk statue holiday decoration pendants",
+                "type": "text",
+                "tip": "请输入名称",
+                "rule": {
+                  "require": true
+                }
+              },
+              "couponText": {
+                "title": "打折百分比",
+                "value": "74% off",
+                "type": "text",
+                "tip": "请输入打折百分比",
+                "rule": {
+                  "require": true
+                }
+              },
+              "newPrice": {
+                "title": "打折后价格",
+                "value": "$5.12",
+                "type": "text",
+                "tip": "请输入打折后价格",
+                "rule": {
+                  "require": true
+                }
+              },
+              "oiginalPrice": {
+                "title": "打折前价格",
+                "value": "$19.99",
+                "type": "text",
+                "tip": "请输入打折前价格",
+                "rule": {
+                  "require": true
+                }
+              }
+            },
+            "rule": {
+              "require": true
+            }
+          }
+        }
+      },
+      "featured_coupons": {
+        "title": "Featured Coupons 设置",
+        "display": "1",
+        "vars": {
+          "featured_coupons_name": {
+            "title": "Featured Coupons",
+            "value": "Featured Coupons",
+            "type": "text",
+            "placeholder": "可重置该栏目名称 设置后该栏目名称会替换",
+            "rule": {
+              "require": true
+            }
+          },
+          "featured_coupons_data": {
+            "title": "Featured Coupons添加数据",
+            "value": [],
+            "type": "array",
+            "item": {
+              "img": {
+                "title": "图片",
+                "value": "",
+                "type": "image",
+                "tip": "请上传图片",
+                "rule": {
+                  "require": true
+                }
+              },
+              "alt": {
+                "title": "介绍",
+                "value": "SouthBeachSwimsuits logo",
+                "type": "text",
+                "tip": "请输入介绍",
+                "rule": {
+                  "require": true
+                }
+              },
+              "name": {
+                "title": "名称",
+                "value": "SouthBeachSwimsuits",
+                "type": "text",
+                "tip": "请输入名称",
+                "rule": {
+                  "require": true
+                }
+              },
+              "couponAbout": {
+                "title": "关于",
+                "value": "Swimwear available from South Beach.",
+                "type": "text",
+                "tip": "请输入关于",
+                "rule": {
+                  "require": true
+                }
+              },
+              "couponType": {
+                "title": "类型",
+                "value": "CODE",
+                "type": "text",
+                "tip": "请输入类型",
+                "rule": {
+                  "require": true
+                }
+              }
+            },
+            "rule": {
+              "require": true
+            }
+          }
+        }
+      },
+      "hot_categories": {
+        "title": "Hot Categories 设置",
+        "display": "1",
+        "vars": {
+          "hot_categories_name": {
+            "title": "Hot Categories",
+            "value": "Hot Categories",
+            "type": "text",
+            "placeholder": "可重置该栏目名称 设置后该栏目名称会替换",
+            "rule": {
+              "require": true
+            }
+          },
+          "hot_categories_data": {
+            "title": "Hot Categories添加数据",
+            "value": [],
+            "type": "array",
+            "item": {
+              "img": {
+                "title": "图片",
+                "value": "",
+                "type": "image",
+                "tip": "请上传图片",
+                "rule": {
+                  "require": true
+                }
+              },
+              "alt": {
+                "title": "介绍",
+                "value": "Clothing &amp; Accessories icon",
+                "type": "text",
+                "tip": "请输入介绍",
+                "rule": {
+                  "require": true
+                }
+              },
+              "name": {
+                "title": "名称",
+                "value": "Clothing &amp; Accessories",
+                "type": "text",
+                "tip": "请输入名称",
+                "rule": {
+                  "require": true
+                }
+              }
+            },
+            "rule": {
+              "require": true
+            }
+          }
+        }
+      },
+      "latest_blog": {
+        "title": "Latest Blog 设置",
+        "display": "1",
+        "vars": {
+          "latest_blog_name": {
+            "title": "Latest Blog",
+            "value": "Latest Blog",
+            "type": "text",
+            "placeholder": "可重置该栏目名称 设置后该栏目名称会替换",
+            "rule": {
+              "require": true
+            }
+          },
+          "latest_blog_data": {
+            "title": "Latest Blog添加数据",
+            "value": [],
+            "type": "array",
+            "item": {
+              "img": {
+                "title": "图片",
+                "value": "",
+                "type": "image",
+                "tip": "请上传图片",
+                "rule": {
+                  "require": true
+                }
+              },
+              "alt": {
+                "title": "介绍",
+                "value": "Blog Logo",
+                "type": "text",
+                "tip": "请输入介绍",
+                "rule": {
+                  "require": true
+                }
+              },
+              "title": {
+                "title": "标题",
+                "value": "Exciting Ramadan Promotions from Top Brands",
+                "type": "text",
+                "tip": "请输入标题",
+                "rule": {
+                  "require": true
+                }
+              }
+            },
+            "rule": {
+              "require": true
+            }
+          }
+        }
+      },
+      "frequently_asked_questions": {
+        "title": "Frequently Asked Questions 设置",
+        "display": "1",
+        "vars": {
+          "frequently_asked_questions_name": {
+            "title": "Frequently Asked Questions",
+            "value": "Frequently Asked Questions",
+            "type": "text",
+            "placeholder": "可重置该栏目名称 设置后该栏目名称会替换",
+            "rule": {
+              "require": true
+            }
+          },
+          "frequently_asked_questions_data": {
+            "title": "Frequently Asked Questions添加数据",
+            "value": [],
+            "type": "array",
+            "item": {
+              "question": {
+                "title": "问题",
+                "value": "1. How does CouponsFab work",
+                "type": "text",
+                "tip": "请输入问题",
+                "rule": {
+                  "require": true
+                }
+              },
+              "answer": {
+                "title": "回答",
+                "value": "CouponsFab collaborates with retailers and brands to offer exclusive discounts\n                        and deals to its users. Users can search for coupons either by browsing through different\n                        categories or by searching for specific brands. Once they find a coupon they want to use, they\n                        can click on it to reveal the code or activate the discount. They can then use the coupon code\n                        during checkout on the retailer's website to avail the discount.",
+                "type": "text",
+                "tip": "请输入回答",
+                "rule": {
+                  "require": true
+                }
+              }
+            },
+            "rule": {
+              "require": true
+            }
+          }
+        }
+      },
+      "about_couponsFab": {
+        "title": "About CouponsFab",
+        "display": "1",
+        "vars": {
+          "about_couponsFab_name": {
+            "title": "About CouponsFab",
+            "value": "About CouponsFab",
+            "type": "text",
+            "placeholder": "可重置该栏目名称 设置后该栏目名称会替换",
+            "rule": {
+              "require": true
+            }
+          },
+          "about_couponsFab_text_strong": {
+            "title": "About CouponsFab 粗文字",
+            "value": "CouponsFab",
+            "type": "text",
+            "placeholder": "请输入粗文字",
+            "rule": {
+              "require": true
+            }
+          },
+          "about_couponsFab_detail": {
+            "title": "About CouponsFab 详细",
+            "value": ", your one-stop destination for amazing deals and discounts on a wide range of\n            products and brands! We strive to bring you the best deals and offers from various retailers, making sure\n            you can save on all your favorite purchases. With a vast selection of brands on our website, you can find\n            deals and discounts on fashion, electronics, home goods, travel, and much more. We partner with popular\n            retailers and brands to bring you exclusive discounts that you won't find anywhere else. Our blog features\n            informative posts about the latest deals, trends, and tips to help you save even more money. Join our\n            community of savvy shoppers today and start saving big on your purchases!",
+            "type": "text",
+            "placeholder": "请输入详细",
+            "rule": {
+              "require": true
+            }
+          }
+        }
+      },
+      "coupon_fab": {
+        "title": "首页其他设置",
+        "vars": {
+          "coupon_fab_logo": {
+            "title": "首页logo",
+            "value": "/themes/couponsfab/public/index_files/couponfab_logo.webp",
+            "type": "image"
+          },
+          "coupon_fab_logo_alt": {
+            "title": "logo介绍",
+            "value": "CouponsFab logo",
+            "type": "text",
+            "placeholder": "请输入logo介绍"
+          },
+          "trending_stores_data": {
+            "title": "Trending Stores添加数据",
+            "value": [],
+            "type": "array",
+            "tip": "Search按钮页",
+            "item": {
+              "name": {
+                "title": "热门名称",
+                "value": "Temu",
+                "type": "text",
+                "tip": "请输入热门名称",
+                "rule": {
+                  "require": true
+                }
+              },
+              "href": {
+                "title": "跳转地址",
+                "value": "https://www.couponsfab.com/brand/walmart",
+                "type": "text",
+                "tip": "请输入跳转地址",
+                "rule": {
+                  "require": true
+                }
+              }
+            },
+            "rule": {
+              "require": true
+            }
+          }
+        }
+      },
+      "foot": {
+        "title": "底部设置",
+        "display": "1",
+        "vars": {
+          "foot_alt": {
+            "title": "底部介绍",
+            "value": "CouponsFab is your one stop shop for the best discounts and exclusive promotions!",
+            "type": "text",
+            "placeholder": "请输入底部介绍"
           }
         }
       }

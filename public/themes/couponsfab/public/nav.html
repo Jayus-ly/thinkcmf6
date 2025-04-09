@@ -495,7 +495,7 @@
                     <div class="topText">Trending Stores</div>
                 </div>
                 <ul class="storesList">
-                    <?php $trendingStoresData = $theme_vars['trending_stores_data'] ?? []; ?>
+                    <?php $trendingStoresData = $theme_widgets['coupon_fab']['vars']['trending_stores_data'] ?? []; ?>
                     <?php foreach ($trendingStoresData as $coupon): ?>
                         <li class="storesItem">
                             <a class="storesLink" href="<?php echo $coupon['href']?>"><?php echo $coupon['name']?></a>
@@ -508,7 +508,7 @@
                     <div class="topText">Hot Products</div>
                 </div>
                 <ul class="productsList topProductsList">
-                    <?php $popularProductsData = $theme_vars['popular_products_data'] ?? []; ?>
+                    <?php $popularProductsData = $theme_widgets['popular_products']['vars']['popular_products_data'] ?? []; ?>
                     <?php foreach ($popularProductsData as $coupon): ?>
                         <li class="productsItem topProdItem">
                             <a class="coverlink productsLink" href="https://www.couponsfab.com/product/569112"></a>

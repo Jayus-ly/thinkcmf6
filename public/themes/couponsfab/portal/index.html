@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<title>CouponsFab | Get free coupons, promo codes and hot deals </title>
+<title>CouponsFab</title>
+<link rel="stylesheet" href="__TMPL__/public/index_files/index.css">
 <include file="public@head"/>
 <body>
 <include file="public@nav"/>
@@ -103,11 +104,11 @@
         </svg>
     </div>
     <div class="indicator">
-        <span class=""></span>
-        <span class="active"></span>
+        <?php foreach ($swiperList as $key => $coupon): ?>
+            <span class = "<?php echo $key ?  '' : 'active' ?>"></span>
+        <?php endforeach; ?>
     </div>
     <?php endif; ?>
-
 </div>
 
 <div class="indexWrap">
@@ -123,13 +124,13 @@
     </div>
 
 
+
+    <?php if ($theme_widgets['coupon']['display']): ?>
     <div class="brandsContWrap">
-
-
         <div class="topInfo">
             <a class="topTitle" href="https://www.couponsfab.com/brandList" aria-label="go brandList page">
                 <h1 class="topText">
-                    {$theme_vars.coupon_name|default="Today's Top Coupons"}
+                    {$theme_widgets.coupon.vars.coupon_name|default="Today's Top Coupons"}
                 </h1>
                 <div class="more">More
                     <svg>
@@ -139,8 +140,7 @@
             </a>
         </div>
         <ul class="topCouponList">
-
-            <?php $couponList = $theme_vars['coupon_data'] ?? []; ?>
+            <?php $couponList = $theme_widgets['coupon']['vars']['coupon_data'] ?? []; ?>
             <?php foreach ($couponList as $coupon): ?>
                 <li class="topCoupItem">
                     <a class="coverlink" href="https://www.couponsfab.com/brand/temu" aria-label="go brand temu page"></a>
@@ -156,6 +156,8 @@
 
         </ul>
     </div>
+    <?php endif; ?>
+
 
 
     <div class="ad-box ads-1" style="height: auto !important;">
@@ -167,12 +169,12 @@
         <script>(window.adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
-
+    <?php if ($theme_widgets['popular_products']['display']): ?>
     <div class="productRecommend">
         <div class="topInfo">
             <a class="topTitle" href="https://www.couponsfab.com/product-list" aria-label="go product categories page">
                 <h2 class="topText">
-                    {$theme_vars.popular_products_name|default="Popular Products"}
+                    {$theme_widgets.popular_products.vars.popular_products_name|default="Today's Top Coupons"}
                 </h2>
                 <div class="more">More
                     <svg>
@@ -182,7 +184,7 @@
             </a>
         </div>
         <ul class="topProductsList">
-            <?php $popularProductsData = $theme_vars['popular_products_data'] ?? []; ?>
+            <?php $popularProductsData = $theme_widgets['popular_products']['vars']['popular_products_data'] ?? []; ?>
             <?php foreach ($popularProductsData as $coupon): ?>
                 <li class="topProdItem">
                     <a class="coverlink" href="https://www.couponsfab.com/product/569112" aria-label="go product 569112 page"></a>
@@ -208,7 +210,7 @@
             <?php endforeach; ?>
         </ul>
     </div>
-
+    <?php endif; ?>
 
     <div class="ad-box ads-1" style="height: auto !important;">
         <div class="adTitle">Advertisement</div>
@@ -219,13 +221,15 @@
         <script>(window.adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
-
+    <?php if ($theme_widgets['featured_coupons']['display']): ?>
     <div class="featuredCouponWrap">
         <div class="topInfo">
-            <h2 class="topText">{$theme_vars.featured_coupons_name|default="Featured Coupons"}</h2>
+            <h2 class="topText">
+                {$theme_widgets.featured_coupons.vars.featured_coupons_name|default="Featured Coupons"}
+            </h2>
         </div>
         <ul class="featuredCoupon">
-            <?php $featuredCouponsData = $theme_vars['featured_coupons_data'] ?? []; ?>
+            <?php $featuredCouponsData = $theme_widgets['featured_coupons']['vars']['featured_coupons_data'] ?? []; ?>
             <?php foreach ($featuredCouponsData as $coupon): ?>
                 <li class="couponItem">
                     <a class="couponLink" href="https://www.couponsfab.com/brand/amorium-jewelry" aria-label="">
@@ -242,14 +246,18 @@
             <?php endforeach; ?>
         </ul>
     </div>
+    <?php endif; ?>
 
+
+    <?php if ($theme_widgets['hot_categories']['display']): ?>
     <div class="categoryWrap">
         <div class="topInfo">
-            <h2 class="topText">{$theme_vars.hot_categories_name|default="Hot Categories"}</h2>
+            <h2 class="topText">
+                {$theme_widgets.hot_categories.vars.hot_categories_name|default="Hot Categories"}
+            </h2>
         </div>
         <ul class="categoryList">
-
-            <?php $hotCategoriesData = $theme_vars['hot_categories_data'] ?? []; ?>
+            <?php $hotCategoriesData = $theme_widgets['hot_categories']['vars']['hot_categories_data'] ?? []; ?>
             <?php foreach ($hotCategoriesData as $coupon): ?>
             <li class="categoryItem">
                 <a class="coverlink" href="https://www.couponsfab.com/brandList/Department%20Store"
@@ -262,11 +270,15 @@
             <?php endforeach; ?>
         </ul>
     </div>
+    <?php endif; ?>
 
+    <?php if ($theme_widgets['latest_blog']['display']): ?>
     <div class="relatedBlogs">
         <div class="topInfo">
             <a class="topTitle" href="https://www.couponsfab.com/blog" aria-label="go blog page">
-                <h2 class="topText">{$theme_vars.latest_blog_name|default="Latest Blog"}</h2>
+                <h2 class="topText">
+                    {$theme_widgets.latest_blog.vars.latest_blog_name|default="Latest Blog"}
+                </h2>
                 <div class="more">More
                     <svg>
                         <use xlink:href="#icon-more"></use>
@@ -275,9 +287,7 @@
             </a>
         </div>
         <ul class="blogsList">
-
-
-            <?php $latestBlogData = $theme_vars['latest_blog_data'] ?? []; ?>
+            <?php $latestBlogData = $theme_widgets['latest_blog']['vars']['latest_blog_data'] ?? []; ?>
             <?php foreach ($latestBlogData as $coupon): ?>
             <li class="blogItem">
                 <a href="https://www.couponsfab.com/blog/exclusive-deals-for-women" aria-label="go blog exclusive-deals-for-women page"></a>
@@ -295,16 +305,17 @@
             <?php endforeach; ?>
         </ul>
     </div>
+    <?php endif; ?>
 
 
+    <?php if ($theme_widgets['frequently_asked_questions']['display']): ?>
     <div class="FAQWrap">
         <div class="topInfo">
-            <h2 class="topText">{$theme_vars.frequently_asked_questions_name|default="Frequently Asked Questions"}</h2>
+            <h2 class="topText">{$theme_widgets.frequently_asked_questions.vars.frequently_asked_questions_name|default="Frequently Asked Questions"}</h2>
         </div>
         <ul class="FAQList">
-            <?php $frequentlyAskedQuestionsData = $theme_vars['frequently_asked_questions_data'] ?? []; ?>
+            <?php $frequentlyAskedQuestionsData = $theme_widgets['frequently_asked_questions']['vars']['frequently_asked_questions_data'] ?? []; ?>
             <?php foreach ($frequentlyAskedQuestionsData as $key => $coupon): ?>
-
             <li class="FAQItem" onclick="clickQuestion(<?php echo $key ?>)">
                 <div class="questionList">
                     <div class="question"><?php echo $coupon['question']?></div>
@@ -325,7 +336,6 @@
             <?php endforeach; ?>
         </ul>
     </div>
-
     <script>
 
         <?php if (!empty($frequentlyAskedQuestionsData)): ?>
@@ -347,15 +357,17 @@
             }
         }
     </script>
+    <?php endif; ?>
 
 
+    <?php if ($theme_widgets['about_couponsFab']['display']): ?>
     <div class="aboutWrap">
         <div class="topInfo">
-            <h2 class="topText">{$theme_vars.about_couponsFab_name|default="About CouponsFab"}</h2>
+            <h2 class="topText">{$theme_widgets.about_couponsFab.vars.about_couponsFab_name|default="About CouponsFab"}</h2>
         </div>
         <div class="aboutText">
-            <strong>{$theme_vars.about_couponsFab_text_strong|default="CouponsFab"}</strong>
-            {$theme_vars.about_couponsFab_detail|default=", your one-stop destination for amazing deals and discounts on a wide range of
+            <strong>{$theme_widgets.about_couponsFab.vars.about_couponsFab_text_strong|default="CouponsFab"}</strong>
+            {$theme_widgets.about_couponsFab.vars.about_couponsFab_detail|default=", your one-stop destination for amazing deals and discounts on a wide range of
             products and brands! We strive to bring you the best deals and offers from various retailers, making sure
             you can save on all your favorite purchases. With a vast selection of brands on our website, you can find
             deals and discounts on fashion, electronics, home goods, travel, and much more. We partner with popular
@@ -364,6 +376,7 @@
             community of savvy shoppers today and start saving big on your purchases!"}
         </div>
     </div>
+    <?php endif; ?>
 </div>
 
 
