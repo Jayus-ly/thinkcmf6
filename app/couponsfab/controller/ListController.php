@@ -60,6 +60,6 @@ class ListController extends HomeBaseController
         foreach ($list as &$value) {
             $value['ImgUrl'] = cmf_get_image_url($value['ImgUrl']);
         }
-        $this->result(['PageCount' => $count, 'BrandList' => $list], 1, 'success', 'json'); // 参数含义：数据、状态码、消息
+        $this->result(['PageCount' => $count, 'Products' => $list], 1, 'success', 'json'); // 参数含义：数据、状态码、消息
     }
 }

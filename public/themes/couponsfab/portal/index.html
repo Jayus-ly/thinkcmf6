@@ -5,7 +5,7 @@
 <include file="public@head"/>
 <body>
 <include file="public@nav"/>
-
+<!--首页-->
 <div class="bannerSwiper" style="display: <?php echo ($theme_widgets['swiper_list']['display'] ?? 'block') ? 'block' : 'none'?>">
 
     <div class="SwiperList" style="transition: transform 0.5s; transform: translateX(-100%);">
@@ -170,7 +170,7 @@
     <?php if ($theme_widgets['popular_products']['display']): ?>
     <div class="productRecommend">
         <div class="topInfo">
-            <a class="topTitle" href="https://www.couponsfab.com/product-list" aria-label="go product categories page">
+            <a class="topTitle" href="/couponsfab/productList/list" aria-label="go product categories page">
                 <h2 class="topText">
                     {$theme_widgets.popular_products.vars.popular_products_name|default="Today's Top Coupons"}
                 </h2>
