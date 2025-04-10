@@ -1999,7 +1999,7 @@ document.addEventListener("click", function (a) {
     var pageCount = 1;
     var dataCount = 1;
     var productData = [];
-    var classification_id = <?php $classification_id ?>;
+    var classification_id = <?php echo $classification_id ?? 0 ?>;
     productList();
 
     function productList() {
@@ -2051,7 +2051,7 @@ document.addEventListener("click", function (a) {
         if ("") {
             link.setAttribute("href", "/product/" + data.id + "?");
         } else {
-            link.setAttribute("href", "/product/" + data.id);
+            link.setAttribute("href", "/couponsfab/productInfo/info?id=" + data.id);
         }
         link.setAttribute("aria-label", "go product " + data.id + " page");
         productItem.appendChild(link);
