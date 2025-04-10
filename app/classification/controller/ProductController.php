@@ -5,7 +5,6 @@ namespace app\classification\controller;
 
 
 use cmf\controller\AdminBaseController;
-use model\ItemClassificationModel;
 use model\ProductClassificationModel;
 use model\ProductModel;
 

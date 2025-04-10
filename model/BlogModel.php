@@ -12,7 +12,7 @@ class BlogModel extends BaseModel
 {
     protected $table = "cmf_blog";
 
-    protected $field = ['id', 'title', 'subtitle', 'foot_title', 'img_url', 'create_time', 'update_time', 'delete_time', 'about',];
+    protected $field = ['id', 'title', 'subtitle', 'img_url', 'create_time', 'update_time', 'delete_time', 'about', 'bind_item_classification'];
 
     // 静态实例
     protected static $instance = null;
