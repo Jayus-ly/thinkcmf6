@@ -7,23 +7,27 @@
 <body>
 <div class="wrap">
     <ul class="nav nav-tabs">
-        <li class="active"><a href="{:url('index')}">产品分类列表</a></li>
-        <li><a href="{:url('productList')}">产品列表</a></li>
+        <li><a href="{:url('index')}">产品分类列表</a></li>
+        <li class="active"><a href="{:url('productList')}">产品列表</a></li>
     </ul>
-    <form class="well form-inline margin-top-20" method="post" action="{:url('classification/product/index')}">
+    <form class="well form-inline margin-top-20" method="post" action="{:url('classification/product/productList')}">
         名称
         <input type="text" name="name" class="form-control" value="{:input('request.name')}" placeholder="输入名称搜索">
         <input type="submit" class="btn btn-primary" value="{:lang('Search')}"/>
-        <a class="btn btn-danger" href="{:url('index')}">{:lang('Clear')}</a>
-        <a class="btn btn-primary" href="<?php echo url('addProductClassification'); ?>">新增产品分类</a>
+        <a class="btn btn-danger" href="{:url('productList')}">{:lang('Clear')}</a>
+        <a class="btn btn-primary" href="<?php echo url('addProduct'); ?>">新增产品</a>
     </form>
     <form method="post" class="js-ajax-form">
         <table class="table table-hover table-bordered table-list" id="menus-table">
             <thead>
             <tr>
                 <th>ID</th>
-                <th>产品分类名称</th>
-                <th>产品分类图片</th>
+                <th>产品名称</th>
+                <th>产品图片</th>
+                <th>新价格</th>
+                <th>旧价格</th>
+                <th>所属分类ID</th>
+                <th>是否热门商品</th>
                 <th>创建时间</th>
                 <th>更新时间</th>
                 <th>操作</th>
@@ -37,11 +41,15 @@
                     <td>
                         <img src="{:cmf_get_image_preview_url($vo.img_url)}" width="135" style="cursor: hand"/>
                     </td>
+                    <td>{$vo.new_price}</td>
+                    <td>{$vo.old_price}</td>
+                    <td>{$vo.classification_id}</td>
+                    <td>{$vo.is_hot}</td>
                     <td>{$vo.create_time}</td>
                     <td>{$vo.update_time}</td>
                     <td>
-                        <a class="btn btn-xs btn-primary" href="{:url('editProductClassification',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
-                        <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('delProductClassificationPost',array('id'=>$vo['id']))}">
+                        <a class="btn btn-xs btn-primary" href="{:url('editProduct',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
+                        <a class="btn btn-xs btn-danger js-ajax-delete" href="{:url('delProductPost',array('id'=>$vo['id']))}">
                             {:lang('DELETE')}
                         </a>
                     </td>

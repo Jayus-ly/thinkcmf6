@@ -1,0 +1,74 @@
+<include file="public@header"/>
+
+<link rel="stylesheet" href="__TMPL__/public/assets/themes/{:cmf_get_admin_style()}/flatpickr.min.css">
+<script src="__TMPL__/public/assets/js/flatpickr.js"></script>
+</head>
+<body>
+<div class="wrap">
+    <form method="post" class="form-horizontal js-ajax-form margin-top-20" action="{:url('editProductPost')}">
+        <div class="form-group">
+            <label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>{:lang('Name')}</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-name" name="name" value="{$data.name|default=''}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-name" class="col-sm-2 control-label"><span class="form-required">*</span>上传图片</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="hidden" name="img_url" id="thumb" value="{$data.img_url|default=''}">
+                <a href="javascript:uploadOneImage('图片上传','#thumb');">
+                    <if condition="empty($data['img_url'])">
+                        <img src="__TMPL__/public/assets/images/default-thumbnail.png"
+                             id="thumb-preview" width="135" style="cursor: hand"/>
+                        <else/>
+                        <img src="{:cmf_get_image_preview_url($data['img_url'])}" id="thumb-preview"
+                             width="135" style="cursor: hand"/>
+                    </if>
+                </a>
+                <input type="button" class="btn btn-sm"
+                       onclick="$('#thumb-preview').attr('src','/themes/admin_simpleboot3/public/assets/images/default-thumbnail.png');$('#thumb').val('');return false;"
+                       value="取消图片">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="input-new_price" class="col-sm-2 control-label"><span class="form-required">*</span>新价格</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-new_price" name="new_price" value="{$data.new_price|default=''}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-old_price" class="col-sm-2 control-label"><span class="form-required">*</span>旧价格</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-old_price" name="old_price" value="{$data.old_price|default=''}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-classification_id" class="col-sm-2 control-label"><span class="form-required">*</span>产品分类ID</label>
+            <div class="col-md-6 col-sm-10">
+                <input type="text" class="form-control" id="input-classification_id" name="classification_id" value="{$data.classification_id|default=''}">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-is_hot" class="col-sm-2 control-label"><span class="form-required">*</span>是否热门商品</label>
+            <div class="col-md-6 col-sm-10">
+                <select class="form-control" name="is_hot" id="input-is_hot" style="width: 400px">
+                    <option value="">请选择是否热门商品</option>
+                    <option value="0" <?php echo !empty($data['is_hot']) ? ""  :  'selected="selected"'; ?>>否</option>
+                    <option value="1" <?php echo !empty($data['is_hot']) ? 'selected="selected"'  :  ""; ?>>是</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <input type="hidden" name="id" value="{$data.id|default=0}" />
+                <button type="submit" class="btn btn-primary js-ajax-submit">{:lang('SAVE')}</button>
+                <a class="btn btn-default" href="{:url('productList')}">{:lang('BACK')}</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="__STATIC__/js/admin.js?v={$_static_version}"></script>
+</body>
+</html>
