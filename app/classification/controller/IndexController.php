@@ -265,4 +265,11 @@ class IndexController extends AdminBaseController
         $model->where('id', $id)->delete();
         $this->success('删除成功');
     }
+
+    // 产品分类添加
+
+    public function productList()
+    {
+
+    }
 }
