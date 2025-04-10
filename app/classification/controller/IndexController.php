@@ -62,6 +62,7 @@ class IndexController extends AdminBaseController
         $about = $param['about'] ?? '';
         $href = $param['href'] ?? '';
         $paymentOptions = $param['payment_options'] ?? '';
+        $isHot = $param['is_hot'] ?? 0;
         if (!empty($paymentOptions)) {
             $paymentOptions = implode('/', $paymentOptions);
         }
@@ -74,6 +75,7 @@ class IndexController extends AdminBaseController
             'about' => $about,
             'href' => $href,
             'payment_options' => $paymentOptions,
+            'is_hot' => $isHot,
         ]);
         $this->success('创建成功', url("index"));
     }
@@ -112,6 +114,7 @@ class IndexController extends AdminBaseController
         $about = $param['about'] ?? '';
         $href = $param['href'] ?? '';
         $paymentOptions = $param['payment_options'] ?? '';
+        $isHot = $param['is_hot'] ?? 0;
         if (!empty($paymentOptions)) {
             $paymentOptions = implode('/', $paymentOptions);
         }
@@ -124,6 +127,7 @@ class IndexController extends AdminBaseController
             'about' => $about,
             'href' => $href,
             'payment_options' => $paymentOptions,
+            'is_hot' => $isHot,
         ]);
         $this->success('更新成功', url("index"));
     }
@@ -174,6 +178,7 @@ class IndexController extends AdminBaseController
             'used' => $param['used'] ?? '',
             'code' => $param['code'] ?? '',
             'is_new' => $param['is_new'] ?? 0,
+            'is_hot' => $param['is_hot'] ?? 0,
         ]);
 
         // 获取模型实例（推荐使用 find 或者 select）
@@ -240,11 +245,12 @@ class IndexController extends AdminBaseController
         $model->where('id', $id)->update([
             'name' => $param['name'] ?? '',
             'type' => $param['type'] ?? '',
-            'classification_id' => $param['classification_id'] ?? '',
+//            'classification_id' => $param['classification_id'] ?? '',
             'details' => $param['details'] ?? '',
             'used' => $param['used'] ?? '',
             'code' => $param['code'] ?? '',
             'is_new' => $param['is_new'] ?? 0,
+            'is_hot' => $param['is_hot'] ?? 0,
         ]);
 
         $this->success('更新成功', url("couponsList"));

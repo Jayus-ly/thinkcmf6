@@ -204,8 +204,12 @@
                             <div class="couponWrap">
                                 <div class="couponInfo">
                                     <div class="sales">
-                                        <p class="big">NEW</p>
+                                        <p class="big">{$vo['name']}</p>
+                                        <?php if($vo['type']): ?>
                                         <p class="small">SALE</p>
+                                        <?php else: ?>
+                                        <p class="small">CODE</p>
+                                        <?php endif; ?>
                                     </div>
                                     <div class="couponDesp">
                                         <?php if($vo['type']): ?>
@@ -214,7 +218,7 @@
                                         <p class="code">CODE</p>
                                         <?php endif; ?>
                                         <div class="couponTitle">
-                                            <p>{$vo['name']}</p>
+                                            <p>{$vo['details']}</p>
                                         </div>
                                         <div class="couponCate">
                                             <p class="view">{$vo['used']} Used</p>

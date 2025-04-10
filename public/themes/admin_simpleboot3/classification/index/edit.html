@@ -64,6 +64,16 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="input-is_hot" class="col-sm-2 control-label"><span class="form-required">*</span>是否热门</label>
+            <div class="col-md-6 col-sm-10">
+                <select class="form-control" name="is_hot" id="input-is_hot" style="width: 400px">
+                    <option value="">请选择是否热门</option>
+                    <option value="0" <?php echo !empty($data['is_hot']) ? ""  :  'selected="selected"'; ?>>否</option>
+                    <option value="1" <?php echo !empty($data['is_hot']) ? 'selected="selected"'  :  ""; ?>>是</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
             <label for="input-tags" class="col-sm-2 control-label">
                 <span class="form-required">*</span>选择Payment
             </label>
