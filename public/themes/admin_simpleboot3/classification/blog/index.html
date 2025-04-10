@@ -4,6 +4,50 @@
 <script src="__TMPL__/public/assets/js/flatpickr.js"></script>
 
 </head>
+<style>
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 44px;
+        height: 24px;
+    }
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0; left: 0;
+        right: 0; bottom: 0;
+        background-color: #ccc;
+        transition: .4s;
+        border-radius: 24px;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+    }
+
+    input:checked + .slider {
+        background-color: #4CAF50;
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(20px);
+    }
+</style>
 <body>
 <div class="wrap">
     <ul class="nav nav-tabs">
@@ -25,6 +69,7 @@
                 <th>博客副标题</th>
                 <th>博客主图片</th>
                 <th>博客详情</th>
+                <th>首页显示</th>
                 <th>创建时间</th>
                 <th>更新时间</th>
                 <th>操作</th>
@@ -40,6 +85,13 @@
                         <img src="{:cmf_get_image_preview_url($vo.img_url)}" width="135" style="cursor: hand"/>
                     </td>
                     <td>{$vo.about}</td>
+
+                    <td>
+                        <label class="switch">
+                            <input type="checkbox" class="is-home-toggle" data-id="{$vo.id}" {$vo.is_home ? 'checked' : ''}>
+                            <span class="slider round"></span>
+                        </label>
+                    </td>
                     <td>{$vo.create_time}</td>
                     <td>{$vo.update_time}</td>
                     <td>
@@ -61,6 +113,37 @@
         Wind.use('treeTable', function () {
             $("#menus-table").treeTable({
                 indent: 20
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.is-home-toggle').forEach(function (checkbox) {
+            checkbox.addEventListener('change', function () {
+                const id = this.dataset.id;
+                const is_home = this.checked ? 1 : 0;
+
+                $.ajax({
+                    url: 'changBlogIsHome', // 替换成你的接口地址
+                    type: 'POST',
+                    data: {
+                        id: id,
+                        is_home: is_home
+                    },
+                    dataType: 'json',
+                    success: function (res) {
+                        if (res.code === 1) {
+                            console.log('更新成功');
+                        } else {
+                            alert('更新失败：' + res.msg);
+                            checkbox.checked = !checkbox.checked; // 恢复原状态
+                        }
+                    },
+                    error: function () {
+                        alert('网络错误');
+                        checkbox.checked = !checkbox.checked; // 恢复原状态
+                    }
+                });
             });
         });
     });

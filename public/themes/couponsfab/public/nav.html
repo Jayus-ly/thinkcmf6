@@ -471,7 +471,6 @@
 
 
     <div class="searchWrap searchBannerEvent">
-
         <div class="searchContent">
             <div class="closeDialog">
                 <svg class="searchClosePc" onclick="searchClose()">
@@ -489,47 +488,6 @@
                         <use xlink:href="#icon-search"></use>
                     </svg>
                 </div>
-            </div>
-            <div class="storesWrap">
-                <div class="topTitle">
-                    <div class="topText">Trending Stores</div>
-                </div>
-                <ul class="storesList">
-                    <?php $trendingStoresData = $theme_widgets['coupon_fab']['vars']['trending_stores_data'] ?? []; ?>
-                    <?php foreach ($trendingStoresData as $coupon): ?>
-                        <li class="storesItem">
-                            <a class="storesLink" href="<?php echo $coupon['href']?>"><?php echo $coupon['name']?></a>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-            <div class="productsWrap productRecommend">
-                <div class="topTitle">
-                    <div class="topText">Hot Products</div>
-                </div>
-                <ul class="productsList topProductsList">
-                    <?php $popularProductsData = $theme_widgets['popular_products']['vars']['popular_products_data'] ?? []; ?>
-                    <?php foreach ($popularProductsData as $coupon): ?>
-                        <li class="productsItem topProdItem">
-                            <a class="coverlink productsLink" href="https://www.couponsfab.com/product/569112"></a>
-                            <div class="productsBorder">
-                                <div class="productsImg">
-                                    <img class="ProductsImg lazyImg" src="__TMPL__/public/index_files/square-loading.webp"
-                                         data-src="__TMPL__/<?php echo $coupon['img'] ?? "public/index_files/kelkoo/d1f20f9d-3c90-4afd-b7a3-37486115dbd3.webp" ?>"
-                                         alt="<?php echo $coupon['alt']?>">
-                                </div>
-                            </div>
-                            <div class="productInfo">
-                                <div class="prodName"><?php echo $coupon['name']?>
-                                </div>
-                                <div class="price">
-                                    <div class="newPrice"><?php echo $coupon['newPrice']?></div>
-                                    <div class="oiginalPrice"><?php echo $coupon['oiginalPrice']?></div>
-                                </div>
-                            </div>
-                        </li>
-                    <?php endforeach; ?>
-                </ul>
             </div>
         </div>
     </div>

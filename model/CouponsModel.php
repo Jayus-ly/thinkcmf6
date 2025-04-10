@@ -12,7 +12,7 @@ class CouponsModel extends BaseModel
 {
     protected $table = "cmf_coupons";
 
-    protected $field = ['id', 'classification_id', 'name', 'type', 'used', 'code', 'details', 'is_new', 'create_time', 'update_time', 'delete_time', 'is_hot'];
+    protected $field = ['id', 'classification_id', 'name', 'type', 'used', 'code', 'details', 'is_new', 'create_time', 'update_time', 'delete_time', 'is_hot', 'is_home'];
 
     // 静态实例
     protected static $instance = null;

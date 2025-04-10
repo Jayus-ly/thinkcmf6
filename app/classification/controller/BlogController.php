@@ -152,4 +152,17 @@ class BlogController extends AdminBaseController
         $this->success('删除成功');
     }
 
+    public function changBlogIsHome()
+    {
+        $param = input();
+        $id = $param['id'] ?? 0;
+        $isHome = $param['is_home'] ?? 0;
+
+
+        BlogModel::getInstance()->where('id', $id)->update([
+            'is_home' => $isHome
+        ]);
+
+        $this->result(true, 1, 'success', 'json'); // 参数含义：数据、状态码、消息
+    }
 }

@@ -84,6 +84,32 @@ class InfoController extends HomeBaseController
             ->toArray();
 
 
-        $this->result(['PageCount' => $count, 'Coupons' => $coupons], 1, 'success', 'json'); // 参数含义：数据、状态码、消息
+        $this->result(['PageCount' => $count, 'Coupons' => $coupons], 1, 'success', 'json');
+    }
+
+
+    public function getProductListPost()
+    {
+        $param = input();
+        $id = $param['id'] ?? 0;
+
+        $pageNum = $param['page'] ?? config('common.default_page_num');
+        $pageSize = $param['size'] ?? config('common.default_page_size');
+
+        // 获取品牌优惠券列表
+        $sql = ProductModel::getInstance()
+            ->where('is_hot', 1)->whereOr('is_home', 1);
+
+        $count = $sql->count();
+        
+        $productList = $sql->page($pageNum, $pageSize)
+            ->select()
+            ->toArray();
+
+        foreach ($productList as &$value) {
+            $value['img_url'] = cmf_get_image_preview_url($value['img_url']);
+        }
+        unset($value);
+        $this->result(['count' => $count, 'product_list' => $productList], 1, 'success', 'json');
     }
 }

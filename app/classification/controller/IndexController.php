@@ -272,10 +272,32 @@ class IndexController extends AdminBaseController
         $this->success('删除成功');
     }
 
-    // 产品分类添加
 
-    public function productList()
+    public function changItemClassificationIsHome()
     {
+        $param = input();
+        $id = $param['id'] ?? 0;
+        $isHome = $param['is_home'] ?? 0;
 
+
+        ItemClassificationModel::getInstance()->where('id', $id)->update([
+            'is_home' => $isHome
+        ]);
+
+
+        $this->result(true, 1, 'success', 'json'); // 参数含义：数据、状态码、消息
+    }
+
+    public function changCouponsIsHome()
+    {
+        $param = input();
+        $id = $param['id'] ?? 0;
+        $isHome = $param['is_home'] ?? 0;
+
+        CouponsModel::getInstance()->where('id', $id)->update([
+            'is_home' => $isHome
+        ]);
+
+        $this->result(true, 1, 'success', 'json'); // 参数含义：数据、状态码、消息
     }
 }

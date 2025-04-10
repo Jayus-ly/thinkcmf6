@@ -138,16 +138,16 @@
             </a>
         </div>
         <ul class="topCouponList">
-            <?php $couponList = $theme_widgets['coupon']['vars']['coupon_data'] ?? []; ?>
+            <?php $couponList = $item_classification ?? []; ?>
             <?php foreach ($couponList as $coupon): ?>
                 <li class="topCoupItem">
-                    <a class="coverlink" href="https://www.couponsfab.com/brand/temu" aria-label="go brand temu page"></a>
-                    <img class="couponImg lazyImg" src="<?php echo cmf_get_image_url($coupon['coupon_img'])?>"
-                         data-src="<?php echo cmf_get_image_url($coupon['coupon_img'])?>" alt="temu couponImg">
+                    <a class="coverlink" href="{:url('/couponsfab/info/index')}?id={$coupon['id']}" aria-label="go brand temu page"></a>
+                    <img class="couponImg lazyImg" src="<?php echo cmf_get_image_url($coupon['img_url'])?>"
+                         data-src="<?php echo cmf_get_image_url($coupon['img_url'])?>" alt="temu couponImg">
                     <div class="couponInfo">
-                        <div class="couponName"><?php echo $coupon['coupon_name']?></div>
-                        <div class="couponDetail"><?php echo $coupon['coupon_detail']?></div>
-                        <div class="couponSales"><?php echo $coupon['coupon_sales']?></div>
+                        <div class="couponName"><?php echo $coupon['name']?></div>
+                        <div class="couponDetail"><?php echo $coupon['details']?></div>
+                        <div class="couponSales"><?php echo $coupon['coupons_name']?></div>
                     </div>
                 </li>
             <?php endforeach; ?>
@@ -182,26 +182,25 @@
             </a>
         </div>
         <ul class="topProductsList">
-            <?php $popularProductsData = $theme_widgets['popular_products']['vars']['popular_products_data'] ?? []; ?>
+            <?php $popularProductsData = $product_list ?? []; ?>
             <?php foreach ($popularProductsData as $coupon): ?>
                 <li class="topProdItem">
                     <a class="coverlink" href="https://www.couponsfab.com/product/569112" aria-label="go product 569112 page"></a>
                     <div class="productsBorder">
                         <div class="productsImg">
                             <img class="ProductsImg lazyImg" src="__TMPL__/public/index_files/square-loading.webp"
-                                 data-src="<?php echo cmf_get_image_url($coupon['img'])?>"
-                                 alt="<?php echo $coupon['alt']?>">
+                                 data-src="<?php echo cmf_get_image_url($coupon['img_url'])?>">
                         </div>
                     </div>
                     <div class="productInfo">
                         <div class="couponBgc">
-                            <span class="couponText"><?php echo $coupon['couponText']?></span>
+                            <span class="couponText"><?php echo $coupon['coupon_text']?>% OFF</span>
                         </div>
                         <div class="prodName"><?php echo $coupon['name']?>
                         </div>
                         <div class="price">
-                            <div class="newPrice"><?php echo $coupon['newPrice']?></div>
-                            <div class="oiginalPrice"><?php echo $coupon['oiginalPrice']?></div>
+                            <div class="newPrice"><?php echo $coupon['new_price']?></div>
+                            <div class="oiginalPrice"><?php echo $coupon['old_price']?></div>
                         </div>
                     </div>
                 </li>
@@ -227,7 +226,7 @@
             </h2>
         </div>
         <ul class="featuredCoupon">
-            <?php $featuredCouponsData = $theme_widgets['featured_coupons']['vars']['featured_coupons_data'] ?? []; ?>
+            <?php $featuredCouponsData = $coupons_list ?? []; ?>
             <?php foreach ($featuredCouponsData as $coupon): ?>
                 <li class="couponItem">
                     <a class="couponLink" href="https://www.couponsfab.com/brand/amorium-jewelry" aria-label="">
@@ -255,14 +254,13 @@
             </h2>
         </div>
         <ul class="categoryList">
-            <?php $hotCategoriesData = $theme_widgets['hot_categories']['vars']['hot_categories_data'] ?? []; ?>
+            <?php $hotCategoriesData = $classification_list ?? []; ?>
             <?php foreach ($hotCategoriesData as $coupon): ?>
             <li class="categoryItem">
-                <a class="coverlink" href="https://www.couponsfab.com/brandList/Department%20Store"
+                <a class="coverlink" href="{:url('/couponsfab/list/list')}?active={$coupon['id']}&name={$coupon['name']}"
                    aria-label="go brand-category Department Store page"></a>
                 <img class="categoryImg lazyImg" src="__TMPL__/public/index_files/square-loading.webp"
-                     data-src="<?php echo cmf_get_image_url($coupon['img'])?>"
-                     alt="<?php echo $coupon['alt']?>">
+                     data-src="<?php echo cmf_get_image_url($coupon['img_url'])?>">
                 <div class="categoryName"><?php echo $coupon['name']?></div>
             </li>
             <?php endforeach; ?>
@@ -285,7 +283,7 @@
             </a>
         </div>
         <ul class="blogsList">
-            <?php $latestBlogData = $theme_widgets['latest_blog']['vars']['latest_blog_data'] ?? []; ?>
+            <?php $latestBlogData = $blog_list ?? []; ?>
             <?php foreach ($latestBlogData as $coupon): ?>
             <li class="blogItem">
                 <a href="https://www.couponsfab.com/blog/exclusive-deals-for-women" aria-label="go blog exclusive-deals-for-women page"></a>
@@ -296,8 +294,7 @@
                           fill="white"></path>
                 </svg>
                 <img class="editorImg lazyImg" src="__TMPL__/public/index_files/loading.webp"
-                     data-src="<?php echo cmf_get_image_url($coupon['img'])?>"
-                     alt="<?php echo $coupon['alt']?>">
+                     data-src="<?php echo cmf_get_image_url($coupon['img_url'])?>">
                 <div class="editorTitle"><?php echo $coupon['title']?></div>
             </li>
             <?php endforeach; ?>
@@ -378,6 +375,158 @@
 </div>
 
 
+<script>
+    var doms = {
+        carousel: document.querySelector('.SwiperList'),
+        indicator: document.querySelectorAll('.indicator span'),
+        leftArrow: document.querySelector('.leftArrow'),
+        rightArrow: document.querySelector('.rightArrow')
+    }
+    var curIndex = 0
+
+    function moveTo(index) {
+
+        doms.carousel.style.transition = 'transform .5s'
+        doms.carousel.style.transform = `translateX(-${index}00%)`
+
+        var active = document.querySelector('.indicator span.active')
+        active.classList.remove('active')
+
+        doms.indicator[index].classList.add('active')
+        curIndex = index
+    }
+
+    doms.indicator.forEach((item, index) => {
+        item.addEventListener('click', () => {
+
+            clearInterval(timer)
+            moveTo(index)
+
+            timer = setInterval(() => {
+                rightArrowMove()
+            }, 4000)
+        })
+    })
+
+    let timer = setInterval(() => {
+        rightArrowMove()
+    }, 4000)
+
+
+    function clone() {
+        var first = doms.carousel.firstElementChild.cloneNode(true);
+
+        var last = doms.carousel.lastElementChild.cloneNode(true);
+
+        doms.carousel.appendChild(first);
+
+        doms.carousel.insertBefore(last, doms.carousel.firstElementChild)
+
+        last.style.position = 'absolute';
+        last.style.transform = `translateX(-100%)`
+    }
+
+    clone();
+
+
+    var count = doms.indicator.length
+
+    function rightArrowMove() {
+
+        if (curIndex === count - 1) {
+            doms.carousel.style.transform = `translateX(100%)`;
+            doms.carousel.style.transition = 'none';
+
+            doms.carousel.clientHeight;
+            moveTo(0)
+        } else {
+            moveTo(curIndex + 1)
+        }
+    }
+
+    function leftArrowMove() {
+        if (curIndex === 0) {
+            doms.carousel.style.transform = `translateX(-${count}00%)`;
+            doms.carousel.style.transition = 'none';
+
+            doms.carousel.clientHeight;
+            moveTo(count - 1)
+        } else {
+            moveTo(curIndex - 1)
+        }
+    }
+
+
+    doms.leftArrow.addEventListener('click', () => {
+
+        clearInterval(timer)
+        leftArrowMove()
+
+        timer = setInterval(() => {
+            rightArrowMove()
+        }, 4000)
+    })
+    doms.rightArrow.addEventListener('click', () => {
+
+        clearInterval(timer)
+        rightArrowMove()
+
+        timer = setInterval(() => {
+            rightArrowMove()
+        }, 4000)
+    })
+
+    var platform = "desktop";
+    if (platform !== "desktop") {
+
+        var bannerElement = document.querySelector('.bannerSwiper');
+
+        var startX = 0;
+        var startY = 0;
+        var currentX = 0;
+        var currentY = 0;
+
+        bannerElement.addEventListener('touchstart', function (event) {
+            startX = event.touches[0].clientX;
+            startY = event.touches[0].clientY;
+        });
+
+
+        bannerElement.addEventListener('touchmove', function (event) {
+
+            event.preventDefault();
+            currentX = event.touches[0].clientX;
+            currentY = event.touches[0].clientY;
+
+        });
+
+        bannerElement.addEventListener('touchend', function (event) {
+
+            var distanceX = startX - currentX;
+            var distanceY = startY - currentY;
+
+
+            if (Math.abs(distanceX) > Math.abs(distanceY)) {
+
+                if (distanceX > 0) {
+
+
+                    rightArrowMove();
+                } else {
+
+
+                    leftArrowMove();
+                }
+            }
+
+            startX = 0;
+            startY = 0;
+        });
+    }
+</script>
+
 <include file="public@foot"/>
+
+
 </body>
 </html>
