@@ -158,6 +158,10 @@ class ProductController extends AdminBaseController
      */
     public function addProduct()
     {
+        // 获取产品分类
+        $productClassification = ProductClassificationModel::getInstance()->select()->toArray();
+
+        $this->assign('product_classification', $productClassification);
         return $this->fetch('add_product');
     }
 
@@ -173,6 +177,7 @@ class ProductController extends AdminBaseController
         $oldPrice = $param['old_price'] ?? '';
         $classificationId = $param['classification_id'] ?? '';
         $isHot = $param['is_hot'] ?? '';
+        $item_classification_id = $param['item_classification_id'] ?? 0;
 
         $model = ProductModel::getInstance();
 
@@ -183,6 +188,7 @@ class ProductController extends AdminBaseController
             'old_price' => $oldPrice,
             'classification_id' => $classificationId,
             'is_hot' => $isHot,
+            'item_classification_id' => $item_classification_id,
         ]);
 
         $this->success('创建成功', url("productList"));
@@ -206,6 +212,11 @@ class ProductController extends AdminBaseController
 
         $data = $model->find($id)->toArray();
 
+        // 获取产品分类
+        $productClassification = ProductClassificationModel::getInstance()->select()->toArray();
+
+        $this->assign('product_classification', $productClassification);
+
         return $this->fetch('edit_product', ['data' => $data]);
     }
 
@@ -222,7 +233,7 @@ class ProductController extends AdminBaseController
         $oldPrice = $param['old_price'] ?? '';
         $classificationId = $param['classification_id'] ?? '';
         $isHot = $param['is_hot'] ?? '';
-
+        $item_classification_id = $param['item_classification_id'] ?? 0;
         $model = ProductModel::getInstance();
 
         $model->where('id', $id)->update([
@@ -232,6 +243,7 @@ class ProductController extends AdminBaseController
             'old_price' => $oldPrice,
             'classification_id' => $classificationId,
             'is_hot' => $isHot,
+            'item_classification_id' => $item_classification_id,
         ]);
 
         $this->success('创建成功', url("productList"));

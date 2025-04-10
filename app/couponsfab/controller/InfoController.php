@@ -7,6 +7,7 @@ namespace app\couponsfab\controller;
 use cmf\controller\HomeBaseController;
 use model\CouponsModel;
 use model\ItemClassificationModel;
+use model\ProductModel;
 
 class InfoController extends HomeBaseController
 {
@@ -31,14 +32,43 @@ class InfoController extends HomeBaseController
         // 获取品牌分类
         $classification = ItemClassificationModel::getInstance()->find($model['parent_id']);
 
-        return $this->fetch('info', ['data' => $model, 'classification' => $classification, 'id' => $id]);
+        // 获取支付分类
+        $paymentOptions = $model['payment_options'] ?? '';
+        if (!empty($paymentOptions)) {
+            $paymentOptions = explode('/', $paymentOptions);
+        }
+
+        // 获取该品牌关联的商品
+        $productList = ProductModel::getInstance()->where('item_classification_id', $id)->select()->toArray();
+        foreach ($productList as &$value) {
+            $value['coupon_text'] = ($value['new_price'] - $value['old_price']) / $value['new_price'] * 100;
+        }
+        unset($value);
+
+        // 获取该品牌的优惠券
+        $couponsList = CouponsModel::getInstance()
+            ->page(1, 5)
+            ->where('classification_id', $id)
+            ->select()
+            ->toArray();
+
+
+        $this->assign([
+            'data' => $model,
+            'classification' => $classification,
+            'id' => $id,
+            'payment_options' => $paymentOptions,
+            'product_list' => $productList,
+            'coupons_list' => $couponsList
+        ]);
+
+        return $this->fetch('info');
     }
 
     public function getCouponsListPost()
     {
         $param = input();
         $id = $param['id'] ?? 0;
-
 
         $pageNum = $param['page'] ?? config('common.default_page_num');
         $pageSize = $param['size'] ?? config('common.default_page_size');

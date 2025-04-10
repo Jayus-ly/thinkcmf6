@@ -164,7 +164,7 @@
     <div class="guide">
         <a href="/" aria-label="go home">Home</a>
         <span class="guideIcon"> &gt; </span>
-        <a href="https://www.couponsfab.com/brandList/Travel" aria-label="go brandList Travel page">{$classification['name']}</a>
+        <a href="{:url('/couponsfab/list/list')}?active={$data['parent_id']}&name={$data['name']}" aria-label="go brandList Travel page">{$classification['name']}</a>
         <span class="guideIcon"> &gt; </span>
         <span class="brandName">{$data['name']}</span>
 
@@ -197,12 +197,120 @@
 
             <div class="detail-list">
                 <div class="detailListBox">
-                    <ul class="new-ls" id="new-ls"></ul>
+                    <ul class="new-ls" id="new-ls">
+                        <foreach name="coupons_list" item="vo">
+                        <li class="new-item couponItem">
+                            <a class="coverlink rewardButton" href="{$data['href']}" aria-label="go brand"></a>
+                            <div class="couponWrap">
+                                <div class="couponInfo">
+                                    <div class="sales">
+                                        <p class="big">NEW</p>
+                                        <p class="small">SALE</p>
+                                    </div>
+                                    <div class="couponDesp">
+                                        <?php if($vo['type']): ?>
+                                        <p class="sale">SALE</p>
+                                        <?php else: ?>
+                                        <p class="code">CODE</p>
+                                        <?php endif; ?>
+                                        <div class="couponTitle">
+                                            <p>{$vo['name']}</p>
+                                        </div>
+                                        <div class="couponCate">
+                                            <p class="view">{$vo['used']} Used</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="couponBtn">
+                                <?php if($vo['type']): ?>
+                                <div class="dealBtn">Get Deal</div>
+                                <div class="bgcBox"></div>
+                                <?php else: ?>
+                                <div class="codeBtn">Get Code</div>
+                                <div class="colorBox"></div>
+                                <div class="code">{$vo['code']}</div>
+                                <?php endif; ?>
+                            </div>
+                        </li>
+                        </foreach>
+                    </ul>
                     <div class="showMoreContent">
-                        <div class="showMoreBtn">Show More Coupons</div>
+                        <div class="showMoreBtn" onclick="showCouponsListPage()">Show More Coupons</div>
                     </div>
                 </div>
             </div>
+            <script>
+                let page = 1;
+                let id = <?php echo $id ?>;
+                let href = "<?php echo $data['href']; ?>";
+                function showCouponsListPage() {
+                    page++;
+                    ajax({
+                        url: 'getCouponsListPost', // 你的接口地址
+                        type: 'GET',
+                        data: {
+                            page: page,
+                            size:5,
+                            id:id
+                        },
+                        dataType: 'json',
+                        success: function (res) {
+
+                            res = JSON.parse(res);
+
+                            console.log(res);
+                            if (res.code === 1) {
+                                const coupons = res.data.Coupons;
+                                let html = '';
+
+                                coupons.forEach(vo => {
+                                    html += `
+                    <li class="new-item couponItem">
+                        <a class="coverlink rewardButton" href=`+href+` aria-label="go brand"></a>
+                        <div class="couponWrap">
+                            <div class="couponInfo">
+                                <div class="sales">
+                                    <p class="big">NEW</p>
+                                    <p class="small">SALE</p>
+                                </div>
+                                <div class="couponDesp">
+                                    ${vo.type ? '<p class="sale">SALE</p>' : '<p class="code">CODE</p>'}
+                                    <div class="couponTitle">
+                                        <p>${vo.name}</p>
+                                    </div>
+                                    <div class="couponCate">
+                                        <p class="view">${vo.used} Used</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="couponBtn">
+                            ${vo.type
+                                        ? `<div class="dealBtn">Get Deal</div><div class="bgcBox"></div>`
+                                        : `<div class="codeBtn">Get Code</div><div class="colorBox"></div><div class="code">${vo.code}</div>`
+                                    }
+                        </div>
+                    </li>`;
+                                });
+
+                                document.getElementById('new-ls').insertAdjacentHTML('beforeend', html);
+
+
+                                const btn = document.querySelector('.showMoreBtn');
+                                btn.innerText = 'No More Coupons';
+                                btn.classList.add('disabled');
+
+                            } else {
+                                alert('加载失败，请重试');
+                            }
+                        },
+                        error: function () {
+                            alert('网络错误');
+                        }
+                    });
+                }
+            </script>
 
 
             <div class="productRecommend">
@@ -218,745 +326,54 @@
                     </a>
                 </div>
                 <ul class="topProductsList">
-
+                    <foreach name="product_list" item="vo">
                     <li class="topProdItem">
                         <a class="coverlink" href="https://www.couponsfab.com/product/715037"
                            aria-label="go product 715037 page"></a>
                         <div class="productsBorder">
                             <div class="productsImg">
                                 <img class="ProductsImg lazyImg"
-                                     src="__TMPL__/public/index_files/brand/27f1ea83fbb854d859bad49c7b53d0e7.jpg"
-                                     data-src="__TMPL__/public/index_files/brand/kelkoo/27f1ea83fbb854d859bad49c7b53d0e7.jpg"
-                                     alt="SZHAIYIJIN SD Card Reader for iPhone, Memory Card Reader with USB Camera Adapter Plug and Play Trail Game Camera SD Card Viewer Supports SD and TF Card Micro SD Card Adapter for iPad No App Required ProductsLogo">
+                                     src="{:cmf_get_image_preview_url($vo['img_url'])}"
+                                     data-src="{:cmf_get_image_preview_url($vo['img_url'])}">
                             </div>
                         </div>
                         <div class="productInfo">
                             <div class="couponBgc">
-
-                                <span class="couponText">20% off</span>
-
+                                <span class="couponText">{$vo['coupon_text']}% off</span>
                             </div>
-                            <div class="prodName">SZHAIYIJIN SD Card Reader for iPhone, Memory Card Reader with USB
-                                Camera Adapter Plug and Play Trail Game Camera SD Card Viewer Supports SD and TF Card
-                                Micro SD Card Adapter for iPad No App Required
-                            </div>
+                            <div class="prodName">{$vo['name']}</div>
                             <div class="price">
-                                <div class="newPrice">$7.99</div>
-                                <div class="oiginalPrice">$9.99</div>
+                                <div class="newPrice">${$vo['new_price']}</div>
+                                <div class="oiginalPrice">${$vo['old_price']}</div>
                             </div>
                         </div>
                     </li>
-
-                    <li class="topProdItem">
-                        <a class="coverlink" href="https://www.couponsfab.com/product/716334"
-                           aria-label="go product 716334 page"></a>
-                        <div class="productsBorder">
-                            <div class="productsImg">
-                                <img class="ProductsImg lazyImg"
-                                     src="__TMPL__/public/index_files/brand/c6ca8d60b548b106352cf3f02edf9261.jpg"
-                                     data-src="__TMPL__/public/index_files/brand/kelkoo/c6ca8d60b548b106352cf3f02edf9261.jpg"
-                                     alt="Hayward W3925ADC Navigator Pro Suction Pool Cleaner for In-Ground Gunite Pools up to 20 x 40 ft. (Automatic Pool Vacuum) ProductsLogo">
-                            </div>
-                        </div>
-                        <div class="productInfo">
-                            <div class="couponBgc">
-
-                                <span class="couponText">HOT DEALS</span>
-
-                            </div>
-                            <div class="prodName">Hayward W3925ADC Navigator Pro Suction Pool Cleaner for In-Ground
-                                Gunite Pools up to 20 x 40 ft. (Automatic Pool Vacuum)
-                            </div>
-                            <div class="price">
-                                <div class="newPrice">$394.99</div>
-                                <div class="oiginalPrice">$394.99</div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="topProdItem">
-                        <a class="coverlink" href="https://www.couponsfab.com/product/717626"
-                           aria-label="go product 717626 page"></a>
-                        <div class="productsBorder">
-                            <div class="productsImg">
-                                <img class="ProductsImg lazyImg"
-                                     src="__TMPL__/public/index_files/brand/a23e044fce2f27879fae86ecd29cf1df.jpg"
-                                     data-src="__TMPL__/public/index_files/brand/kelkoo/a23e044fce2f27879fae86ecd29cf1df.jpg"
-                                     alt="Anker (Pack of 2) USA to Europe International Plug Adapter, Travel Adapter, 15W Max with 2 AC, 2 USB-C &amp; 1 USB-A Port, Ideal for iPhone 15, iPad Air &amp; More, Compact for Travel, Cruise (TUV Listed) ProductsLogo">
-                            </div>
-                        </div>
-                        <div class="productInfo">
-                            <div class="couponBgc">
-
-                                <span class="couponText">23% off</span>
-
-                            </div>
-                            <div class="prodName">Anker (Pack of 2) USA to Europe International Plug Adapter, Travel
-                                Adapter, 15W Max with 2 AC, 2 USB-C &amp; 1 USB-A Port, Ideal for iPhone 15, iPad Air
-                                &amp; More, Compact for Travel, Cruise (TUV Listed)
-                            </div>
-                            <div class="price">
-                                <div class="newPrice">$19.99</div>
-                                <div class="oiginalPrice">$25.99</div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="topProdItem">
-                        <a class="coverlink" href="https://www.couponsfab.com/product/714558"
-                           aria-label="go product 714558 page"></a>
-                        <div class="productsBorder">
-                            <div class="productsImg">
-                                <img class="ProductsImg lazyImg"
-                                     src="__TMPL__/public/index_files/brand/bcc2ba58a33c5e02bde963a0ebd75103.jpg"
-                                     data-src="__TMPL__/public/index_files/brand/kelkoo/bcc2ba58a33c5e02bde963a0ebd75103.jpg"
-                                     alt="TESSAN Universal Travel Adapter, International Power Adapter with 4 USB Ports (1 USB C), Worldwide Plug Adaptor Wall Charger for USA to Europe UK France Germany Spain Ireland Australia(Type C/G/A/I) ProductsLogo">
-                            </div>
-                        </div>
-                        <div class="productInfo">
-                            <div class="couponBgc">
-
-                                <span class="couponText">21% off</span>
-
-                            </div>
-                            <div class="prodName">TESSAN Universal Travel Adapter, International Power Adapter with 4
-                                USB Ports (1 USB C), Worldwide Plug Adaptor Wall Charger for USA to Europe UK France
-                                Germany Spain Ireland Australia(Type C/G/A/I)
-                            </div>
-                            <div class="price">
-                                <div class="newPrice">$16.79</div>
-                                <div class="oiginalPrice">$21.24</div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="topProdItem">
-                        <a class="coverlink" href="https://www.couponsfab.com/product/712775"
-                           aria-label="go product 712775 page"></a>
-                        <div class="productsBorder">
-                            <div class="productsImg">
-                                <img class="ProductsImg lazyImg"
-                                     src="__TMPL__/public/index_files/brand/47cdccb17899c12666fcbfe54151c610.jpg"
-                                     data-src="__TMPL__/public/index_files/brand/kelkoo/47cdccb17899c12666fcbfe54151c610.jpg"
-                                     alt="EPICKA Universal Travel Adapter, All in One International Power Adapter AC Plug Worldwide Charger Adaptor with USB-C and 4 USB Ports, Travel Essentials for Europe, UK, Japan, etc. (TA-105, Grey) ProductsLogo">
-                            </div>
-                        </div>
-                        <div class="productInfo">
-                            <div class="couponBgc">
-
-                                <span class="couponText">8% off</span>
-
-                            </div>
-                            <div class="prodName">EPICKA Universal Travel Adapter, All in One International Power
-                                Adapter AC Plug Worldwide Charger Adaptor with USB-C and 4 USB Ports, Travel Essentials
-                                for Europe, UK, Japan, etc. (TA-105, Grey)
-                            </div>
-                            <div class="price">
-                                <div class="newPrice">$22.99</div>
-                                <div class="oiginalPrice">$24.99</div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="topProdItem">
-                        <a class="coverlink" href="https://www.couponsfab.com/product/714832"
-                           aria-label="go product 714832 page"></a>
-                        <div class="productsBorder">
-                            <div class="productsImg">
-                                <img class="ProductsImg lazyImg"
-                                     src="__TMPL__/public/index_files/brand/6b99d7cac34a38afde9d5ec4bf9489c0.jpg"
-                                     data-src="__TMPL__/public/index_files/brand/kelkoo/6b99d7cac34a38afde9d5ec4bf9489c0.jpg"
-                                     alt="Merax 3 Pcs ABS Hardside Luggage Sets TSA Lock Spinner Wheel Suitcases, Pearly White, 20/24/28 Inch ProductsLogo">
-                            </div>
-                        </div>
-                        <div class="productInfo">
-                            <div class="couponBgc">
-
-                                <span class="couponText">HOT DEALS</span>
-
-                            </div>
-                            <div class="prodName">Merax 3 Pcs ABS Hardside Luggage Sets TSA Lock Spinner Wheel
-                                Suitcases, Pearly White, 20/24/28 Inch
-                            </div>
-                            <div class="price">
-                                <div class="newPrice">$89.99</div>
-                                <div class="oiginalPrice">$89.99</div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="topProdItem">
-                        <a class="coverlink" href="https://www.couponsfab.com/product/714833"
-                           aria-label="go product 714833 page"></a>
-                        <div class="productsBorder">
-                            <div class="productsImg">
-                                <img class="ProductsImg lazyImg"
-                                     src="__TMPL__/public/index_files/brand/4c69a6ce431d68ef8838b47f9a85ee8c.jpg"
-                                     data-src="__TMPL__/public/index_files/brand/kelkoo/4c69a6ce431d68ef8838b47f9a85ee8c.jpg"
-                                     alt="SwissGear Sion Softside Expandable Luggage, Black, Checked-Large 29-Inch ProductsLogo">
-                            </div>
-                        </div>
-                        <div class="productInfo">
-                            <div class="couponBgc">
-
-                                <span class="couponText">27% off</span>
-
-                            </div>
-                            <div class="prodName">SwissGear Sion Softside Expandable Luggage, Black, Checked-Large
-                                29-Inch
-                            </div>
-                            <div class="price">
-                                <div class="newPrice">$101.99</div>
-                                <div class="oiginalPrice">$139.99</div>
-                            </div>
-                        </div>
-                    </li>
-
-                    <li class="topProdItem">
-                        <a class="coverlink" href="https://www.couponsfab.com/product/714834"
-                           aria-label="go product 714834 page"></a>
-                        <div class="productsBorder">
-                            <div class="productsImg">
-                                <img class="ProductsImg lazyImg"
-                                     src="__TMPL__/public/index_files/brand/26bb3fe7c701ddc5f8e7bf4f2a234957.jpg"
-                                     data-src="__TMPL__/public/index_files/brand/kelkoo/26bb3fe7c701ddc5f8e7bf4f2a234957.jpg"
-                                     alt="Samsonite Freeform 21-Inch Hardside Carry-On Luggage with Spinner Wheels - Hardshell Carry-On Suitcase - TSA, Airline-Approved - Expandable Hard Shell, Smooth Rolling Wheels for Lightweight Travel ProductsLogo">
-                            </div>
-                        </div>
-                        <div class="productInfo">
-                            <div class="couponBgc">
-
-                                <span class="couponText">32% off</span>
-
-                            </div>
-                            <div class="prodName">Samsonite Freeform 21-Inch Hardside Carry-On Luggage with Spinner
-                                Wheels - Hardshell Carry-On Suitcase - TSA, Airline-Approved - Expandable Hard Shell,
-                                Smooth Rolling Wheels for Lightweight Travel
-                            </div>
-                            <div class="price">
-                                <div class="newPrice">$136.99</div>
-                                <div class="oiginalPrice">$199.99</div>
-                            </div>
-                        </div>
-                    </li>
-
+                    </foreach>
                 </ul>
-            </div>
-
-
-            <div class="relatedBlogs">
-                <div class="topInfo">
-                    <a class="topTitle" href="https://www.couponsfab.com/blog" aria-label="go blog page">
-                        <h2 class="topText">Related Articles</h2>
-                        <div class="more">More
-                            <svg>
-                                <use xlink:href="#icon-more"></use>
-                            </svg>
-                        </div>
-                    </a>
-                </div>
-                <ul class="blogsList">
-
-                    <li class="blogItem">
-                        <a href="https://www.couponsfab.com/blog/back-to-school-sales-electronic-product-recommendations"
-                           aria-label="go blog page"></a>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
-                            <rect width="40" height="40" rx="20" fill="#F82C4C"></rect>
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                  d="M28.2936 22.8927C29.0714 22.1149 29.0714 20.8538 28.2936 20.076L19.8068 11.5892C19.3772 11.1596 18.7749 10.9496 18.1712 11.0189L13.3286 11.575C12.4085 11.6806 11.6827 12.4064 11.5771 13.3265L11.021 18.1692C10.9516 18.7728 11.1617 19.3751 11.5913 19.8047L20.0781 28.2915C20.8559 29.0693 22.117 29.0693 22.8948 28.2915L28.2936 22.8927ZM13.6469 15.461C13.6469 16.4645 14.4604 17.278 15.4639 17.278C16.4674 17.278 17.2809 16.4645 17.2809 15.461C17.2809 14.4574 16.4674 13.6439 15.4639 13.6439C14.4604 13.6439 13.6469 14.4574 13.6469 15.461Z"
-                                  fill="white"></path>
-                        </svg>
-                        <img class="editorImg lazyImg"
-                             src="__TMPL__/public/index_files/brand/back-to-school-sales-electronic-product-recommendations.webp"
-                             data-src="__TMPL__/public/index_files/brand/blog/back-to-school-sales-electronic-product-recommendations.webp"
-                             alt="Blog Logo">
-                        <div class="editorTitle">Back to School Sales: Electronic Product Recommendations</div>
-                    </li>
-
-                    <li class="blogItem">
-                        <a href="https://www.couponsfab.com/blog/the-best-gift-card-deals-of-2024"
-                           aria-label="go blog page"></a>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
-                            <rect width="40" height="40" rx="20" fill="#F82C4C"></rect>
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                  d="M28.2936 22.8927C29.0714 22.1149 29.0714 20.8538 28.2936 20.076L19.8068 11.5892C19.3772 11.1596 18.7749 10.9496 18.1712 11.0189L13.3286 11.575C12.4085 11.6806 11.6827 12.4064 11.5771 13.3265L11.021 18.1692C10.9516 18.7728 11.1617 19.3751 11.5913 19.8047L20.0781 28.2915C20.8559 29.0693 22.117 29.0693 22.8948 28.2915L28.2936 22.8927ZM13.6469 15.461C13.6469 16.4645 14.4604 17.278 15.4639 17.278C16.4674 17.278 17.2809 16.4645 17.2809 15.461C17.2809 14.4574 16.4674 13.6439 15.4639 13.6439C14.4604 13.6439 13.6469 14.4574 13.6469 15.461Z"
-                                  fill="white"></path>
-                        </svg>
-                        <img class="editorImg lazyImg"
-                             src="__TMPL__/public/index_files/brand/the-best-gift-card-deals-of-2024.webp"
-                             data-src="__TMPL__/public/index_files/brand/blog/the-best-gift-card-deals-of-2024.webp"
-                             alt="Blog Logo">
-                        <div class="editorTitle">The Best Gift Card Deals of 2024</div>
-                    </li>
-
-                    <li class="blogItem">
-                        <a href="https://www.couponsfab.com/blog/5-best-products--2024" aria-label="go blog page"></a>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
-                            <rect width="40" height="40" rx="20" fill="#F82C4C"></rect>
-                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                  d="M28.2936 22.8927C29.0714 22.1149 29.0714 20.8538 28.2936 20.076L19.8068 11.5892C19.3772 11.1596 18.7749 10.9496 18.1712 11.0189L13.3286 11.575C12.4085 11.6806 11.6827 12.4064 11.5771 13.3265L11.021 18.1692C10.9516 18.7728 11.1617 19.3751 11.5913 19.8047L20.0781 28.2915C20.8559 29.0693 22.117 29.0693 22.8948 28.2915L28.2936 22.8927ZM13.6469 15.461C13.6469 16.4645 14.4604 17.278 15.4639 17.278C16.4674 17.278 17.2809 16.4645 17.2809 15.461C17.2809 14.4574 16.4674 13.6439 15.4639 13.6439C14.4604 13.6439 13.6469 14.4574 13.6469 15.461Z"
-                                  fill="white"></path>
-                        </svg>
-                        <img class="editorImg lazyImg" src="__TMPL__/public/index_files/brand/5-best-product-2024.webp"
-                             data-src="__TMPL__/public/index_files/brand/blog/5-best-product-2024.webp" alt="Blog Logo">
-                        <div class="editorTitle">The 5 best products to buy in 2024</div>
-                    </li>
-
-                </ul>
-            </div>
-
-
-            <div class="freeStuff relatedBlogs">
-                <div class="topInfo">
-                    <a class="topTitle" href="https://www.couponsfab.com/free-stuff" aria-label="go stuff page">
-                        <h2 class="topText">Hot Free Stuff</h2>
-                        <div class="more">More
-                            <svg>
-                                <use xlink:href="#icon-more"></use>
-                            </svg>
-                        </div>
-                    </a>
-                </div>
-                <ul class="stuffList blogsList">
-
-                    <li class="stuffItem blogItem">
-                        <a href="https://www.couponsfab.com/stuff/free-baskin-robbins-treats"
-                           aria-label="go stuff page"></a>
-                        <img class="stuffImg editorImg lazyImg"
-                             src="__TMPL__/public/index_files/brand/ebb8433c3ea7b6fcc9e8a29793ce6ceb.jpeg"
-                             data-src="__TMPL__/public/index_files/brand/images/ebb8433c3ea7b6fcc9e8a29793ce6ceb.jpeg"
-                             alt="Stuff Logo">
-                        <div class="stuffTitle editorTitle">Free Baskin Robbins Treats</div>
-                    </li>
-
-                    <li class="stuffItem blogItem">
-                        <a href="https://www.couponsfab.com/stuff/free-1-cash-per-survey-with-pinecone"
-                           aria-label="go stuff page"></a>
-                        <img class="stuffImg editorImg lazyImg"
-                             src="__TMPL__/public/index_files/brand/5ccc208e6fe86dd71cc991d09d451d5a.jpg"
-                             data-src="__TMPL__/public/index_files/brand/images/5ccc208e6fe86dd71cc991d09d451d5a.jpg"
-                             alt="Stuff Logo">
-                        <div class="stuffTitle editorTitle">Free $1 Cash Per Survey with Pinecone</div>
-                    </li>
-
-                    <li class="stuffItem blogItem">
-                        <a href="https://www.couponsfab.com/stuff/free-cash-get-a-2-bonus-with-surveypronto"
-                           aria-label="go stuff page"></a>
-                        <img class="stuffImg editorImg lazyImg"
-                             src="__TMPL__/public/index_files/brand/17bca222e8836400296dafd451bb4503.jpeg"
-                             data-src="__TMPL__/public/index_files/brand/images/17bca222e8836400296dafd451bb4503.jpeg"
-                             alt="Stuff Logo">
-                        <div class="stuffTitle editorTitle">Free Cash &amp; Get a $2 Bonus with SurveyPronto</div>
-                    </li>
-
-                </ul>
-            </div>
-
-
-            <div class="tableWrap">
-                <div class="topInfo" id="popularTitle">
-                    <h2 class="topText">Popular Airbnb Promo Code &amp; Deals</h2>
-                </div>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Code</th>
-                        <th>Discount Type</th>
-                        <th>Coupon Description</th>
-                        <th>Expired Time</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-
-                    <tr onclick="jumpLinkCoupon( 1049405 )">
-
-                        <td>DEALS</td>
-
-
-                        <td>NEW SALE</td>
-
-
-                        <td>Airbnb Coupons And Promo Codes For September</td>
-
-
-                        <td>2025/04/12</td>
-
-                    </tr>
-
-                    <tr onclick="jumpLinkCoupon( 4855256 )">
-
-                        <td>THANKS30</td>
-
-
-                        <td>30% OFF</td>
-
-
-                        <td>30% Off Your Next Rental</td>
-
-
-                        <td>2025/04/12</td>
-
-                    </tr>
-
-                    <tr onclick="jumpLinkCoupon( 4894505 )">
-
-                        <td>BEACH2045</td>
-
-
-                        <td>20% OFF</td>
-
-
-                        <td>20% Off Your Order</td>
-
-
-                        <td>2025/04/12</td>
-
-                    </tr>
-
-                    <tr onclick="jumpLinkCoupon( 1331593 )">
-
-                        <td>DEALS</td>
-
-
-                        <td>SALE</td>
-
-
-                        <td>Airbnb Coupons - Save On Your Next Stay</td>
-
-
-                        <td>2025/04/12</td>
-
-                    </tr>
-
-                    <tr onclick="jumpLinkCoupon( 4961486 )">
-
-                        <td>ACSALE2050</td>
-
-
-                        <td>$50 OFF</td>
-
-
-                        <td>$50 Off Airbnb Booking</td>
-
-
-                        <td>2025/04/12</td>
-
-                    </tr>
-
-                    </tbody>
-                </table>
             </div>
 
 
             <div class="topInfo" id="brandAbout">
-                <h2 class="topText">About Airbnb</h2>
+                <h2 class="topText">About {$data['name']}</h2>
             </div>
             <div class="about" style="height: 210px; overflow: hidden;">
-                Airbnb, an American online marketplace for both short-term and long-term rentals, was founded in 2008
-                when its creators decided to offer a spare room with an air mattress, creating the concept of an "air
-                bed and breakfast" room. This small beginning quickly led to the company's global expansion. Currently,
-                Airbnb provides a wide range of rental options, from shared room beds to entire properties. Its
-                tremendous growth has transformed its initial $20,000 funding into a $110 billion enterprise, with a
-                presence in over 100,000 cities, offering more than 7 million listings.
-
-                As Airbnb continues to expand worldwide, it is also diversifying its offerings. Hosts can now not only
-                rent out spare rooms or homes for vacation stays but also offer their spaces for long-term rentals. The
-                available rental options are incredibly diverse, including unique and extraordinary accommodations like
-                igloos, treehouses, trolley cars, and windmills, to name just a few.
-
-                Moreover, Airbnb isn't limited to providing accommodations. The platform has also developed a
-                marketplace for experiences, allowing users to immerse themselves in the local culture of the places
-                they visit. These experiences range from cooking classes and tours to music and dancing lessons. This
-                additional feature enhances the overall travel experience for Airbnb users, adding an extra layer of
-                cultural exploration and discovery.
+                {$data['about']}
             </div>
 
-            <div class="flag" id="aboutFlag" style="display: block;">
-                <div class="moreBox" id="aboutMore" onclick="changeMinBox(false)" style="display: block;">
-                    <div class="more">
-                        <span class="moreText">Show More</span>
-                        <svg>
-                            <use xlink:href="#icon-moreText"></use>
-                        </svg>
-                    </div>
-                </div>
-                <div class="lessBox" id="aboutLess" onclick="changeMinBox(true)" style="display: none;">
-                    <div class="less">
-                        <span class="lessText"> Show Less</span>
-                        <svg>
-                            <use xlink:href="#icon-lessText"></use>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="topInfo" id="FAQTitle">
-                <h2 class="topText">Airbnb FAQ</h2>
-            </div>
-            <div class="FAQList">
-
-
-                <div class="FAQItem" onclick="clickQuestion( 0 )">
-                    <div class="questionList">
-                        <div class="question">What is the process for applying a promo code on Airbnb.com?</div>
-                        <div class="questionIcon">
-                            <svg class="close" style="display: block;">
-                                <use xlink:href="#icon-close"></use>
-                            </svg>
-                            <svg class="open" style="display: none;">
-                                <use xlink:href="#icon-open"></use>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="answerList" style="display: block;">
-                        <div class="answer">Once you have chosen a stay or experience that you wish to buy, any referral
-                            coupon or travel credit will be automatically applied during the checkout process. To view
-                            the discounts you have available, you can navigate to 'Payments &amp;amp; Payouts' and click
-                            on 'Credits &amp;amp; Coupons'.
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="FAQItem" onclick="clickQuestion( 1 )">
-                    <div class="questionList">
-                        <div class="question">What is the process for joining the rewards program offered by Airbnb?
-                        </div>
-                        <div class="questionIcon">
-                            <svg class="close">
-                                <use xlink:href="#icon-close"></use>
-                            </svg>
-                            <svg class="open">
-                                <use xlink:href="#icon-open"></use>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="answerList">
-                        <div class="answer">Airbnb does not offer its own rewards program. Nevertheless, there are
-                            numerous credit card rewards programs that can be utilized for savings on Airbnb stays and
-                            experiences. Individuals should explore their credit card rewards programs to determine if
-                            they are eligible for any that provide substantial benefits.
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="FAQItem" onclick="clickQuestion( 2 )">
-                    <div class="questionList">
-                        <div class="question">How can I discover discounts within the Airbnb application?</div>
-                        <div class="questionIcon">
-                            <svg class="close">
-                                <use xlink:href="#icon-close"></use>
-                            </svg>
-                            <svg class="open">
-                                <use xlink:href="#icon-open"></use>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="answerList">
-                        <div class="answer">In the Airbnb application, there are multiple options to explore discounts.
-                            If you have received a referral reward, travel credit from the Superhost program, or any
-                            other voucher, you can easily locate it in the "Credits &amp; Coupons" segment.
-                            Additionally, it is worth attempting various date ranges as certain locations may experience
-                            significant price fluctuations, allowing you to uncover potential savings.
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="FAQBox">
-
-
-                    <div class="FAQItem" onclick="clickQuestion( 3 )">
-                        <div class="questionList">
-                            <div class="question">What are the cancellation terms of Airbnb?</div>
-                            <div class="questionIcon">
-                                <svg class="close">
-                                    <use xlink:href="#icon-close"></use>
-                                </svg>
-                                <svg class="open">
-                                    <use xlink:href="#icon-open"></use>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="answerList">
-                            <div class="answer">Due to the customized rules set by individual hosts, there is a wide
-                                range of cancellation policies. Guests can receive a full refund if they cancel 24 hours
-                                prior to the check-in time under flexible policies. However, in the strictest policies,
-                                guests are not eligible for any refund if they cancel within 60 days of the check-in
-                                time and only receive a 50% refund for earlier cancellations.
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="FAQItem" onclick="clickQuestion( 4 )">
-                        <div class="questionList">
-                            <div class="question">What is the ideal timing to make a reservation for an Airbnb?</div>
-                            <div class="questionIcon">
-                                <svg class="close">
-                                    <use xlink:href="#icon-close"></use>
-                                </svg>
-                                <svg class="open">
-                                    <use xlink:href="#icon-open"></use>
-                                </svg>
-                            </div>
-                        </div>
-                        <div class="answerList">
-                            <div class="answer">Airbnb rates fluctuate daily, however, the specific pattern of these
-                                fluctuations varies depending on the location. Typically, it is advisable to reserve
-                                your Airbnb accommodation between one to three months prior to your planned trip, taking
-                                into consideration the popularity of the destination. During public holidays or major
-                                festivals, it is recommended to make your booking even earlier.
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-
-
-            <div class="brandHtml"><h3 id="title-1">Money-Saving Tips at Airbnb</h3>
-                <p>To save money while using Airbnb, travelers should consider booking early, as this often results in
-                    better rates, especially during peak seasons. Utilizing filters effectively can help narrow down
-                    affordable options, while traveling off-peak can lead to significant savings. It's also wise to
-                    check for discounts for longer stays, communicate directly with hosts regarding potential price
-                    flexibility, and be mindful of additional fees in the final cost. Lastly, new users should take
-                    advantage of referral credits to further reduce their expenses.</p>
-                <h3 id="title-2">Cancellation Policy of Airbnb</h3>
-                <p>During the reservation period, the cancellation policy can be accessed at any time on the property
-                    page under the "<a href="https://www.airbnb.cn/help/topic/1367" target="_blank">Cancellation
-                        Policy</a>" section and on the checkout page. If an order has already been placed, users can
-                    find their order in the "Trips" tab and view the full cancellation policy details set by the host on
-                    the order details page.</p>
-                <p>The cancellation policy is determined by the host and varies by property. If the host has selected a
-                    fully refundable policy, cancellations can be made free of charge, but it is essential to cancel
-                    before the specified date and time outlined in the policy. It’s also important to note that for
-                    certain properties, cancellations may not be fully refundable or could only be partially refunded
-                    after specific dates and times. In such cases, unless the cancellation falls under Airbnb's
-                    significant disruption policy, users will not be able to cancel the order for free.</p></div>
 
             <div class="topInfo" id="paymentTitle">
-                <h2 class="topText">Available Payment Options at Airbnb</h2>
+                <h2 class="topText">Available Payment Options at {$data['name']}</h2>
             </div>
             <ul class="pamentList">
-
-                <li class="pamentItem">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
-                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
-                    </svg>
-                    Convenience store
-                </li>
-
-                <li class="pamentItem">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
-                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
-                    </svg>
-                    Visa
-                </li>
-
-                <li class="pamentItem">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
-                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
-                    </svg>
-                    Mastercard
-                </li>
-
-                <li class="pamentItem">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
-                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
-                    </svg>
-                    Amex
-                </li>
-
-                <li class="pamentItem">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
-                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
-                    </svg>
-                    Debit card
-                </li>
-
-                <li class="pamentItem">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
-                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
-                    </svg>
-                    Troy
-                </li>
-
-                <li class="pamentItem">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
-                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
-                    </svg>
-                    Paypal
-                </li>
-
-                <li class="pamentItem">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
-                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
-                    </svg>
-                    iDeal
-                </li>
-
-                <li class="pamentItem">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
-                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
-                    </svg>
-                    Venmo
-                </li>
-
-                <li class="pamentItem">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
-                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
-                    </svg>
-                    American Express
-                </li>
-
-                <li class="pamentItem">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
-                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
-                    </svg>
-                    Credit Cards
-                </li>
-
-                <li class="pamentItem">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
-                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
-                    </svg>
-                    discover
-                </li>
-
-                <li class="pamentItem">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
-                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
-                    </svg>
-                    Solo
-                </li>
-
-                <li class="pamentItem">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
-                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
-                    </svg>
-                    Worldpay
-                </li>
-
-                <li class="pamentItem">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
-                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
-                    </svg>
-                    Aura
-                </li>
-
-                <li class="pamentItem">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
-                        <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
-                    </svg>
-                    Stripe
-                </li>
-
+                <foreach name="payment_options" item="vo">
+                    <li class="pamentItem">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="6" height="7" viewBox="0 0 6 7" fill="none">
+                            <circle cx="3" cy="3.35156" r="3" fill="#FF6780"></circle>
+                        </svg>
+                        {$vo}
+                    </li>
+                </foreach>
             </ul>
-
         </div>
 
 
@@ -967,19 +384,6 @@
                 <ul class="contentsList">
 
                     <li class="contentsItem contentsPc">
-                        <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#popularTitle"
-                           aria-label="Popular Coupon Title" onclick="smoothScroll(event, &#39;popularTitle&#39;)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12"
-                                 fill="none">
-                                <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
-                                      fill="#333333"></path>
-                            </svg>
-                            Popular Airbnb Promo Code &amp; Deals
-                        </a>
-                    </li>
-
-
-                    <li class="contentsItem contentsPc">
                         <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#brandAbout"
                            aria-label="About Title" onclick="smoothScroll(event, &#39;brandAbout&#39;)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12"
@@ -987,48 +391,9 @@
                                 <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
                                       fill="#333333"></path>
                             </svg>
-                            About Airbnb
+                            About {$data['name']}
                         </a>
                     </li>
-
-
-                    <li class="contentsItem contentsPc">
-                        <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#FAQTitle"
-                           aria-label="FAQ Title" onclick="smoothScroll(event, &#39;FAQTitle&#39;)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12"
-                                 fill="none">
-                                <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
-                                      fill="#333333"></path>
-                            </svg>
-                            Airbnb FAQ
-                        </a>
-                    </li>
-
-
-                    <li class="contentsItem contentsPc">
-                        <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#title-1"
-                           aria-label="Money-Saving Tips at Airbnb" onclick="smoothScroll(event, &#39;title-1&#39;)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12"
-                                 fill="none">
-                                <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
-                                      fill="#333333"></path>
-                            </svg>
-                            Money-Saving Tips at Airbnb
-                        </a>
-                    </li>
-
-                    <li class="contentsItem contentsPc">
-                        <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#title-2"
-                           aria-label="Cancellation Policy of Airbnb" onclick="smoothScroll(event, &#39;title-2&#39;)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12"
-                                 fill="none">
-                                <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
-                                      fill="#333333"></path>
-                            </svg>
-                            Cancellation Policy of Airbnb
-                        </a>
-                    </li>
-
 
                     <li class="contentsItem contentsPc">
                         <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#paymentTitle"
@@ -1039,7 +404,7 @@
                                 <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
                                       fill="#333333"></path>
                             </svg>
-                            Available Payment Options at Airbnb
+                            Available Payment Options at {$data['name']}
                         </a>
                     </li>
 
@@ -1057,291 +422,8 @@
             </div>
 
 
-            <div class="authorCard">
-                <div class="authorInfo">
-
-                    <div class="authorImg">
-                        <img class="avatar lazyImg" src="__TMPL__/public/index_files/brand/expert_female_04.webp"
-                             data-src="__TMPL__/public/index_files/brand/images/expert_female_04.webp" alt="Iris Fallow">
-                    </div>
-
-                    <div class="author">
-                        <div class="nickname">By Iris Fallow</div>
-                        <div class="info">Savings Whiz</div>
-                    </div>
-                </div>
-                <div class="authorDesc" style="-webkit-line-clamp: 10;">Iris is a creative thinker with a knack for
-                    transforming the ordinary task of saving money into an exciting adventure. Her passion lies in
-                    discovering and sharing unconventional savings strategies that break free from the traditional mold
-                    of couponing. By blending creativity with practicality, she offers readers a fresh perspective on
-                    how to maximize their savings. Iris's innovative approach turns couponing into an engaging and
-                    enjoyable experience, appealing to both seasoned savers and newcomers alike. She explores
-                    out-of-the-box ideas such as combining digital apps with traditional coupons, leveraging social
-                    media for exclusive deals, and even crafting DIY solutions for everyday shopping challenges. Her
-                    advice encourages readers to view saving money as a fun puzzle, where each piece fits together to
-                    create a bigger picture of financial well-being. Her infectious enthusiasm and unique insights
-                    empower individuals to take control of their finances in an exciting way, proving that with a little
-                    creativity, anyone can turn saving into a rewarding lifestyle choice.
-                </div>
-
-                <div class="flag" id="authorFlag">
-                    <div class="moreBox" id="authorMore" onclick="changeAuthorDesc(false)">
-                        <div class="more">
-                            <span class="moreText">Show More</span>
-                            <svg>
-                                <use xlink:href="#icon-moreText"></use>
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="lessBox" id="authorLess" onclick="changeAuthorDesc(true)" style="display: none;">
-                        <div class="less">
-                            <span class="lessText"> Show Less</span>
-                            <svg>
-                                <use xlink:href="#icon-lessText"></use>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="popularBrand">
-                <div class="topInfo">
-                    <a class="topTitle" href="https://www.couponsfab.com/brandList/Travel"
-                       aria-label="go brandList Travel page">
-                        <h2 class="topText">Similar Brands</h2>
-                        <div class="more">More
-                            <svg>
-                                <use xlink:href="#icon-more"></use>
-                            </svg>
-                        </div>
-                    </a>
-                </div>
-                <ul class="brandList">
-
-                    <li class="brandItem">
-                        <a class="brandLink" href="https://www.couponsfab.com/brand/express"
-                           aria-label="go brand express page"></a>
-                        <div class="brandImgDiv">
-                            <img class="brandImg lazyImg" src="__TMPL__/public/index_files/brand/Express.webp"
-                                 data-src="__TMPL__/public/index_files/brand/brands/Express.webp" alt="Express icon">
-                        </div>
-                        <div class="brandInfo">
-                            <p class="brandName">Express</p>
-
-                        </div>
-                    </li>
-
-                    <li class="brandItem">
-                        <a class="brandLink" href="https://www.couponsfab.com/brand/aliexpress"
-                           aria-label="go brand aliexpress page"></a>
-                        <div class="brandImgDiv">
-                            <img class="brandImg lazyImg"
-                                 src="__TMPL__/public/index_files/brand/AliExpress-160-webp.webp"
-                                 data-src="__TMPL__/public/index_files/brand/brands/AliExpress-160-webp.webp"
-                                 alt="AliExpress icon">
-                        </div>
-                        <div class="brandInfo">
-                            <p class="brandName">AliExpress</p>
-
-                        </div>
-                    </li>
-
-                    <li class="brandItem">
-                        <a class="brandLink" href="https://www.couponsfab.com/brand/hotels-com"
-                           aria-label="go brand hotels-com page"></a>
-                        <div class="brandImgDiv">
-                            <img class="brandImg lazyImg" src="__TMPL__/public/index_files/brand/hotel-a1.webp"
-                                 data-src="__TMPL__/public/index_files/brand/brands/hotel-a1.webp" alt="Hotels icon">
-                        </div>
-                        <div class="brandInfo">
-                            <p class="brandName">Hotels</p>
-
-                        </div>
-                    </li>
-
-                    <li class="brandItem">
-                        <a class="brandLink" href="https://www.couponsfab.com/brand/cheapoair"
-                           aria-label="go brand cheapoair page"></a>
-                        <div class="brandImgDiv">
-                            <img class="brandImg lazyImg" src="__TMPL__/public/index_files/brand/CHEAPQAIR1.webp"
-                                 data-src="__TMPL__/public/index_files/brand/brands/CHEAPQAIR1.webp"
-                                 alt="CheapOair icon">
-                        </div>
-                        <div class="brandInfo">
-                            <p class="brandName">CheapOair</p>
-
-                        </div>
-                    </li>
-
-                    <li class="brandItem">
-                        <a class="brandLink" href="https://www.couponsfab.com/brand/rentalcars"
-                           aria-label="go brand rentalcars page"></a>
-                        <div class="brandImgDiv">
-                            <img class="brandImg lazyImg"
-                                 src="__TMPL__/public/index_files/brand/AM62ND2VAJGVHCVR66ACONHWSU.png"
-                                 data-src="__TMPL__/public/index_files/brand/brands/AM62ND2VAJGVHCVR66ACONHWSU.png"
-                                 alt="RentalCars icon">
-                        </div>
-                        <div class="brandInfo">
-                            <p class="brandName">RentalCars</p>
-
-                        </div>
-                    </li>
-
-                    <li class="brandItem">
-                        <a class="brandLink" href="https://www.couponsfab.com/brand/emirates-airline"
-                           aria-label="go brand emirates-airline page"></a>
-                        <div class="brandImgDiv">
-                            <img class="brandImg lazyImg"
-                                 src="__TMPL__/public/index_files/brand/DCYIBF2H4ZEXTFAZAM4G343PVI.png"
-                                 data-src="__TMPL__/public/index_files/brand/brands/DCYIBF2H4ZEXTFAZAM4G343PVI.png"
-                                 alt="Emirates Airline icon">
-                        </div>
-                        <div class="brandInfo">
-                            <p class="brandName">Emirates Airline</p>
-
-                        </div>
-                    </li>
-
-                </ul>
-            </div>
-
-            <div class="popularBrand">
-                <div class="topInfo">
-                    <a class="topTitle" href="https://www.couponsfab.com/brandList" aria-label="go brandList page">
-                        <h2 class="topText">Popular Brands</h2>
-                        <div class="more">More
-                            <svg>
-                                <use xlink:href="#icon-more"></use>
-                            </svg>
-                        </div>
-                    </a>
-                </div>
-                <ul class="brandList">
-
-                    <li class="brandItem">
-                        <a class="brandLink" href="https://www.couponsfab.com/brand/temu"
-                           aria-label="go brand temu page"></a>
-                        <div class="brandText">Temu</div>
-                    </li>
-
-                    <li class="brandItem">
-                        <a class="brandLink" href="https://www.couponsfab.com/brand/walmart"
-                           aria-label="go brand walmart page"></a>
-                        <div class="brandText">Walmart</div>
-                    </li>
-
-                    <li class="brandItem">
-                        <a class="brandLink" href="https://www.couponsfab.com/brand/dick-s-sporting-goods"
-                           aria-label="go brand dick-s-sporting-goods page"></a>
-                        <div class="brandText">Dick's Sporting Goods</div>
-                    </li>
-
-                    <li class="brandItem">
-                        <a class="brandLink" href="https://www.couponsfab.com/brand/target"
-                           aria-label="go brand target page"></a>
-                        <div class="brandText">Target</div>
-                    </li>
-
-                    <li class="brandItem">
-                        <a class="brandLink" href="https://www.couponsfab.com/brand/amazon"
-                           aria-label="go brand amazon page"></a>
-                        <div class="brandText">Amazon</div>
-                    </li>
-
-                    <li class="brandItem">
-                        <a class="brandLink" href="https://www.couponsfab.com/brand/staples"
-                           aria-label="go brand staples page"></a>
-                        <div class="brandText">Staples</div>
-                    </li>
-
-                    <li class="brandItem">
-                        <a class="brandLink" href="https://www.couponsfab.com/brand/papa-johns"
-                           aria-label="go brand papa-johns page"></a>
-                        <div class="brandText">Papa John's</div>
-                    </li>
-
-                    <li class="brandItem">
-                        <a class="brandLink" href="https://www.couponsfab.com/brand/best-buy"
-                           aria-label="go brand best-buy page"></a>
-                        <div class="brandText">Best Buy</div>
-                    </li>
-
-                    <li class="brandItem">
-                        <a class="brandLink" href="https://www.couponsfab.com/brand/subway"
-                           aria-label="go brand subway page"></a>
-                        <div class="brandText">Subway</div>
-                    </li>
-
-                    <li class="brandItem">
-                        <a class="brandLink" href="https://www.couponsfab.com/brand/shutterfly"
-                           aria-label="go brand shutterfly page"></a>
-                        <div class="brandText">Shutterfly</div>
-                    </li>
-
-                    <li class="brandItem">
-                        <a class="brandLink" href="https://www.couponsfab.com/brand/shein"
-                           aria-label="go brand shein page"></a>
-                        <div class="brandText">SHEIN</div>
-                    </li>
-
-                    <li class="brandItem">
-                        <a class="brandLink" href="https://www.couponsfab.com/brand/groupon"
-                           aria-label="go brand groupon page"></a>
-                        <div class="brandText">Groupon</div>
-                    </li>
-
-                </ul>
-            </div>
-
-
-            <div class="chooseWrap">
-                <div class="topInfo">
-                    <h2 class="topText">Why trust us？</h2>
-                </div>
-
-                <ul class="chooseList">
-                    <li class="chooseText">
-                        <strong>Extensive Variety:</strong> CouponsFab offers an extensive selection of coupons from
-                        various retailers across a range of different categories.
-                    </li>
-                    <li class="chooseText">
-                        <strong>Savings Galore:</strong> On average, our users save 20% on their orders with our
-                        coupons, and some even enjoy savings of 50% or more.
-                    </li>
-                    <li class="chooseText">
-                        <strong>Verified and Reliable Coupons:</strong> Our dedicated team works diligently to ensure
-                        that all the coupons listed on our site are up-to-date and valid.
-                    </li>
-                    <li class="chooseText">
-                        <strong>Exclusive Offers:</strong> We partner with retailers to bring you unique discounts and
-                        promotions.
-                    </li>
-                </ul>
-                <div class="chooseText">
-                    Start saving today with CouponsFab and join millions of satisfied users who have already saved
-                    thousands of dollars.
-                </div>
-            </div>
-
-
             <div class="tableContents" style="position: fixed; display: none;">
                 <ul class="contentsList">
-
-                    <li class="contentsItem contentsPc">
-                        <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#popularTitle"
-                           aria-label="Popular Coupon Title" onclick="smoothScroll(event, &#39;popularTitle&#39;)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12"
-                                 fill="none">
-                                <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
-                                      fill="#333333"></path>
-                            </svg>
-                            Popular Airbnb Promo Code &amp; Deals
-                        </a>
-                    </li>
-
-
                     <li class="contentsItem contentsPc">
                         <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#brandAbout"
                            aria-label="About Title" onclick="smoothScroll(event, &#39;brandAbout&#39;)">
@@ -1350,48 +432,9 @@
                                 <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
                                       fill="#333333"></path>
                             </svg>
-                            About Airbnb
+                            About {$data['name']}
                         </a>
                     </li>
-
-
-                    <li class="contentsItem contentsPc">
-                        <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#FAQTitle"
-                           aria-label="FAQ Title" onclick="smoothScroll(event, &#39;FAQTitle&#39;)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12"
-                                 fill="none">
-                                <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
-                                      fill="#333333"></path>
-                            </svg>
-                            Airbnb FAQ
-                        </a>
-                    </li>
-
-
-                    <li class="contentsItem contentsPc">
-                        <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#title-1"
-                           aria-label="Money-Saving Tips at Airbnb" onclick="smoothScroll(event, &#39;title-1&#39;)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12"
-                                 fill="none">
-                                <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
-                                      fill="#333333"></path>
-                            </svg>
-                            Money-Saving Tips at Airbnb
-                        </a>
-                    </li>
-
-                    <li class="contentsItem contentsPc">
-                        <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#title-2"
-                           aria-label="Cancellation Policy of Airbnb" onclick="smoothScroll(event, &#39;title-2&#39;)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="7" height="12" viewBox="0 0 7 12"
-                                 fill="none">
-                                <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
-                                      fill="#333333"></path>
-                            </svg>
-                            Cancellation Policy of Airbnb
-                        </a>
-                    </li>
-
 
                     <li class="contentsItem contentsPc">
                         <a class="contentsLink" href="https://www.couponsfab.com/brand/airbnb#paymentTitle"
@@ -1402,7 +445,7 @@
                                 <path d="M1.70711 0.292922C1.42111 0.00692442 0.990991 -0.0786313 0.617317 0.0761497C0.243642 0.230931 0 0.595567 0 1.00003V11C0 11.4045 0.243642 11.7691 0.617317 11.9239C0.990991 12.0787 1.42111 11.9931 1.70711 11.7071L6.70711 6.70714C7.09763 6.31661 7.09763 5.68345 6.70711 5.29292L1.70711 0.292922Z"
                                       fill="#333333"></path>
                             </svg>
-                            Available Payment Options at Airbnb
+                            Available Payment Options at {$data['name']}
                         </a>
                     </li>
 
@@ -1599,240 +642,6 @@ document.addEventListener("click", function (a) {
 
 
 <include file="public@foot"/>
-<div id="installContainer" style="display: none;"></div>
-
-
-<script>
-
-    var linkElements = document.querySelectorAll('a');
-    var linkParams = "";
-
-    linkElements.forEach(function (linkElement) {
-        var originalHref = linkElement.getAttribute('href');
-
-        if (originalHref && originalHref.startsWith('/')) {
-
-            if (linkParams) {
-
-                if (originalHref.includes('?')) {
-
-                    linkElement.setAttribute('href', originalHref + '&' + linkParams);
-                } else {
-
-                    linkElement.setAttribute('href', originalHref + '?' + linkParams);
-                }
-            }
-        }
-    });
-
-
-    function ajax(options) {
-        var xhr = null;
-        var params = formsParams(options.data);
-
-        if (window.XMLHttpRequest) {
-            xhr = new XMLHttpRequest()
-        } else {
-            xhr = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-
-        if (options.type == "GET") {
-            xhr.open(options.type, options.url + "?" + params, options.async);
-            xhr.send(null)
-            if (xhr.status === 200) {
-                options.success(xhr.responseText)
-            }
-        } else if (options.type == "POST") {
-            xhr.open(options.type, options.url, options.async);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-            xhr.send(params);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    options.success(xhr.responseText);
-                }
-            }
-        }
-
-        function formsParams(data) {
-            var arr = [];
-            for (var prop in data) {
-                arr.push(prop + "=" + data[prop]);
-            }
-            return arr.join("&");
-        }
-    }
-</script>
-<script>
-
-
-    function lazyImg() {
-        const images = document.querySelectorAll(".lazyImg")
-        const observer = new IntersectionObserver((entries = []) => {
-            entries.forEach(item => {
-                if (item.isIntersecting) {
-                    const img = item.target
-                    img.setAttribute('src', img.getAttribute('data-src'))
-                    observer.unobserve(img)
-                }
-            })
-        })
-
-        images.forEach(image => {
-            observer.observe(image);
-        })
-    }
-
-    lazyImg();
-
-
-    var pathname = window.location.pathname;
-    if ("/brand/airbnb" == "/about") {
-        var about = document.getElementById("about");
-        about.setAttribute("class", "footerLink navNow");
-    } else if ("/brand/airbnb" == "/contact") {
-        var contact = document.getElementById("contact");
-        contact.setAttribute("class", "footerLink navNow");
-    } else if ("/brand/airbnb" == "/guidance") {
-        var guidance = document.getElementById("guidance");
-        guidance.setAttribute("class", "footerLink navNow");
-    } else if ("/brand/airbnb" == "/disclaimer") {
-        var disclaimer = document.getElementById("disclaimer");
-        disclaimer.setAttribute("class", "footerLink navNow");
-    } else if ("/brand/airbnb" == "/privacy") {
-        var privacy = document.getElementById("privacy");
-        privacy.setAttribute("class", "footerLink navNow");
-    } else if ("/brand/airbnb" == "/terms") {
-        var terms = document.getElementById("terms");
-        terms.setAttribute("class", "footerLink navNow");
-    }
-
-
-    document.ready = function (callback) {
-        if (document.addEventListener) {
-            document.addEventListener("DOMContentLoaded",
-                function () {
-                    document.removeEventListener("DOMContentLoaded", arguments.callee, false);
-                    callback()
-                },
-                false)
-        } else {
-            if (document.attachEvent) {
-                document.attachEvent("onreadystatechange",
-                    function () {
-                        if (document.readyState == "complete") {
-                            document.detachEvent("onreadystatechange", arguments.callee);
-                            callback()
-                        }
-                    })
-            } else {
-                if (document.lastChild == document.body) {
-                    callback()
-                }
-            }
-        }
-    };
-
-
-    function uuid() {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            var r = Math.random() * 16 | 0,
-                v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
-    }
-
-    var userID = uuid();
-    if (localStorage.getItem('userID') === "undefined" || localStorage.getItem('userID') === null) {
-        window.localStorage.setItem("userID", userID);
-    } else {
-        userID = localStorage.getItem('userID');
-    }
-
-    document.ready(function () {
-
-        var userAgent = navigator.userAgent;
-
-        var ad_type = "PAGE";
-        var AdTypeCpc = JSON.parse("{\"1\":0.78,\"2\":0.78,\"3\":0.78,\"4\":0.78,\"6\":0.78,\"7\":0.78,\"geo\":\"CN\"}");
-        var vCont = AdTypeCpc[1];
-
-        document.addEventListener('visibilitychange', function (e) {
-            var adsList = document.querySelectorAll(".adsbygoogle");
-            for (var i = 0; i < adsList.length; i++) {
-                if (adsList[i].getAttribute('tabindex') == "0") {
-                    if (adsList[i].getAttribute('data-vignette-loaded') == "true") {
-                        ad_type = "INTER";
-                        vCont = AdTypeCpc[2];
-                    }
-                    if (adsList[i].getAttribute('data-slotcar-interstitial') == "true") {
-                        ad_type = "MANUAL";
-                        vCont = AdTypeCpc[3];
-                    }
-                    if (adsList[i].getAttribute('data-slotcar-rewarded') == "true") {
-                        ad_type = "REWORDS";
-                        vCont = AdTypeCpc[4];
-                    }
-                    console.log(ad_type);
-                    break
-                }
-            }
-        });
-
-
-        if (userAgent.includes("FBIOS")) {
-            console.log("FBIOS: true");
-
-            window.addEventListener("blur", handleVisibilityChange);
-        } else {
-            console.log("FBIOS: false");
-
-            document.addEventListener('visibilitychange', function (e) {
-                if (document.visibilityState == "hidden") {
-
-                    handleVisibilityChange();
-                }
-            });
-        }
-
-
-        function handleVisibilityChange() {
-            var activeElement = document.activeElement;
-            if (activeElement !== null) {
-                try {
-                    activeElement.focus();
-                    if ("IFRAME" === activeElement.tagName) {
-
-                        if (activeElement.id != null && activeElement.id != undefined) {
-                            let str = activeElement.id;
-
-                            let searchStr = "/21614283239/ca-pub-5841863421039972-tag/CouponsFab-RV-Mobile-0607";
-                            if (str.includes(searchStr)) {
-                                ad_type = "REWORDS";
-                                vCont = AdTypeCpc[4];
-                            }
-                        }
-                        console.log("进入 visibilitychange 监听事件")
-
-                        dataLayer.push({
-                            "event": "gaEvent",
-                            "opt": "adc",
-                            "label": AdTypeCpc.geo,
-                            "category": ad_type,
-                            "value": vCont
-                        });
-                    }
-                    activeElement.blur();
-                } catch (e) {
-                    console.error("Error:", e.message);
-                }
-            }
-
-            ad_type = "PAGE";
-            vCont = AdTypeCpc[1];
-        };
-    })
-
-</script>
 
 
 <iframe height="0" width="0" style="display: none; visibility: hidden;"
@@ -1894,364 +703,11 @@ document.addEventListener("click", function (a) {
             }
         });
     }
-
-
-    function jumpLinkCoupon(id) {
-        if ("") {
-            window.location.href = "/brand/" + "airbnb" + "/" + id + "?";
-        } else {
-            window.location.href = "/brand/" + "airbnb" + "/" + id;
-        }
-    }
-
     var platform = "desktop";
 
     var bannerEvent = document.getElementsByClassName("bannerEvent")[0];
     var bannerHeight = bannerEvent.offsetHeight;
     window.scrollTo({top: bannerHeight});
-
-
-    if ("Airbnb, an American online marketplace for both short-term and long-term rentals, was founded in 2008 when its creators decided to offer a spare room with an air mattress, creating the concept of an \"air bed and breakfast\" room. This small beginning quickly led to the company's global expansion. Currently, Airbnb provides a wide range of rental options, from shared room beds to entire properties. Its tremendous growth has transformed its initial $20,000 funding into a $110 billion enterprise, with a presence in over 100,000 cities, offering more than 7 million listings.\n\nAs Airbnb continues to expand worldwide, it is also diversifying its offerings. Hosts can now not only rent out spare rooms or homes for vacation stays but also offer their spaces for long-term rentals. The available rental options are incredibly diverse, including unique and extraordinary accommodations like igloos, treehouses, trolley cars, and windmills, to name just a few.\n\nMoreover, Airbnb isn't limited to providing accommodations. The platform has also developed a marketplace for experiences, allowing users to immerse themselves in the local culture of the places they visit. These experiences range from cooking classes and tours to music and dancing lessons. This additional feature enhances the overall travel experience for Airbnb users, adding an extra layer of cultural exploration and discovery.") {
-        changeBox("about", 0);
-    }
-
-
-    function changeBox() {
-        var minBox = document.getElementsByClassName("about")[0];
-        var boxHeight = minBox.offsetHeight;
-        var flag = document.getElementById("aboutFlag");
-        var scrollDistance;
-
-
-        var showmore = document.getElementById("aboutMore");
-        var showless = document.getElementById("aboutLess");
-
-        if (boxHeight > 210) {
-            flag.style.display = "block";
-            minBox.style.height = "210px";
-            minBox.style.overflow = "hidden";
-            showmore.style.display = "block";
-        } else {
-            flag.style.display = "none";
-        }
-    }
-
-    var scrollDistance;
-
-    function changeMinBox(flag) {
-        var minBox = document.getElementsByClassName("about")[0];
-
-        var showmore = document.getElementById("aboutMore");
-        var showless = document.getElementById("aboutLess");
-        if (flag == false) {
-            showmore.style.display = "none";
-            showless.style.display = "block";
-            minBox.style.height = "auto";
-            minBox.style.overflow = "none";
-            scrollDistance = window.pageYOffset || document.documentElement.scrollTop;
-
-        } else {
-            showmore.style.display = "block";
-            showless.style.display = "none";
-            minBox.style.height = "210px";
-            minBox.style.overflow = "hidden";
-            window.scrollTo({
-                top: scrollDistance,
-            });
-        }
-    }
-
-
-    function changeFAQBox(flag) {
-        var FAQBox = document.getElementsByClassName("FAQBox")[0];
-
-        var showmore = document.getElementById("faqMore");
-        var showless = document.getElementById("faqLess");
-        if (flag == false) {
-            showmore.style.display = "none";
-            showless.style.display = "block";
-            FAQBox.style.display = "block";
-            scrollDistance = window.pageYOffset || document.documentElement.scrollTop;
-
-        } else {
-            showmore.style.display = "block";
-            showless.style.display = "none";
-            FAQBox.style.display = "none";
-            window.scrollTo({
-                top: scrollDistance,
-            });
-        }
-    }
-
-
-    function clickQuestion(num) {
-
-        var content = document.getElementsByClassName('answerList')[num];
-        var close = document.getElementsByClassName('close')[num];
-        var open = document.getElementsByClassName('open')[num];
-        if (content.style.display == 'block') {
-            content.style.display = 'none';
-            close.style.display = 'none';
-            open.style.display = 'block';
-        } else {
-            content.style.display = 'block';
-            close.style.display = 'block';
-            open.style.display = 'none';
-        }
-    }
-
-    clickQuestion(0);
-
-
-    var authorDesc = document.getElementsByClassName("authorDesc")[0];
-    var authorFlag = document.getElementById("authorFlag");
-
-    if (authorDesc.offsetHeight <= 260) {
-        authorFlag.style.display = "none";
-    } else {
-        authorFlag.style.display = "blcok";
-        authorDesc.setAttribute("style", "-webkit-line-clamp: 10;");
-    }
-
-
-    function changeAuthorDesc(flag) {
-
-        var authorMore = document.getElementById("authorMore");
-        var authorLess = document.getElementById("authorLess");
-        if (flag == false) {
-            authorMore.style.display = "none";
-            authorLess.style.display = "block";
-            authorDesc.setAttribute("style", "-webkit-line-clamp: none;");
-            scrollDistance = window.pageYOffset || document.documentElement.scrollTop;
-
-        } else {
-            authorMore.style.display = "block";
-            authorLess.style.display = "none";
-            authorDesc.setAttribute("style", "-webkit-line-clamp: 10;");
-            window.scrollTo({
-                top: scrollDistance,
-            });
-        }
-    }
-
-    var platform = "desktop";
-
-    let page = 1;
-    let pageSize = 8;
-    var adsIndex = 3;
-    var pageCount = 1;
-    var dataCount = 1;
-    var coupons = [];
-
-    var id = <?php echo $id; ?>;
-    couponListContent();
-    function couponListContent() {
-        const fragment = document.createDocumentFragment();
-        ajax({
-            type: "GET",
-            url: "getCouponsListPost?id=" + id,
-            async: false,
-            data: {
-                "page": page,
-                "size": pageSize,
-            },
-            success: function (data) {
-                console.log('data', data);
-                var newUl = document.getElementById('new-ls');
-
-
-                var date = JSON.parse(data);
-                coupons = date.data.Coupons;
-                pageCount = date.data.PageCount;
-                if (page >= pageCount) {
-                    var showMoreContent = document.getElementsByClassName("showMoreContent")[0];
-                    showMoreContent.style.display = "none";
-                }
-                if (page <= pageCount) {
-                    for (var i = 0; i < coupons.length; i++) {
-                        itemLi(fragment, coupons[i]);
-                        dataCount++;
-                    }
-                } else {
-
-
-                }
-                newUl.appendChild(fragment);
-                lazyImg();
-            }
-        });
-    }
-
-    function itemLi(fragment, couponData) {
-        var li = document.createElement('li');
-        li.setAttribute("class", "new-item couponItem");
-
-
-        var a = document.createElement('a');
-        a.setAttribute("class", "coverlink rewardButton");
-
-        a.setAttribute("aria-label", "go brand " + couponData.classification_id + " " + couponData.id);
-        a.setAttribute("href", "/brand/" + couponData.classification_id + "/" + couponData.id);
-        var divNewCon = document.createElement('div');
-        divNewCon.setAttribute("class", "couponWrap");
-        var divNewConDes = document.createElement('div');
-        divNewConDes.setAttribute("class", "couponInfo");
-        var storeSales = document.createElement('div');
-        storeSales.setAttribute("class", "sales");
-
-        var salesStr = couponData.SalesStruct;
-        for (let index = 0; index < salesStr.length; index++) {
-            let sales = salesStr[index]
-            for (const key in salesStr[index]) {
-
-                var p = document.createElement('p');
-                if (sales[key] == "CODEHERE") {
-                    p.setAttribute("class", "big");
-                    p.innerHTML = "CODE HERE";
-                } else {
-                    p.setAttribute("class", key + "");
-                    p.innerHTML = sales[key];
-                }
-                storeSales.appendChild(p);
-            }
-        }
-
-        var newConInfo = document.createElement('div');
-        newConInfo.setAttribute("class", "couponDesp");
-
-        if (couponData.Type == "CODE") {
-            var pType = document.createElement('p');
-            pType.setAttribute("class", "code");
-            pType.innerHTML = "CODE";
-        } else {
-            var pType = document.createElement('p');
-            pType.setAttribute("class", "sale");
-            pType.innerHTML = "SALE";
-        }
-
-        var pTl = document.createElement('div');
-        pTl.setAttribute("class", "couponTitle");
-        var pTitle = document.createElement('p');
-        pTitle.innerHTML = couponData.Title;
-        pTl.appendChild(pTitle);
-
-        var pCate = document.createElement('div');
-        pCate.setAttribute("class", "couponCate");
-
-
-        fragment.appendChild(li);
-        li.appendChild(a);
-        li.appendChild(divNewCon);
-
-        divNewCon.appendChild(divNewConDes);
-        divNewConDes.appendChild(storeSales);
-        divNewConDes.appendChild(newConInfo);
-
-        newConInfo.appendChild(pType);
-        newConInfo.appendChild(pTl);
-
-        if (couponData.VerifyTime || couponData.PageView) {
-            newConInfo.appendChild(pCate);
-        }
-
-        if (couponData.VerifyTime) {
-            var verified = document.createElement('div');
-            verified.setAttribute("class", "verified");
-            verified.innerText = "Verified";
-            pCate.appendChild(verified);
-        }
-
-        if (couponData.PageView) {
-            if (couponData.VerifyTime) {
-                var drop = document.createElement('div');
-                drop.setAttribute("class", "drop");
-                drop.innerHTML = '<svg t="1702964897735" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4485" id="mx_n_1702964897736" width="20" height="20"><path d="M512 624a112 112 0 1 0 0-224 112 112 0 0 0 0 224z" p-id="4486" fill="#999999"></path></svg>';
-                pCate.appendChild(drop);
-            }
-            var pView = document.createElement('p');
-            pView.setAttribute("class", "view");
-            pView.innerHTML = couponData.PageView;
-            pCate.appendChild(pView);
-        }
-
-        var couponBtn = document.createElement('div');
-        if (platform != "mobile") {
-            couponBtn.setAttribute("class", "couponBtn");
-            li.appendChild(couponBtn);
-            if (couponData.Type == "CODE") {
-                var codeBtn = document.createElement('div');
-                codeBtn.setAttribute("class", "codeBtn");
-                codeBtn.innerText = "Get Code";
-                var colorBox = document.createElement('div');
-                colorBox.setAttribute("class", "colorBox");
-                var code = document.createElement('div');
-                code.setAttribute("class", "code");
-                code.innerHTML = couponData.Code;
-                couponBtn.appendChild(codeBtn);
-                couponBtn.appendChild(colorBox);
-                couponBtn.appendChild(code);
-            } else {
-                var dealBtn = document.createElement('div');
-                dealBtn.setAttribute("class", "dealBtn");
-                dealBtn.innerText = "Get Deal";
-                var bgcBox = document.createElement('div');
-                bgcBox.setAttribute("class", "bgcBox");
-                couponBtn.appendChild(dealBtn);
-                couponBtn.appendChild(bgcBox);
-            }
-        }
-    }
-
-
-    function createAdsLi(parentsNode, adsIndex) {
-
-        var adTitle = document.createElement('div');
-        adTitle.setAttribute('class', 'adTitle');
-        adTitle.innerText = "Advertisement";
-        var ListSlots = ["1172890569", "7546727229", "6233645555", "4920563880", "1005369602", "4388977197", "1762813855", "7355155534", "2884323835", "9789747189"];
-        var addli = document.createElement('li');
-        addli.setAttribute('class', 'item_card');
-        var adsDiv = document.createElement('div');
-        adsDiv.setAttribute('class', 'ad-box ads-1');
-        adsDiv.setAttribute('style', "height: auto !important;");
-        var ins = document.createElement('ins');
-        ins.setAttribute('aria-label', 'Advertisement');
-        ins.setAttribute('class', 'adsbygoogle adHeight');
-        ins.setAttribute('data-ad-client', 'ca-pub-9260533539525355');
-        ins.setAttribute('data-ad-channel', '');
-        if (ListSlots.length > adsIndex) {
-            ins.setAttribute('data-ad-slot', ListSlots[adsIndex]);
-        } else {
-            ins.setAttribute('data-ad-slot', ListSlots[ListSlots.length - 1]);
-        }
-        ins.setAttribute('data-ad-format', 'auto');
-        ins.setAttribute('style', 'display: inline-block;width: 100%; margin: 0 auto;');
-        ins.setAttribute('data-full-width-responsive', 'true');
-        var scriptBox = document.createElement('script');
-        scriptBox.innerHTML = "(window.adsbygoogle = window.adsbygoogle || []).push({})";
-        adsDiv.appendChild(ins);
-        adsDiv.appendChild(scriptBox);
-        parentsNode.appendChild(addli);
-        addli.appendChild(adTitle);
-        addli.appendChild(adsDiv);
-
-    }
-
-
-    var showMoreContent = document.getElementsByClassName("showMoreContent")[0];
-    var showMoreBtn = document.getElementsByClassName("showMoreBtn")[0];
-    var lastScrollPosition = 0;
-
-    showMoreBtn.onclick = function () {
-
-
-        lastScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-        page += 1;
-        couponListContent();
-        window.scrollTo({top: lastScrollPosition});
-
-
-    }
 
 </script>
 
