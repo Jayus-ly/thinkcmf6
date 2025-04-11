@@ -140,6 +140,7 @@ return array (
   'ADMIN_USER_USERINFO' => '个人信息',
   'ADMIN_USER_USERINFOPOST' => '管理员个人信息修改提交',
   'APP_COUPONSFAB_INDEX' => '仿站管理',
+  'CLASSIFICATION_ABOUT_INDEX' => '底部管理',
   'CLASSIFICATION_BLOG_INDEX' => '博客管理',
   'CLASSIFICATION_INDEX_INDEX' => '品牌管理',
   'CLASSIFICATION_PRODUCT_INDEX' => '产品管理',

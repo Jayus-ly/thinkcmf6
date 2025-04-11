@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>CouponsFab</title>
+<include file="public@head"/>
+<link rel="stylesheet" href="__TMPL__/public/index_files/footerHtml.css">
+<body>
+<include file="public@nav"/>
+<div class="footerHtml">
+    <input type="hidden" id="content" value="{$model['content']}" />
+</div>
+<include file="public@foot"/>
+</body>
+<script>
+    document.querySelector('.footerHtml').innerHTML = document.getElementById('content').value;
+</script>
+</html>
