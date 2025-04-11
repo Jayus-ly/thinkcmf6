@@ -13,7 +13,7 @@
         <?php $swiperList = $theme_widgets['swiper_list']['vars']['list'] ?? []; ?>
         <?php foreach ($swiperList as $coupon): ?>
             <div class="SwiperItem">
-                <a href="https://www.couponsfab.com/event/spring-sale" class="SwiperCont"
+                <a href="/event/spring-sale" class="SwiperCont"
                    aria-label="go event spring-sale page">
 
                     <img class="SwiperContPc" src="<?php echo cmf_get_image_url($coupon['img'])?>"
@@ -185,7 +185,7 @@
             <?php $popularProductsData = $product_list ?? []; ?>
             <?php foreach ($popularProductsData as $coupon): ?>
                 <li class="topProdItem">
-                    <a class="coverlink" href="https://www.couponsfab.com/product/569112" aria-label="go product 569112 page"></a>
+                    <a class="coverlink" href="/product/569112" aria-label="go product 569112 page"></a>
                     <div class="productsBorder">
                         <div class="productsImg">
                             <img class="ProductsImg lazyImg" src="__TMPL__/public/index_files/square-loading.webp"
@@ -229,7 +229,7 @@
             <?php $featuredCouponsData = $coupons_list ?? []; ?>
             <?php foreach ($featuredCouponsData as $coupon): ?>
                 <li class="couponItem">
-                    <a class="couponLink" href="https://www.couponsfab.com/brand/amorium-jewelry" aria-label="">
+                    <a class="couponLink" href="/brand/amorium-jewelry" aria-label="">
                         <div class="couponImg">
                             <img class="lazyImg" src="__TMPL__/public/index_files/square-loading.webp"
                                  data-src="<?php echo cmf_get_image_url($coupon['img'])?>"
@@ -271,7 +271,7 @@
     <?php if ($theme_widgets['latest_blog']['display']): ?>
     <div class="relatedBlogs">
         <div class="topInfo">
-            <a class="topTitle" href="https://www.couponsfab.com/blog" aria-label="go blog page">
+            <a class="topTitle" href="/blog" aria-label="go blog page">
                 <h2 class="topText">
                     {$theme_widgets.latest_blog.vars.latest_blog_name|default="Latest Blog"}
                 </h2>
@@ -286,7 +286,7 @@
             <?php $latestBlogData = $blog_list ?? []; ?>
             <?php foreach ($latestBlogData as $coupon): ?>
             <li class="blogItem">
-                <a href="https://www.couponsfab.com/blog/exclusive-deals-for-women" aria-label="go blog exclusive-deals-for-women page"></a>
+                <a href="/blog/exclusive-deals-for-women" aria-label="go blog exclusive-deals-for-women page"></a>
                 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none">
                     <rect width="40" height="40" rx="20" fill="#F82C4C"></rect>
                     <path fill-rule="evenodd" clip-rule="evenodd"
