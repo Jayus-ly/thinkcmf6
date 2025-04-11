@@ -9,7 +9,7 @@ class FreeStuffModel extends BaseModel
 {
     protected $table = "cmf_free_stuff";
 
-    protected $field = ['id', 'title', 'img_url', 'tag', 'content', 'create_time', 'update_time', 'delete_time'];
+    protected $field = ['id', 'title', 'img_url', 'tag', 'content', 'create_time', 'update_time', 'delete_time', 'href'];
 
     // 静态实例
     protected static $instance = null;
