@@ -233,7 +233,7 @@
               },
               "href": {
                 "title": "跳转地址",
-                "value": "https://www.couponsfab.com/brand/walmart",
+                "value": "/brand/walmart",
                 "type": "text",
                 "tip": "请输入跳转地址",
                 "rule": {

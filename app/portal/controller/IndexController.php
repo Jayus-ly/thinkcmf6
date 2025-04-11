@@ -36,6 +36,9 @@ class IndexController extends HomeBaseController
 
         // 优惠券列表
         $couponsList = CouponsModel::getInstance()->where('is_home', 1)->select()->toArray();
+        // 根据优惠券列表获取上级分类图标
+
+
 
         // 特色优惠卷
 
