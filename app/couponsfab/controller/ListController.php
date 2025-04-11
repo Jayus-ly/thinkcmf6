@@ -6,6 +6,7 @@ namespace app\couponsfab\controller;
 
 use cmf\controller\HomeBaseController;
 use model\ItemClassificationModel;
+use model\ProductClassificationModel;
 
 class ListController extends HomeBaseController
 {
@@ -61,5 +62,19 @@ class ListController extends HomeBaseController
             $value['ImgUrl'] = cmf_get_image_url($value['ImgUrl']);
         }
         $this->result(['PageCount' => $count, 'Products' => $list], 1, 'success', 'json'); // 参数含义：数据、状态码、消息
+    }
+
+
+    /**
+     * 获取分类接口
+     */
+    public function getClassification()
+    {
+        // 品牌分类
+        $list = ItemClassificationModel::getInstance()->where(['parent_id' => 0])->select()->toArray();
+
+        // 产品分类
+        $productList = ProductClassificationModel::getInstance()->select()->toArray();
+        $this->result(['list' => $list, 'product_list' => $productList], 1, 'success', 'json'); // 参数含义：数据、状态码、消息
     }
 }

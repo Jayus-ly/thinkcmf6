@@ -54,43 +54,6 @@
             }
         }
     });
-
-
-    function ajax(options) {
-        var xhr = null;
-        var params = formsParams(options.data);
-
-        if (window.XMLHttpRequest) {
-            xhr = new XMLHttpRequest()
-        } else {
-            xhr = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-
-        if (options.type == "GET") {
-            xhr.open(options.type, options.url + "?" + params, options.async);
-            xhr.send(null)
-            if (xhr.status === 200) {
-                options.success(xhr.responseText)
-            }
-        } else if (options.type == "POST") {
-            xhr.open(options.type, options.url, options.async);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
-            xhr.send(params);
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    options.success(xhr.responseText);
-                }
-            }
-        }
-
-        function formsParams(data) {
-            var arr = [];
-            for (var prop in data) {
-                arr.push(prop + "=" + data[prop]);
-            }
-            return arr.join("&");
-        }
-    }
 </script>
 <script>
 
