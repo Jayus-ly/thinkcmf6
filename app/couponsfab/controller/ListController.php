@@ -17,6 +17,7 @@ class ListController extends HomeBaseController
 
         $active = $param['active'] ?? 0;
         $name = $param['name'] ?? 'All Brands';
+        $cate = $param['cate'] ?? 0;
 
         $model = ItemClassificationModel::getInstance();
 
@@ -28,7 +29,8 @@ class ListController extends HomeBaseController
         return $this->fetch('brandList', [
             'classification' => $classification,
             'active' => $active,
-            'name' => $name
+            'name' => $name,
+            'cate' => $cate,
         ]);
     }
 
@@ -42,8 +44,10 @@ class ListController extends HomeBaseController
         $pageSize = $param['size'] ?? config('common.default_page_size');
         $startStr = $param['startStr'] ?? '';
 
+        $cate = $param['cate'] ?? 0;
+
         $sql = $model->where('parent_id', '!=', ItemClassificationModel::PARENT_ID_LEVEL_TOP)
-            ->when($startStr, function ($query) use ($startStr) {
+            ->when($startStr && !$cate, function ($query) use ($startStr) {
                 $query->where('name', 'like', $startStr . '%');
             });
 
@@ -61,7 +65,7 @@ class ListController extends HomeBaseController
         foreach ($list as &$value) {
             $value['ImgUrl'] = cmf_get_image_url($value['ImgUrl']);
         }
-        $this->result(['PageCount' => $count, 'Products' => $list], 1, 'success', 'json'); // 参数含义：数据、状态码、消息
+        $this->result(['PageCount' => $count, 'Products' => $list, 'cate' => $cate], 1, 'success', 'json'); // 参数含义：数据、状态码、消息
     }
 
 
