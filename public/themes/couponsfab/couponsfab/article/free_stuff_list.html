@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>CouponsFab</title>
+<include file="public@head"/>
+<link rel="stylesheet" href="__TMPL__/public/index_files/freeStuffList.css">
+<body>
+<include file="public@nav"/>
+
+<div class="indexWrap">
+
+
+    <div class="guide">
+        <a href="https://www.couponsfab.com/" aria-label="go home">Home</a>
+        <span class="guideIcon"> &gt; </span>
+        <span class="brandName">Free Stuff</span>
+    </div>
+    <div class="stuffContent">
+        <div class="stuffWrap">
+            <div class="topTitle">
+                <h1 class="topText">Latest Free Stuff</h1>
+            </div>
+            <div class="ad-box ads-1" style="height: auto !important;">
+                <div class="adTitle">Advertisement</div>
+                <ins aria-label="Advertisement" class="adsbygoogle adHeight" data-ad-client="ca-pub-9260533539525355"
+                     data-ad-channel="" data-ad-slot="8120608141" data-ad-format="auto"
+                     style="display: inline-block; width: 100%;" data-full-width-responsive="true">
+                </ins>
+                <script>(window.adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+            <ul class="stuffList">
+                <li class="item_card">
+                    <div class="ad-box ads-1" style="height: auto !important;">
+                        <div class="adTitle">Advertisement</div>
+                        <ins aria-label="Advertisement" class="adsbygoogle adHeight"
+                             data-ad-client="ca-pub-9260533539525355" data-ad-channel="" data-ad-slot="4500689655"
+                             data-ad-format="auto" style="display: inline-block; width: 100%;"
+                             data-full-width-responsive="true">
+                        </ins>
+                        <script>(window.adsbygoogle = window.adsbygoogle || []).push({});</script>
+                    </div>
+                </li>
+                <foreach name="free_stuff_list" item="vo" key="i">
+                    <li class="stuffItem">
+                        <a class="itemLink" href="https://www.couponsfab.com/stuff/free-tide-laundry-pack"
+                           aria-label="go stuff Free Tide Laundry Pack page">
+                            <div class="itemImg">
+                                <img class="lazyImg" src="{:cmf_get_image_preview_url($vo['img_url'])}"
+                                     data-src="{:cmf_get_image_preview_url($vo['img_url'])}"
+                                     alt="{$vo['title']} logo">
+                            </div>
+                            <div class="itemInfo">
+                                <div class="itemDate">{$vo['update_time']}</div>
+                                <div class="itemTitle">{$vo['title']}</div>
+                                <div class="itemBottom">
+                                    <div class="itemTags">
+                                        <volist name="vo.tags" id="is">
+                                            <div class="itemTag">{$is.name}</div>
+                                        </volist>
+                                    </div>
+                                    <div class="itemBtnMobile">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="24" viewBox="0 0 18 24"
+                                             fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                  d="M11.1982 11.9988L2.55908 3.35968L5.38751 0.53125L16.855 11.9988L5.38751 23.4663L2.55908 20.6378L11.1982 11.9988Z"
+                                                  fill="white"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="itemBtn">
+                                <div class="btnText">
+                                    View Detail
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="9" height="16" viewBox="0 0 9 16"
+                                         fill="none">
+                                        <path d="M1.5 2L7.5 8L1.5 14" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+
+                    <if condition="($i + 1) % 3 eq 0">
+                        <li class="item_card">
+                            <div class="ad-box ads-1" style="height: auto !important;">
+                                <div class="adTitle">Advertisement</div>
+                                <ins aria-label="Advertisement" class="adsbygoogle adHeight"
+                                     data-ad-client="ca-pub-9260533539525355" data-ad-channel="" data-ad-slot="4500689655"
+                                     data-ad-format="auto" style="display: inline-block; width: 100%;"
+                                     data-full-width-responsive="true">
+                                </ins>
+                                <script>(window.adsbygoogle = window.adsbygoogle || []).push({});</script>
+                            </div>
+                        </li>
+                    </if>
+                </foreach>
+                <li class="item_card">
+                    <div class="ad-box ads-1" style="height: auto !important;">
+                        <div class="adTitle">Advertisement</div>
+                        <ins aria-label="Advertisement" class="adsbygoogle adHeight"
+                             data-ad-client="ca-pub-9260533539525355" data-ad-channel="" data-ad-slot="4500689655"
+                             data-ad-format="auto" style="display: inline-block; width: 100%;"
+                             data-full-width-responsive="true">
+                        </ins>
+                        <script>(window.adsbygoogle = window.adsbygoogle || []).push({});</script>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="hotTags">
+            <h2 class="topTitle">Hot Tags</h2>
+            <ul class="tagsList">
+
+                <foreach name="tag" item="vo">
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="/couponsfab/article/freeStuffList?tag={$vo['id']}&name={$vo['name']}"
+                       aria-label="go stuff Giveaways page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        {$vo['name']}
+                    </a>
+                </li>
+
+                </foreach>
+            </ul>
+        </div>
+    </div>
+
+
+</div>
+
+
+<include file="public@foot"/>
+</body>
+</html>

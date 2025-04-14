@@ -66,6 +66,11 @@ class ArticleController extends BaseController
         $this->setName('freeStuffList')->editPost($param);
     }
 
+    public function delFreeStuffPost()
+    {
+        $this->delPost();
+    }
+
     public function tagList()
     {
         $this->setModel(FreeStuffTagModel::getInstance())->list();
