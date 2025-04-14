@@ -41,7 +41,7 @@
                 </li>
                 <foreach name="free_stuff_list" item="vo" key="i">
                     <li class="stuffItem">
-                        <a class="itemLink" href="https://www.couponsfab.com/stuff/free-tide-laundry-pack"
+                        <a class="itemLink" href="/couponsfab/article/freeStuffInfo?id={$vo['id']}"
                            aria-label="go stuff Free Tide Laundry Pack page">
                             <div class="itemImg">
                                 <img class="lazyImg" src="{:cmf_get_image_preview_url($vo['img_url'])}"

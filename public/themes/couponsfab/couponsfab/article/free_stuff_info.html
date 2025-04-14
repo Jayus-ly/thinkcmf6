@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>CouponsFab</title>
+<include file="public@head"/>
+<link rel="stylesheet" href="__TMPL__/public/index_files/freeStuffList.css">
+<body>
+<include file="public@nav"/>
+
+<div class="indexWrap">
+
+
+    <div class="guide">
+        <a href="https://www.couponsfab.com/" aria-label="go home">Home</a>
+        <span class="guideIcon"> &gt; </span>
+        <a href="https://www.couponsfab.com/free-stuff/Digital" aria-label="go stuff Digital page">Digital</a>
+        <span class="guideIcon"> &gt; </span>
+        <span class="brandName">{$free_stuff_info['title']}</span>
+    </div>
+
+
+    <div class="ad-box ads-1" style="height: auto !important;">
+        <div class="adTitle">Advertisement</div>
+        <ins aria-label="Advertisement" class="adsbygoogle adHeight" data-ad-client="ca-pub-9260533539525355"
+             data-ad-channel="" data-ad-slot="3847155368" data-ad-format="auto"
+             style="display: inline-block; width: 100%;" data-full-width-responsive="true">
+        </ins>
+        <script>(window.adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+
+
+    <div class="stuffContent">
+        <div class="stuffWrap">
+            <h1 class="topBigTitle">{$free_stuff_info['title']}</h1>
+            <div class="stuffTime">{$free_stuff_info['update_time']}</div>
+
+            <div class="ad-box ads-1" style="height: auto !important;">
+                <div class="adTitle">Advertisement</div>
+                <ins aria-label="Advertisement" class="adsbygoogle adHeight" data-ad-client="ca-pub-9260533539525355"
+                     data-ad-channel="" data-ad-slot="8907910356" data-ad-format="auto"
+                     style="display: inline-block; width: 100%;" data-full-width-responsive="true">
+                </ins>
+                <script>(window.adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+
+
+            <div class="stuffDetail">
+
+                <img class="lazyImg"
+                     src="{:cmf_get_image_preview_url($free_stuff_info['img_url'])}"
+                     data-src="{:cmf_get_image_preview_url($free_stuff_info['img_url'])}">
+
+                <div class="stuffHtml">
+                    <input type="hidden" id="content" value="{$free_stuff_info['content']}" />
+                    <script>
+                        document.querySelector('.stuffHtml').innerHTML = document.getElementById('content').value;
+                    </script>
+                </div>
+                <a class="stuffBtn" href="{$free_stuff_info['href']}" aria-label="open stuff link"
+                   target="_blank">
+                    Get Deal
+                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25" fill="none">
+                        <path d="M21.5 12.9531H3.5" stroke="white" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                        <path d="M15.5 6.95312L21.5 12.9531L15.5 18.9531" stroke="white" stroke-width="2"
+                              stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </a>
+            </div>
+
+
+            <div class="ad-box ads-1" style="height: auto !important;">
+                <div class="adTitle">Advertisement</div>
+                <ins aria-label="Advertisement" class="adsbygoogle adHeight" data-ad-client="ca-pub-9260533539525355"
+                     data-ad-channel="" data-ad-slot="7613906331" data-ad-format="auto"
+                     style="display: inline-block; width: 100%;" data-full-width-responsive="true">
+                </ins>
+                <script>(window.adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+
+
+            <div class="topInfo">
+                <h2 class="topText">Related deals</h2>
+            </div>
+            <ul class="stuffList" style="margin: 0;">
+
+                <foreach name="free_stuff_list" item="vo">
+                    <li class="stuffItem">
+                        <a class="itemLink" href="/couponsfab/article/freeStuffInfo?id={$vo['id']}"
+                           aria-label="go stuff Free Brain Training page">
+                            <div class="itemImg">
+                                <img class="lazyImg"
+                                     src="{:cmf_get_image_preview_url($vo['img_url'])}"
+                                     data-src="{:cmf_get_image_preview_url($vo['img_url'])}">
+                            </div>
+                            <div class="itemInfo">
+                                <div class="itemDate">{$vo['update_time']}</div>
+                                <div class="itemTitle">{$vo['title']}</div>
+                                <div class="itemBottom">
+                                    <div class="itemTags">
+
+                                        <volist name="vo.tags" id="is">
+                                            <div class="itemTag">{$is.name}</div>
+                                        </volist>
+
+                                    </div>
+                                    <div class="itemBtnMobile">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="24" viewBox="0 0 18 24"
+                                             fill="none">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                  d="M11.1982 11.9988L2.55908 3.35968L5.38751 0.53125L16.855 11.9988L5.38751 23.4663L2.55908 20.6378L11.1982 11.9988Z"
+                                                  fill="white"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="itemBtn">
+                                <div class="btnText">
+                                    View Detail
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="9" height="16" viewBox="0 0 9 16"
+                                         fill="none">
+                                        <path d="M1.5 2L7.5 8L1.5 14" stroke="white" stroke-width="2" stroke-linecap="round"
+                                              stroke-linejoin="round"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </foreach>
+            </ul>
+        </div>
+        <div class="hotTags freeStuffRight">
+
+
+            <div class="ad-box ads-1" style="height: auto !important;">
+                <div class="adTitle">Advertisement</div>
+                <ins aria-label="Advertisement" class="adsbygoogle adHeight" data-ad-client="ca-pub-9260533539525355"
+                     data-ad-channel="" data-ad-slot="7674719732" data-ad-format="auto"
+                     style="display: inline-block; width: 100%;" data-full-width-responsive="true">
+                </ins>
+                <script>(window.adsbygoogle = window.adsbygoogle || []).push({});</script>
+            </div>
+
+
+            <h2 class="topTitle">Hot Tags</h2>
+            <ul class="tagsList">
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Giveaways"
+                       aria-label="go stuff Giveaways page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Giveaways
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Makeup%20&amp;%20Skincare"
+                       aria-label="go stuff Makeup &amp; Skincare page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Makeup &amp; Skincare
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Kids"
+                       aria-label="go stuff Kids page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Kids
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Coupons"
+                       aria-label="go stuff Coupons page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Coupons
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Women"
+                       aria-label="go stuff Women page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Women
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Cat%20Food"
+                       aria-label="go stuff Cat Food page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Cat Food
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Christmas"
+                       aria-label="go stuff Christmas page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Christmas
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Toiletries"
+                       aria-label="go stuff Toiletries page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Toiletries
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Dog%20Food"
+                       aria-label="go stuff Dog Food page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Dog Food
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Food"
+                       aria-label="go stuff Food page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Food
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Games"
+                       aria-label="go stuff Games page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Games
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Office"
+                       aria-label="go stuff Office page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Office
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Jewelry"
+                       aria-label="go stuff Jewelry page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Jewelry
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Toys"
+                       aria-label="go stuff Toys page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Toys
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Fashion"
+                       aria-label="go stuff Fashion page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Fashion
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Outdoor"
+                       aria-label="go stuff Outdoor page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Outdoor
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Home%20&amp;%20Garden"
+                       aria-label="go stuff Home &amp; Garden page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Home &amp; Garden
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Treats"
+                       aria-label="go stuff Treats page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Treats
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Stickers"
+                       aria-label="go stuff Stickers page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Stickers
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Cleaning"
+                       aria-label="go stuff Cleaning page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Cleaning
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/T-Shirts"
+                       aria-label="go stuff T-Shirts page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        T-Shirts
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Samples"
+                       aria-label="go stuff Samples page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Samples
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Educational"
+                       aria-label="go stuff Educational page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Educational
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Perfume"
+                       aria-label="go stuff Perfume page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Perfume
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Competitions"
+                       aria-label="go stuff Competitions page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Competitions
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Apps"
+                       aria-label="go stuff Apps page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Apps
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Coffee"
+                       aria-label="go stuff Coffee page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Coffee
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Drink"
+                       aria-label="go stuff Drink page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Drink
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Pets"
+                       aria-label="go stuff Pets page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Pets
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Health"
+                       aria-label="go stuff Health page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Health
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Money"
+                       aria-label="go stuff Money page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Money
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Technology"
+                       aria-label="go stuff Technology page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Technology
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Men" aria-label="go stuff Men page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Men
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Baby"
+                       aria-label="go stuff Baby page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Baby
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Shoes"
+                       aria-label="go stuff Shoes page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Shoes
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Digital"
+                       aria-label="go stuff Digital page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Digital
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Tools"
+                       aria-label="go stuff Tools page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Tools
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Clothing"
+                       aria-label="go stuff Clothing page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Clothing
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Rewards"
+                       aria-label="go stuff Rewards page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Rewards
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Sports"
+                       aria-label="go stuff Sports page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Sports
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Beauty"
+                       aria-label="go stuff Beauty page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Beauty
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Animals"
+                       aria-label="go stuff Animals page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Animals
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Travel"
+                       aria-label="go stuff Travel page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Travel
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Freebies"
+                       aria-label="go stuff Freebies page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Freebies
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Books"
+                       aria-label="go stuff Books page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Books
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Mobile%20Apps"
+                       aria-label="go stuff Mobile Apps page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Mobile Apps
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Moisturizer"
+                       aria-label="go stuff Moisturizer page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Moisturizer
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Electronics"
+                       aria-label="go stuff Electronics page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Electronics
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/Gifts"
+                       aria-label="go stuff Gifts page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        Gifts
+                    </a>
+                </li>
+
+                <li class="tagsItem">
+                    <a class="tagsLink" href="https://www.couponsfab.com/free-stuff/DIY" aria-label="go stuff DIY page">
+                        <svg class="icon-default" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.2104 9.96691L9.37064 14.8067C9.11744 15.0602 8.77382 15.2026 8.41551 15.2026C8.0572 15.2026 7.71362 15.0602 7.46039 14.8067L1.39697 8.75V2H8.14697L14.2104 8.06341C14.7338 8.58995 14.7338 9.44038 14.2104 9.96691Z"
+                                  stroke="black" stroke-opacity="0.4" stroke-width="1.5" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M5.58652 7.8C6.35972 7.8 6.98652 7.17319 6.98652 6.4C6.98652 5.62681 6.35972 5 5.58652 5C4.81333 5 4.18652 5.62681 4.18652 6.4C4.18652 7.17319 4.81333 7.8 5.58652 7.8Z"
+                                  fill="black" fill-opacity="0.4"></path>
+                        </svg>
+                        <svg class="icon-hover" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                             viewBox="0 0 16 16" fill="none">
+                            <path d="M14.8134 9.96691L9.97366 14.8067C9.72046 15.0602 9.37685 15.2026 9.01854 15.2026C8.66023 15.2026 8.31665 15.0602 8.06341 14.8067L2 8.75V2H8.75L14.8134 8.06341C15.3368 8.58995 15.3368 9.44038 14.8134 9.96691Z"
+                                  stroke="#F82C4C" stroke-width="1.4" stroke-linejoin="round"></path>
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                  d="M6.4 7.8C7.17319 7.8 7.8 7.17319 7.8 6.4C7.8 5.62681 7.17319 5 6.4 5C5.62681 5 5 5.62681 5 6.4C5 7.17319 5.62681 7.8 6.4 7.8Z"
+                                  fill="#F82C4C"></path>
+                        </svg>
+                        DIY
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+
+
+</div>
+
+
+<include file="public@foot"/>
+</body>
+</html>
