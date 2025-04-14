@@ -46,7 +46,7 @@ class BlogController extends AdminBaseController
     public function addBlog()
     {
         // 获取品牌列表
-        $array = ItemClassificationModel::getInstance()->where('parent_id', 1)->select()->toArray();
+        $array = ItemClassificationModel::getInstance()->where('parent_id', "!=", 0)->select()->toArray();
 
         $this->assign('array', $array);
         return $this->fetch('add_blog');
