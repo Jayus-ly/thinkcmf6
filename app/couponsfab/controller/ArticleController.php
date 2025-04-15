@@ -30,7 +30,7 @@ class ArticleController extends HomeBaseController
             ->select()
             ->toArray();
         foreach ($freeStuffList as &$value) {
-            $value['update_time'] = date("F d, Y", $value['update_time']);
+            $value['update_time'] = date("F d, Y", strtotime($value['update_time']));
 
             // 标签数据
             $value['tag'] = explode(',', $value['tag']);
@@ -61,7 +61,7 @@ class ArticleController extends HomeBaseController
             ->where("id", $id)
             ->find();
 
-        $freeStuffInfo['update_time'] = date("F d, Y", $freeStuffInfo['update_time']);
+        $freeStuffInfo['update_time'] = date("F d, Y", strtotime($freeStuffInfo['update_time']));
 
         $freeStuffTag = $freeStuffInfo['tag'];
         $freeStuffTag = explode(',', $freeStuffTag);
@@ -72,7 +72,7 @@ class ArticleController extends HomeBaseController
         // 获取当前标签下的文章列表
         $freeStuffList = FreeStuffModel::getInstance()->whereRaw("FIND_IN_SET(?, tag)", [$freeStuffTag])->select()->toArray();
         foreach ($freeStuffList as &$value) {
-            $value['update_time'] = date("F d, Y", $value['update_time']);
+            $value['update_time'] = date("F d, Y", strtotime($value['update_time']));
 
             // 标签数据
             $value['tag'] = explode(',', $value['tag']);
