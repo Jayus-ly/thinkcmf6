@@ -7,6 +7,7 @@ namespace app\classification\controller;
 use cmf\controller\AdminBaseController;
 use model\CouponsModel;
 use model\ItemClassificationModel;
+use think\Db;
 use function Symfony\Component\Finder\in;
 
 class IndexController extends AdminBaseController
@@ -55,29 +56,35 @@ class IndexController extends AdminBaseController
     public function addPost()
     {
         $param = input();
-        $name = $param['name'] ?? '';
-        $imgUrl = $param['img_url'] ?? '';
-        $parentId = $param['parent_id'] ?? 0;
+        Db::startTrans();
+        try {
+            $name = $param['name'] ?? '';
+            $imgUrl = $param['img_url'] ?? '';
+            $parentId = $param['parent_id'] ?? 0;
 
-        $about = $param['about'] ?? '';
-        $href = $param['href'] ?? '';
-        $paymentOptions = $param['payment_options'] ?? '';
-        $isHot = $param['is_hot'] ?? 0;
-        if (!empty($paymentOptions)) {
-            $paymentOptions = implode('/', $paymentOptions);
+            $about = $param['about'] ?? '';
+            $href = $param['href'] ?? '';
+            $paymentOptions = $param['payment_options'] ?? '';
+            $isHot = $param['is_hot'] ?? 0;
+            if (!empty($paymentOptions)) {
+                $paymentOptions = implode('/', $paymentOptions);
+            }
+
+            $model = ItemClassificationModel::getInstance();
+            $model->create([
+                'name' => $name,
+                'img_url' => $imgUrl,
+                'parent_id' => $parentId,
+                'about' => $about,
+                'href' => $href,
+                'payment_options' => $paymentOptions,
+                'is_hot' => $isHot,
+            ]);
+            $this->success('创建成功');
+        } catch (\Exception $e) {
+            Db::rollback();
+            $this->error('操作失败');
         }
-
-        $model = ItemClassificationModel::getInstance();
-        $model->create([
-            'name' => $name,
-            'img_url' => $imgUrl,
-            'parent_id' => $parentId,
-            'about' => $about,
-            'href' => $href,
-            'payment_options' => $paymentOptions,
-            'is_hot' => $isHot,
-        ]);
-        $this->success('创建成功');
     }
 
     public function edit()
@@ -107,42 +114,55 @@ class IndexController extends AdminBaseController
     public function editPost()
     {
         $param = input();
-        $id = $param['id'] ?? '';
-        $name = $param['name'] ?? '';
-        $imgUrl = $param['img_url'] ?? '';
-        $parentId = $param['parent_id'] ?? '';
-        $about = $param['about'] ?? '';
-        $href = $param['href'] ?? '';
-        $paymentOptions = $param['payment_options'] ?? '';
-        $isHot = $param['is_hot'] ?? 0;
-        if (!empty($paymentOptions)) {
-            $paymentOptions = implode('/', $paymentOptions);
-        }
+        Db::startTrans();
+        try {
+            $id = $param['id'] ?? '';
+            $name = $param['name'] ?? '';
+            $imgUrl = $param['img_url'] ?? '';
+            $parentId = $param['parent_id'] ?? '';
+            $about = $param['about'] ?? '';
+            $href = $param['href'] ?? '';
+            $paymentOptions = $param['payment_options'] ?? '';
+            $isHot = $param['is_hot'] ?? 0;
+            if (!empty($paymentOptions)) {
+                $paymentOptions = implode('/', $paymentOptions);
+            }
 
-        $model = ItemClassificationModel::getInstance();
-        $model->where('id', $id)->update([
-            'name' => $name,
-            'img_url' => $imgUrl,
-            'parent_id' => $parentId,
-            'about' => $about,
-            'href' => $href,
-            'payment_options' => $paymentOptions,
-            'is_hot' => $isHot,
-        ]);
-        $this->success('更新成功', url("index"));
+            $model = ItemClassificationModel::getInstance();
+            $model->where('id', $id)->update([
+                'name' => $name,
+                'img_url' => $imgUrl,
+                'parent_id' => $parentId,
+                'about' => $about,
+                'href' => $href,
+                'payment_options' => $paymentOptions,
+                'is_hot' => $isHot,
+            ]);
+            $this->success('更新成功', url("index"));
+        } catch (\Exception $e) {
+            Db::rollback();
+            $this->error('操作失败');
+        }
     }
 
     public function delete()
     {
         $param = input();
-        $id = $param['id'] ?? 0;
-        if (empty($id)) {
-            $this->error('参数错误');
-        }
-        $model = ItemClassificationModel::getInstance();
 
-        $model->where('id', $id)->delete();
-        $this->success('删除成功');
+        Db::startTrans();
+        try {
+            $id = $param['id'] ?? 0;
+            if (empty($id)) {
+                $this->error('参数错误');
+            }
+            $model = ItemClassificationModel::getInstance();
+
+            $model->where('id', $id)->delete();
+            $this->success('删除成功');
+        } catch (\Exception $e) {
+            Db::rollback();
+            $this->error('操作失败');
+        }
     }
 
 
@@ -169,27 +189,33 @@ class IndexController extends AdminBaseController
         if (!isset($param['classification_id']) && empty($param['classification_id'])) {
             $this->error('参数错误!');
         }
-        $model = CouponsModel::getInstance();
-        $model->create([
-            'name' => $param['name'] ?? '',
-            'type' => $param['type'] ?? '',
-            'classification_id' => $param['classification_id'] ?? 0,
-            'details' => $param['details'] ?? '',
-            'used' => $param['used'] ?? '',
-            'code' => $param['code'] ?? '',
-            'is_new' => $param['is_new'] ?? 0,
-            'is_hot' => $param['is_hot'] ?? 0,
-        ]);
+        Db::startTrans();
+        try {
+            $model = CouponsModel::getInstance();
+            $model->create([
+                'name' => $param['name'] ?? '',
+                'type' => $param['type'] ?? '',
+                'classification_id' => $param['classification_id'] ?? 0,
+                'details' => $param['details'] ?? '',
+                'used' => $param['used'] ?? '',
+                'code' => $param['code'] ?? '',
+                'is_new' => $param['is_new'] ?? 0,
+                'is_hot' => $param['is_hot'] ?? 0,
+            ]);
 
-        // 获取模型实例（推荐使用 find 或者 select）
-        $item = ItemClassificationModel::where('id', $param['classification_id'])->find();
+            // 获取模型实例（推荐使用 find 或者 select）
+            $item = ItemClassificationModel::where('id', $param['classification_id'])->find();
 
-        if ($item) {
-            $item->count += 1;
-            $item->save();
+            if ($item) {
+                $item->count += 1;
+                $item->save();
+            }
+            Db::commit();
+            $this->success('操作成功');
+        } catch (\Exception $e) {
+            Db::rollback();
+            $this->error('操作失败');
         }
-
-        $this->success('操作成功');
     }
 
 
