@@ -77,7 +77,7 @@ class IndexController extends AdminBaseController
             'payment_options' => $paymentOptions,
             'is_hot' => $isHot,
         ]);
-        $this->success('创建成功', url("index"));
+        $this->success('创建成功');
     }
 
     public function edit()

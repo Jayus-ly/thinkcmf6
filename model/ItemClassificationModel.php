@@ -8,7 +8,7 @@ class ItemClassificationModel extends BaseModel
 {
     protected $table = "cmf_item_classification";
 
-    protected $field = ['id', 'name', 'img_url', 'parent_id', 'count', 'href', 'faq', 'about', 'payment_options', 'create_time', 'update_time', 'delete_time', 'is_hot', 'is_home'];
+    protected $field = ['id', 'name', 'img_url', 'parent_id', 'count', 'href', 'faq', 'about', 'payment_options', 'create_time', 'update_time', 'delete_time', 'is_hot', 'is_home', 'sort'];
 
     const PARENT_ID_LEVEL_TOP = 0; // 顶级分类
 

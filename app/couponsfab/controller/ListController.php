@@ -23,6 +23,7 @@ class ListController extends HomeBaseController
 
         // 获取分类
         $classification = $model->where(['parent_id' => ItemClassificationModel::PARENT_ID_LEVEL_TOP])
+            ->order('sort')
             ->select()
             ->toArray();
 
@@ -59,6 +60,7 @@ class ListController extends HomeBaseController
             })
             ->page($pageNum, $pageSize)
             ->order('parent_id', 'asc')
+            ->order('sort')
             ->order('id', 'desc')
             ->select()->toArray();
 
@@ -75,7 +77,10 @@ class ListController extends HomeBaseController
     public function getClassification()
     {
         // 品牌分类
-        $list = ItemClassificationModel::getInstance()->where(['parent_id' => 0])->select()->toArray();
+        $list = ItemClassificationModel::getInstance()->where(['parent_id' => 0])
+            ->order('sort')
+            ->select()
+            ->toArray();
 
         // 产品分类
         $productList = ProductClassificationModel::getInstance()->select()->toArray();
