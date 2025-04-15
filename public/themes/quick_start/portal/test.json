@@ -1,0 +1,32 @@
+{
+  "name": "test",
+  "action": "portal/Index/test",
+  "description": "首页模板文件",
+  "order": 5.0,
+  "more": {
+    "vars": {
+      "name": {
+        "title": "姓名",
+        "value": "",
+        "type": "text",
+        "placeholder": "请填写用户姓名",
+        "tip": "设置后您的姓名将会显示在首页",
+        "rule": {
+          "require": true
+        }
+      },
+      "varName1": {
+        "title": "测试",
+        "value": "",
+        "type": "image",
+        "tip": "这是一个变量",
+        "rule": {
+          "require": true
+        },
+        "message":{
+          "require":"不能为空"
+        }
+      }
+    }
+  }
+}
